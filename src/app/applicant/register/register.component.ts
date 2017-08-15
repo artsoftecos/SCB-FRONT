@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MaterializeAction } from 'angular2-materialize';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -8,8 +10,25 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   constructor() { }
-
-  ngOnInit() {
-  }
+  
+    ngOnInit() {
+    }
+  
+     modalActions3 = new EventEmitter<string|MaterializeAction>();
+    
+    openModal3() {
+      this.modalActions3.emit({action:"modal",params:['open']});
+    }
+    closeModal3() {
+      this.modalActions3.emit({action:"modal",params:['close']});
+    }
+  
+    registerOferent() {
+      console.log('Registrar oferente');
+    }
+  
+    registerSolicitant() {
+      console.log('Registrar solicitante');
+    }
 
 }
