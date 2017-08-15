@@ -9,6 +9,18 @@ import { EventEmitter } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  firstName = "";
+  secondName = "";
+  firstLastName = "";
+  secondLastName = "";
+  address = "";
+  typeDocument = "";
+  documentNumber = ""
+  email = "";;
+  cellphone = "";
+  password1 = "";
+  password2 = "";
+
   constructor() { }
   
     ngOnInit() {

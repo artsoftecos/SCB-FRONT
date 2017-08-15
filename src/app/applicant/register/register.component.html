@@ -2,66 +2,78 @@
 (click)="openModal3()" >Registro</a></li>
 
 
-<div id="modal_crear_usuario" class="modal"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions3">
+<div id="modal_crear_usuario" class="modal"  materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions3">
   <div class="modal-content">
    <div class="row">
-      <h5 class="center-align">Rol</h5>
-
-      <div class="col s12">
+      <div class="col s12 div_tabs">
         <ul class="tabs" id="tab_modal_crear_usuario">
           <li class="tab col s6"><a form="form_solicitante" class="active" href="#div_solicitante">Solicitante</a></li>
           <li class="tab col s6"><a form="form_oferente" class="" href="#div_oferente">Oferente</a></li>
         </ul>
       </div>
-      <div id="div_solicitante" class="col s12">
+      <div id="div_solicitante" class="col s12 div_contenido_form">
         <form id="form_solicitante">
           <div class="row">
-            <div class="input-field col s12 m6">
-              <input id="first_name" type="text" class="validate">
-              <label for="first_name">Nombres</label>
+            <div class="input-field col s6 m3">
+              <input [(ngModel)]="firstName" name="firstName" type="text" class="validate">
+              <label>Primer nombre</label>
             </div>
-            <div class="input-field col s12 m6">
-              <input id="last_name" type="text" class="validate">
-              <label for="last_name">Apellidos</label>
+            <div class="input-field col s6 m3">
+              <input [(ngModel)]="secondName" name="secondName" type="text" class="validate">
+              <label>Segundo nombre</label>
             </div>
-            <div class="input-field col s12 m6">
-              <select id="tipo_identificacion">
-                <option value="1">CC</option>
-                <option value="2">TI</option>
-                <option value="3">CE</option>
-              </select>
-              <label>Tipo indentificacion</label>
+            <div class="input-field col s6 m3">
+              <input [(ngModel)]="firstLastName" name="firstLastName" type="text" class="validate">
+              <label>Primer apellido</label>
             </div>
-            <div class="input-field col s12 m6">
-              <input id="identificacion" type="text" class="validate">
-              <label for="identificacion">Identificacion</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="telefono" type="text" class="validate">
-              <label for="telefono">Telefono</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="email" type="email" class="validate">
-              <label for="email">Correo Electronico</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="password" type="password" class="validate">
-              <label for="password">Contraseña</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="password_2" type="password" class="validate">
-              <label for="password_2">Repetir Contraseña</label>
-            </div>
-            <div class="input-field col s12">
-              <h2>CAPTCHA</h2>
+            <div class="input-field col s6 m3">
+              <input [(ngModel)]="secondLastName" name="secondLastName" type="text" class="validate">
+              <label>Segundo apellido</label>
             </div>
           </div>
-           <div class="input-field col s12">
-              <input id="solictante" type="button" value="enviar" (click)="registerSolicitant()" />                
+          
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="typeDocument" name="typeDocument" type="text" class="validate">
+              <label>Tipo de identificacion</label>
             </div>
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="documentNumber" name="documentNumber" type="text" class="validate">
+              <label>Identificacion</label>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="cellphone" name="cellphone" type="number" class="validate">
+              <label>Telefono</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="email" name="email" type="email" class="validate">
+              <label>Correo electonico</label>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="password1" name="password1" type="password" class="validate">
+              <label>Contraseña</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="password2" name="password2" type="password" class="validate">
+              <label>Repetir contraseña</label>
+            </div>
+          </div>
+
+          <div class="input-field col s12 center-align">
+            <h2>CAPTCHA</h2>
+          </div> 
+          <div class="input-field col s12 center-align">
+            <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerSolicitant()" >Enviar</a>
+          </div>
         </form>
       </div>
-      <div id="div_oferente" class="col s12">
+      <!-- <div id="div_oferente" class="col s12 div_contenido_form">
         <form id="form_oferente">
           <div class="row">
             <div class="input-field col s12 m6">
@@ -104,12 +116,7 @@
               <input id="oferente" type="button" value="enviar" (click)="registerOferent()" />                
             </div>
         </form>
-      </div>
+      </div> -->
      </div>
-  </div>
-<div class="modal-footer">
-    <div class="input-field col s12 center-align">
-       <a class="waves-effect waves-light btn" (click)="closeModal3()">Close</a>        
-    </div>
   </div>
 </div>
