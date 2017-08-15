@@ -26,9 +26,7 @@
             <li *ngIf="user !== undefined && user !== null">
               <a (click)="logout();">Logout</a>                   
             </li>
-
           <li>
-
         </li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
@@ -36,11 +34,12 @@
         <li><a>Iniciar Sesion</a></li>
       </ul>
     </div>
+    
   </nav>
 </header>
 
 <main>
-  <div class="container">
+  <div>
     <router-outlet></router-outlet>
   </div>
 </main>
