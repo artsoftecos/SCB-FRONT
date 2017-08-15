@@ -1,57 +1,15 @@
 <div id="div_solicitante" class="col s12 div_contenido_form" class="mdl-grid">
-  <form id="form_solicitante">
-    <div class="row">
-      <div class="input-field col s6 m3">
-        <input name="firstName" type="text" class="validate">
-        <label>Primer nombre</label>
-      </div>
-      <div class="input-field col s6 m3">
-        <input name="secondName" type="text" class="validate">
-        <label>Segundo nombre</label>
-      </div>
-      <div class="input-field col s6 m3">
-        <input name="firstLastName" type="text" class="validate">
-        <label>Primer apellido</label>
-      </div>
-      <div class="input-field col s6 m3">
-        <input name="secondLastName" type="text" class="validate">
-        <label>Segundo apellido</label>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <input name="typeDocument" type="text" class="validate">
-        <label>Tipo de identificacion</label>
-      </div>
-      <div class="input-field col s12 m6">
-        <input name="documentNumber" type="text" class="validate">
-        <label>Identificacion</label>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <input name="cellphone" type="number" class="validate">
-        <label>Telefono</label>
-      </div>
+  <form id="form_solicitante">   
+    <div class="row">      
       <div class="input-field col s12 m6">
         <input name="email" type="email" class="validate">
         <label>Correo electonico</label>
       </div>
-    </div>
-    
-    <div class="row">
       <div class="input-field col s12 m6">
-        <input name="password1" type="password" class="validate">
+        <input name="password" type="password" class="validate">
         <label>Contraseña</label>
-      </div>
-      <div class="input-field col s12 m6">
-        <input name="password2" type="password" class="validate">
-        <label>Repetir contraseña</label>
-      </div>
+      </div>      
     </div>
-     
     <div class="input-field col s12 center-align">
       <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerSolicitant()" >Ingresar</a>
     </div>
