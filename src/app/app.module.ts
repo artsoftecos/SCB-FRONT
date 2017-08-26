@@ -1,15 +1,21 @@
+//Libraries
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { HttpModule }    from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 import { MaterializeModule } from 'angular2-materialize';
+//Modules
 import { ApplicantModule } from './applicant/applicant.module';
 import { SecurityModule } from './security/security.module';
-import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { UserService } from './services/user.service';
+//Components
 import { HomeComponent } from './home/home.component';
 import { FileUploadComponent } from './input-fields/file-upload/file-upload.component';
+import { AppComponent } from './app.component';
+//Services
+import { UserService } from './services/user.service';
+//Pipes
+
 
 @NgModule({
   declarations: [
