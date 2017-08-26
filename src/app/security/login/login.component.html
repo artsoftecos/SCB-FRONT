@@ -1,26 +1,36 @@
-<div id="div_solicitante" class="col s12 div_contenido_form" class="mdl-grid">
-  <form id="form_solicitante">   
-    <div class="row">      
-      <div class="input-field col s12 m6">
-        <input name="email" type="email" class="validate">
-        <label>Correo electonico</label>
-      </div>
-      <div class="input-field col s12 m6">
-        <input name="password" type="password" class="validate">
-        <label>Contraseña</label>
-      </div>      
+<div id="div_solicitante" class="col s12 div_contenido_form">
+  <br>
+  <div class="row">
+    <div class="col s3"></div>
+    <div class="col s6 loginPanel">
+      <h3 style="text-align: center">Iniciar Sesión</h3>
+      <form #formLogin="ngForm" class="center">
+        <div class="row">
+          <div class="input-field">
+            <input name="email" type="email" class="validate" #email="ngModel" [(ngModel)]="userLogin.email" required>
+            <label>Correo electrónico</label>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="input-field">
+            <input name="password" type="password" class="validate" #password="ngModel" [(ngModel)]="userLogin.password" required>
+            <label>Contraseña</label>
+          </div>
+        </div>
+        <div class="input-field center-align">
+          <a class="waves-effect waves-light btn light-blue darken-4 col s12" type="button" (click)="onLogin()">Iniciar Sesión</a>
+        </div>
+      </form>
     </div>
-    <div class="input-field col s12 center-align">
-      <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerSolicitant()" >Ingresar</a>
-    </div>
-  </form>
+  </div>
 </div>
 <div class="col s4">
-    <a routerLink="/home" routerLinkActive="active">
-      <div class="center promo promo-example">
-        <i class="material-icons home-icons">home</i>
-        <p class="promo-caption">Inicio</p>
-        <p class="light center">Volver al inicio.</p>
-      </div>
-    </a>
+  <a routerLink="/home" routerLinkActive="active">
+    <div class="center promo promo-example">
+      <i class="material-icons home-icons">home</i>
+      <p class="promo-caption">Inicio</p>
+      <p class="light center">Volver al inicio.</p>
+    </div>
+  </a>
 </div>
