@@ -1,9 +1,10 @@
-<header>
+
+<main>
   <nav>
     <div class="nav-wrapper light-blue darken-4">
       <a href="#" class="brand-logo center">Sistema Central de Becas</a>
-
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <!-- <a href="#" materialize="sideNav" data-activates="slide-out" [materializeParams]="[{edge:'left',closeOnClick:true}]" class="button-collapse"><i class="material-icons">menu</i></a> -->
+      <span data-activates="mobile-demo" class="button-collapse" (click)="showSidenav()"><i class="material-icons">menu</i></span>
       <ul class="left hide-on-med-and-down">
         <li><a>ICETEX</a></li>
       </ul>
@@ -29,16 +30,21 @@
           <li>
         </li>
       </ul>
-      <ul class="side-nav" id="mobile-demo">
+      <ul class="side-nav" id="sidenav" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav">
         <li><a class="modal-trigger" href="#modal_crear_usuario">Registro</a></li>
         <li><a>Iniciar Sesion</a></li>
       </ul>
     </div>
     
   </nav>
-</header>
+  <!-- <div id="sidenav" class="side-nav"></div> -->
 
-<main>
+    <!-- <div (click)="showSidenav()" id="welcome">Another sidenav trigger</div>
+    <div id="sidenav" class="side-nav"></div>
+    
+    <a materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav" class="btn-floating btn-flat waves-effect waves-light transparent" (click)="hideWelcome = true">
+        <i class="material-icons">menu</i>
+    </a> -->
   <div>
     <router-outlet></router-outlet>
   </div>

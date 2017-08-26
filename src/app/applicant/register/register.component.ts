@@ -15,8 +15,8 @@ export class RegisterComponent implements OnInit {
   secondLastName = "";
   address = "";
   typeDocument = "";
-  documentNumber = ""
-  email = "";;
+  documentNumber = "";
+  email = "";
   cellphone = "";
   password1 = "";
   password2 = "";

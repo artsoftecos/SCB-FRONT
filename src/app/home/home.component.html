@@ -2,6 +2,7 @@
   <img src="{{fullImagePath}}" style="width: 100%">
 </div>
 <div class="row">
+    <file-upload #fu (change)="fu.upload()" [multiple]="false"></file-upload>
     <div class="col s10 offset-s1">
         <div class="col s4">
           <a routerLink="#" routerLinkActive="active">
