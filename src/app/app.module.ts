@@ -10,9 +10,11 @@ import { AdministratorModule } from './administrator/administrator.module';
 import { SecurityModule } from './security/security.module';
 //Routes
 import { AppRoutingModule } from './app-routing.module';
+import { HomeModule } from './home/home.module';
+import { InputFieldsModule } from './input-fields/input-fields.module';
 //Components
-import { HomeComponent } from './home/home.component';
-import { FileUploadComponent } from './input-fields/file-upload/file-upload.component';
+// import { HomeComponent } from './home/home.component';
+// import { FileUploadComponent } from './input-fields/file-upload/file-upload.component';
 import { AppComponent } from './app.component';
 //Services
 import { UserService } from './services/user.service';
@@ -22,17 +24,19 @@ import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    FileUploadComponent,
+    // HomeComponent,
+    // FileUploadComponent,
   ],
   imports: [
+    HomeModule,
     BrowserModule,
     MaterializeModule,
     ApplicantModule,
     AdministratorModule,
     SecurityModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InputFieldsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

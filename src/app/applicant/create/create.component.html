@@ -1,4 +1,4 @@
-<li  class="light-blue"><a class="modal-trigger" href="#modal_crear_usuario"
+<!-- <li  class="light-blue"><a class="modal-trigger" href="#modal_crear_usuario"
 (click)="openModal3()" >Registro</a></li>
 
 
@@ -10,8 +10,8 @@
           <li class="tab col s6"><a form="form_solicitante" class="active" href="#div_solicitante">Solicitante</a></li>
           <li class="tab col s6"><a form="form_oferente" class="" href="#div_oferente">Oferente</a></li>
         </ul>
-      </div>
-      <div id="div_solicitante" class="col s12 div_contenido_form">
+      </div> -->
+      <!-- <div id="div_solicitante" class="col s12 div_contenido_form"> -->
         <form id="form_solicitante">
           <div class="row">
             <div class="input-field col s6 m3">
@@ -45,8 +45,19 @@
           
           <div class="row">
             <div class="input-field col s12 m6">
-              <input [(ngModel)]="cellphone" name="cellphone" type="number" class="validate">
+              <input [(ngModel)]="telephone" name="telephone" type="text" class="validate">
               <label>Telefono</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="cellphone" name="cellphone" type="text" class="validate">
+              <label>Celular</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12 m6">
+              <input [(ngModel)]="address" name="address" type="text" class="validate">
+              <label>Direccion</label>
             </div>
             <div class="input-field col s12 m6">
               <input [(ngModel)]="email" name="email" type="email" class="validate">
@@ -72,51 +83,11 @@
             <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerSolicitant()" >Enviar</a>
           </div>
         </form>
+      <!-- </div> -->
+
+<!-- 
+      <div id="div_oferente" class="col s12 div_contenido_form">
       </div>
-      <!-- <div id="div_oferente" class="col s12 div_contenido_form">
-        <form id="form_oferente">
-          <div class="row">
-            <div class="input-field col s12 m6">
-              <input id="nombres" type="text" class="validate">
-              <label for="nombres">Nombres</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="apellidos" type="text" class="validate">
-              <label for="apellidos">Apellidos</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="email" type="email" class="validate">
-              <label for="email">Correo Electronico</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="identificacion" type="text" class="validate">
-              <label for="identificacion">NIT</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="telefono" type="text" class="validate">
-              <label for="telefono">Telfono</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="direccion" type="text" class="validate">
-              <label for="direccion">Direccion</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="contrasena_1" type="password" class="validate">
-              <label for="contrasena_1">Contraseña</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input id="contrasena_2" type="password" class="validate">
-              <label for="contrasena_2">Repetir Contraseña</label>
-            </div>
-            <div class="input-field col s12">
-              <h2>CAPTCHA</h2>
-            </div>
-          </div>
-           <div class="input-field col s12">
-              <input id="oferente" type="button" value="enviar" (click)="registerOferent()" />                
-            </div>
-        </form>
-      </div> -->
      </div>
   </div>
-</div>
+</div> -->

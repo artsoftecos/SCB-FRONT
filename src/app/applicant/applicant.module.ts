@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register/register.component';
 import { MaterializeModule } from 'angular2-materialize';
 import { FormsModule } from '@angular/forms';
+import { ValidateComponent } from './validate/validate.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   imports: [
@@ -10,9 +11,9 @@ import { FormsModule } from '@angular/forms';
     MaterializeModule,
     FormsModule 
   ],
-  declarations: [RegisterComponent],
+  declarations: [ ValidateComponent, CreateComponent],
   exports: [
-    RegisterComponent
+    CreateComponent
   ]
 })
 export class ApplicantModule { }

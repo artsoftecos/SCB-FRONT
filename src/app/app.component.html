@@ -11,9 +11,7 @@
       <ul class="right hide-on-med-and-down">
         <li><a>MIN EDU</a></li>
         <li><a>LOGO</a></li>
-        <app-register></app-register>
-            <!--<li  *ngIf="user == null" class="light-blue"><a class="modal-trigger" href="#modal_crear_usuario">Registro</a></li>-->
-          <!-- <li class="light-blue lighten-1"><a class="modal-trigger" href="#modal_login">Iniciar Sesion</a></li> -->            
+          <app-register></app-register>
           <li  *ngIf="user == null" class="light-blue lighten-1">
             <a routerLink="/login" routerLinkActive="active">Login</a>
           </li>
@@ -32,19 +30,13 @@
       </ul>
       <ul class="side-nav" id="sidenav" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav">
         <li><a class="modal-trigger" href="#modal_crear_usuario">Registro</a></li>
-        <li><a>Iniciar Sesion</a></li>
+        <!-- <applicant-create></applicant-create> -->
+        <li  *ngIf="user == null" class="">
+          <a routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
       </ul>
     </div>
-    
   </nav>
-  <!-- <div id="sidenav" class="side-nav"></div> -->
-
-    <!-- <div (click)="showSidenav()" id="welcome">Another sidenav trigger</div>
-    <div id="sidenav" class="side-nav"></div>
-    
-    <a materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav" class="btn-floating btn-flat waves-effect waves-light transparent" (click)="hideWelcome = true">
-        <i class="material-icons">menu</i>
-    </a> -->
   <div>
     <router-outlet></router-outlet>
   </div>
