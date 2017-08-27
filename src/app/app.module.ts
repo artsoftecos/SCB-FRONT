@@ -12,6 +12,7 @@ import { SecurityModule } from './security/security.module';
 import { AppRoutingModule } from './app-routing.module';
 //Components
 import { HomeComponent } from './home/home.component';
+import { FileUploadComponent } from './input-fields/file-upload/file-upload.component';
 import { AppComponent } from './app.component';
 //Services
 import { UserService } from './services/user.service';
@@ -21,7 +22,8 @@ import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
