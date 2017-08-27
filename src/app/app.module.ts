@@ -6,7 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterializeModule } from 'angular2-materialize';
 //Modules
 import { ApplicantModule } from './applicant/applicant.module';
+import { AdministratorModule } from './administrator/administrator.module';
 import { SecurityModule } from './security/security.module';
+//Routes
 import { AppRoutingModule } from './app-routing.module';
 //Components
 import { HomeComponent } from './home/home.component';
@@ -25,6 +27,7 @@ import { UserService } from './services/user.service';
     BrowserModule,
     MaterializeModule,
     ApplicantModule,
+    AdministratorModule,
     SecurityModule,
     HttpModule,
     AppRoutingModule

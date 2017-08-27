@@ -9,7 +9,7 @@ flex: 1 0 auto;
 }
 
 .tabs .indicator {
-    background-color: #283593 !important;
+    background-color: white !important;
 }
 li.tab > a{
 	color: #283593 !important;

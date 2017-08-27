@@ -20,7 +20,7 @@
             <a routerLink="/convocatories" routerLinkActive="active">Ver convocatorias</a>
               </li>  
             <li *ngIf="user !== undefined && user !== null && user.role == 'Administrator'">
-          <a routerLink="/users" routerLinkActive="active">Ver usuarios</a>
+          <a routerLink="/administrator/profile" routerLinkActive="active">Perfil</a>
             </li>
 
             <li *ngIf="user !== undefined && user !== null">
