@@ -1,0 +1,50 @@
+<form id="form_oferente">
+<div class="row">
+  <div class="input-field col s12 m6">
+    <input id="nombres" type="text" class="validate">
+    <label for="nombres">Nombre</label>
+  </div>
+  <div class="input-field col s12 m6">
+    <input id="apellidos" type="text" class="validate">
+    <label for="apellidos">Representante Legal</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s12 m6">
+    <input id="email" type="email" class="validate">
+    <label for="email">Correo Electronico</label>
+  </div>
+  <div class="input-field col s12 m6">
+    <input id="identificacion" type="text" class="validate">
+    <label for="identificacion">NIT</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s12 m6">
+    <input id="telefono" type="text" class="validate">
+    <label for="telefono">Telefono</label>
+  </div>
+  <div class="input-field col s12 m6">
+    <input id="direccion" type="text" class="validate">
+    <label for="direccion">Direccion</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s12 m6">
+    <input id="contrasena_1" type="password" class="validate">
+    <label for="contrasena_1">Contraseña</label>
+  </div>
+  <div class="input-field col s12 m6">
+    <input id="contrasena_2" type="password" class="validate">
+    <label for="contrasena_2">Repetir Contraseña</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s12 center-align">
+    <h2>CAPTCHA</h2>
+  </div>
+</div>
+  <div class="input-field col s12 center-align">
+    <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerOfferer()" >Enviar</a>
+  </div>
+</form>
