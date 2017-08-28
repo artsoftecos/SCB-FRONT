@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { SERVER_URL } from '../configuration';
 import { User } from '../models/user';
 import 'rxjs/Rx';
@@ -10,7 +10,9 @@ export class AuthService {
   constructor(protected http: Http) { }
 
   login(email: string, password: string) {
-    return this.http.post(SERVER_URL + 'login', { email: email, password: password })
+    let headers = this.buildHeader(email, password);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(SERVER_URL + 'login', options)
       .map(res => res.json())
   }
 
@@ -24,6 +26,16 @@ export class AuthService {
 
   removeCurrentUser() {
     localStorage.removeItem('currentUser');
+  }
+
+  buildHeader(email: string, password: string) {
+    let base64 = btoa(email + ':' + password);
+    let headers = new Headers();
+    headers.append('Authorization', 'Basic ' + base64);
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+
+    return headers;
   }
 
 }
