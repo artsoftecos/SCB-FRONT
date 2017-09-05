@@ -21,6 +21,9 @@ export class OfferersDeniedComponent implements OnInit {
   }
 
   approve(nit) {
+    this.offererService.approve(nit).subscribe(response => {
+      console.log(response);
+    });
     console.log("Aprobar a " + nit);
   }
 

@@ -24,7 +24,10 @@ export class OfferersApprovedComponent implements OnInit {
     console.log("Editar a " + nit);
   }
 
-  deny(nit) {
+  reject(nit) {
+    this.offererService.reject(nit).subscribe(response => {
+      console.log(response);
+    });
     console.log("Rechazar a " + nit);
   }
 

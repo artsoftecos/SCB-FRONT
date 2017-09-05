@@ -21,10 +21,16 @@ export class OfferersPendingComponent implements OnInit {
   }
 
   approve(nit) {
+    this.offererService.approve(nit).subscribe(response => {
+      console.log(response);
+    });
     console.log("Aprobar a " + nit);
   }
 
-  deny(nit) {
+  reject(nit) {
+    this.offererService.reject(nit).subscribe(response => {
+      console.log(response);
+    });
     console.log("Rechazar a " + nit);
   }
 

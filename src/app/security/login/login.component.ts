@@ -28,14 +28,16 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.authService.login(this.userLogin.email, this.userLogin.password).subscribe(obj => {
-      this.user = new User(obj.data);
+
+      this.user = new User(obj);
+
       this.authService.setCurrentUser(this.user);
-      
+
       switch (this.user.role.toString()) {
         case "Applicant":
           this.goToApplicant();
           break;
-        case "Administrator":
+        case "APLICANTE":
           this.goToAdministrator();
           break;
         case "Offerer":
@@ -44,7 +46,7 @@ export class LoginComponent implements OnInit {
       }
 
     }, err => {
-console.log(err);
+      console.log(err);
     });
   }
 

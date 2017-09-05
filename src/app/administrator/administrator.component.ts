@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+//Service
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-administrator',
   templateUrl: './administrator.component.html',
-  styleUrls: ['./administrator.component.css']
+  styleUrls: ['./administrator.component.css'],
+  providers: [AuthService]
 })
 export class AdministratorComponent implements OnInit {
 

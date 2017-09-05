@@ -24,12 +24,22 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
+  setToken(token) {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
+
+  getToken() {
+    return JSON.parse(localStorage.getItem('token'));
+  }
+
   removeCurrentUser() {
     localStorage.removeItem('currentUser');
   }
 
   buildHeader(email: string, password: string) {
     let base64 = btoa(email + ':' + password);
+    this.setToken(base64);
+    console.log(this.getToken());
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + base64);
     headers.append('Content-Type', 'application/json');
