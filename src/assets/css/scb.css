@@ -1,16 +1,14 @@
 body {
-display: flex;
-min-height: 100vh;
-flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url(../img/crossword.png);
 }
 
 main {
-flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
-.tabs .indicator {
-    background-color: white !important;
-}
 li.tab > a{
 	color: #283593 !important;
 }
@@ -20,7 +18,9 @@ li.tab > a{
 #modal_login{
 	min-height: 370px;
 }
-
+.tabs .indicator {
+    background-color: #01579b !important;
+}
 .promo i {
     margin: 40px 0;
     color: #ee6e73;
@@ -51,6 +51,7 @@ li.tab > a{
 }
 
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+    color: black;
     background-color: transparent !important;
     border: none !important;
     border-bottom: 1px solid #9e9e9e !important;

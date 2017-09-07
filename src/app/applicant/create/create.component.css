@@ -8,7 +8,7 @@
 }
 
 input{
-    color: black;
+    color: black !important;
 }
 
 .input-field > label{
@@ -26,4 +26,7 @@ h2{
 }
 .row, input{
     margin-bottom: 0px !important;
+}
+.select-dropdown{
+    color: black !important;
 }
