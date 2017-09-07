@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserLogin } from '../../models/userLogin';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-
+import { TypeRoles } from '../../models/type-roles.enum'
 
 @Component({
   selector: 'app-login',
@@ -28,23 +28,21 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.authService.login(this.userLogin.email, this.userLogin.password).subscribe(obj => {
-
       this.user = new User(obj);
 
       this.authService.setCurrentUser(this.user);
 
-      switch (this.user.role.toString()) {
-        case "Applicant":
+      switch (this.user.role) {
+        case TypeRoles.Applicant:
           this.goToApplicant();
           break;
-        case "APLICANTE":
+        case TypeRoles.Administrator:       
           this.goToAdministrator();
           break;
-        case "Offerer":
+        case TypeRoles.Offerer: 
           this.goToOfferer();
           break;
       }
-
     }, err => {
       console.log(err);
     });

@@ -3,6 +3,7 @@ import { UserService } from './services/user.service';
 import { User } from './models/user';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
+import { TypeRoles } from './models/type-roles.enum'
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,10 @@ export class AppComponent {
   
   user: User;
   title = 'ARTSOFT';
-  
+  isApplicant : boolean = false;
+  isAdmin : boolean = false;
+  isOfferer : boolean = false;
+
   sidenavActions = new EventEmitter<any>();
   sidenavParams = [];
   
@@ -26,8 +30,9 @@ export class AppComponent {
 
   }
 
-  ngOnInit() {
-    this.user = this.userService.getCurrentUser();
+  ngOnInit() {    
+    this.user = this.userService.getCurrentUser();    
+    this.setRole();
   }
 
   logout() {
@@ -35,6 +40,29 @@ export class AppComponent {
       window.location.reload();
       this.router.navigate(['/']); 
 
+  }
+
+  setRole() {    
+    console.log(this.user);
+    console.log(this.user.role);
+    console.log(TypeRoles.Applicant);
+
+    if(this.user != null && this.user.role != null) {
+      switch(this.user.role) {
+        case TypeRoles.Administrator:{          
+          this.isAdmin = true;
+          break;
+        }
+        case TypeRoles.Applicant:{
+          this.isApplicant = true;          
+          break;
+        }
+        case TypeRoles.Offerer:{
+          this.isOfferer = true;          
+          break;
+        }
+      }
+    }
   }
 
 }

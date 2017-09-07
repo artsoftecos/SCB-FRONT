@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { SERVER_URL } from '../configuration';
 import { Oferrer } from '../models/oferrer';
+import { environment } from '../../environments/environment';
 import { BaseService } from './base.service';
 import 'rxjs/Rx';
 

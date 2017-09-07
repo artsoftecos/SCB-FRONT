@@ -18,8 +18,8 @@
     <label for="email">Correo Electronico</label>
   </div>
   <div class="input-field col s12 m6">
-      <input *ngIf="nit_tooltip !== undefined; else elseBlock" [(ngModel)]="nit" name="nit" id="nit" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="nit_tooltip"data-position="top" data-delay="10" [attr.data-tooltip]="nit_tooltip['error']">
-      <input *ngIf="nit_tooltip === undefined; else elseBlock" [(ngModel)]="nit" name="nit" id="nit" type="text" class="validate">
+      <input *ngIf="nit_tooltip !== undefined;" [(ngModel)]="nit" name="nit" id="nit" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="nit_tooltip"data-position="top" data-delay="10" [attr.data-tooltip]="nit_tooltip['error']">
+      <input *ngIf="nit_tooltip === undefined;" [(ngModel)]="nit" name="nit" id="nit" type="text" class="validate">
       <label for="nombres">NIT</label>
   </div>
 </div>
@@ -37,13 +37,13 @@
 </div>
 <div class="row">
   <div class="input-field col s12 m6">
-    <input *ngIf="password_tooltip !== undefined; else elseBlock" [(ngModel)]="password" name="password" id="password" type="password" class="validate invalid"  materialize="tooltip" [materializeParams]="password_tooltip"  data-position="top" data-delay="10" [attr.data-tooltip]="password_tooltip['error']">
-    <input *ngIf="password_tooltip === undefined; else elseBlock" [(ngModel)]="password" name="password" id="password" type="password" class="validate">
+    <input *ngIf="password_tooltip !== undefined;" [(ngModel)]="password" name="password" id="password" type="password" class="validate invalid"  materialize="tooltip" [materializeParams]="password_tooltip"  data-position="top" data-delay="10" [attr.data-tooltip]="password_tooltip['error']">
+    <input *ngIf="password_tooltip === undefined;" [(ngModel)]="password" name="password" id="password" type="password" class="validate">
     <label for="contrasena_1">Contraseña</label>
   </div>
   <div class="input-field col s12 m6">
-    <input *ngIf="password2_tooltip !== undefined; else elseBlock" [(ngModel)]="password2" name="password2" id="password2" type="password" class="validate invalid"  materialize="tooltip" [materializeParams]="password2_tooltip"  data-position="top" data-delay="10" [attr.data-tooltip]="password2_tooltip['error']">
-    <input *ngIf="password2_tooltip === undefined; else elseBlock" [(ngModel)]="password2" name="password2" id="password2" type="password" class="validate">
+    <input *ngIf="password2_tooltip !== undefined;" [(ngModel)]="password2" name="password2" id="password2" type="password" class="validate invalid"  materialize="tooltip" [materializeParams]="password2_tooltip"  data-position="top" data-delay="10" [attr.data-tooltip]="password2_tooltip['error']">
+    <input *ngIf="password2_tooltip === undefined;" [(ngModel)]="password2" name="password2" id="password2" type="password" class="validate">
     <label for="contrasena_2">Repetir Contraseña</label>
   </div>
 </div>

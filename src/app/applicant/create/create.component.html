@@ -27,7 +27,7 @@
       <!-- <input [(ngModel)]="documentType" name="documentType" type="text" class="validate">
       <label>Tipo de identificacion</label> -->
       
-      <select [(ngModel)]="documentType" name="documentType" materialize="material_select" [materializeSelectOptions]="selectOptions" [disabled]="isDisabled?true:null">
+      <select [(ngModel)]="documentType" name="documentType" materialize="material_select" [materializeSelectOptions]="selectOptions" [disabled]="null">
         <!-- <option value="" disabled selected>Elige una opcion</option> -->
         <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
       </select>

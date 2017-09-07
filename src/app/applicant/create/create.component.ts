@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { SERVER_URL } from '../../configuration';
+import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 import swal from 'sweetalert2';
 
@@ -54,7 +54,7 @@ export class CreateComponent implements OnInit {
   
   ngOnInit() {
     this.headers = new Headers();
-    this.headers.append('Access-Control-Allow-Origin', SERVER_URL);
+    this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
     this.headers.append('Content-Type', 'application/json');
   }
 
@@ -77,7 +77,7 @@ export class CreateComponent implements OnInit {
     console.log(data);
 
 
-    this.http.post(SERVER_URL + 'applicant', 
+    this.http.post(environment.SERVER_URL + 'applicant', 
         JSON.stringify(data),
         {headers:this.headers})
     .map((res: Response) => res.json())

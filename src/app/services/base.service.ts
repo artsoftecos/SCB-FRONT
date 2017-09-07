@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { SERVER_URL } from '../configuration';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import 'rxjs/Rx';
 
@@ -14,7 +14,7 @@ export class BaseService {
     baseGet(entity: String) {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(SERVER_URL + entity, options)
+        return this.http.get(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }
 
@@ -23,21 +23,21 @@ export class BaseService {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
         console.log(options);
-        return this.http.post(SERVER_URL + entity, options)
+        return this.http.post(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }
 
     basePut(entity: String) {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(SERVER_URL + entity, options)
+        return this.http.put(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }
 
     baseDelete(entity: String) {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
-        return this.http.delete(SERVER_URL + entity, options)
+        return this.http.delete(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { MaterializeDirective,MaterializeAction } from "angular2-materialize";
-import { SERVER_URL } from '../../configuration';
+import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
   
   ngOnInit() {
     this.headers = new Headers();
-    this.headers.append('Access-Control-Allow-Origin', SERVER_URL);
+    this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
     this.headers.append('Content-Type', 'application/json');
   }
 
@@ -55,7 +55,7 @@ export class CreateComponent implements OnInit {
     console.log('Registrar solicitante');
     console.log(data);
 
-    this.http.post(SERVER_URL + 'offerer', 
+    this.http.post(environment.SERVER_URL + 'offerer', 
         JSON.stringify(data),
         {headers:this.headers})
     .map((res: Response) => res.json())

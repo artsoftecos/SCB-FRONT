@@ -8,7 +8,18 @@ export class User {
         if (obj) {
             this.name = obj.name;
             this.email = obj.email;
-            this.role = obj.role;
+            switch (obj.role) {
+                case "APPLICANT":        
+                this.role = TypeRoles.Applicant;
+                  break;
+                case "ADMINISTRATOR":        
+                this.role = TypeRoles.Administrator;
+                  break;
+                case "OFFERER":        
+                this.role = TypeRoles.Offerer;
+                  break;
+              }
+            
         }
     }
 }

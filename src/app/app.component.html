@@ -19,10 +19,10 @@
         <li *ngIf="user == null" class="light-blue lighten-1">
           <a routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-          <li *ngIf="user !== undefined && user !== null && user.role == 'Solicitant'">
+          <li *ngIf="user !== undefined && user !== null && isApplicant">
           <a routerLink="/convocatories" routerLinkActive="active">Ver convocatorias</a>
             </li>  
-          <li *ngIf="user !== undefined && user !== null && user.role == 'Administrator'">
+          <li *ngIf="user !== undefined && user !== null && isAdmin">
         <a routerLink="/administrator/profile" routerLinkActive="active">Perfil</a>
           </li>
 

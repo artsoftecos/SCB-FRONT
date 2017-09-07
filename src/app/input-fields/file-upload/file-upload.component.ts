@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, Input, ViewChild } from '@angular/core';
 import { Http, Response, Headers  } from '@angular/http';
-import { SERVER_URL } from '../../configuration';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'file-upload',
@@ -38,7 +38,7 @@ export class FileUploadComponent implements OnInit {
       formData.append('username', 'Chris');
       console.log(formData)
       console.log(formData.getAll('file'));
-      this.http.post(SERVER_URL + 'applicantDocument', 
+      this.http.post(environment.SERVER_URL + 'applicantDocument', 
         formData,
         {headers:this.headers})
       .map((res: Response) => res.json())
@@ -66,7 +66,7 @@ export class FileUploadComponent implements OnInit {
   }
   ngOnInit() {
     this.headers = new Headers();
-    this.headers.append('Access-Control-Allow-Origin', SERVER_URL);
+    this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
     this.headers.append('Content-Type', 'application/json');
     // this.headers.append('Authorization', 'Basic d2FsdGVyYWxvbnNvMjBAeWFob28uY29tOmFydHNvZnQ=');
   }

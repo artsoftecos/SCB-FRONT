@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { SERVER_URL } from '../configuration';
+import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import 'rxjs/Rx';
 
@@ -12,7 +12,7 @@ export class AuthService {
   login(email: string, password: string) {
     let headers = this.buildHeader(email, password);
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(SERVER_URL + 'login', options)
+    return this.http.get(environment.SERVER_URL + 'login', options)
       .map(res => res.json())
   }
 
