@@ -14,13 +14,4 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  modalActions3 = new EventEmitter<string|MaterializeAction>();
-  
-  openModal3() {
-    this.modalActions3.emit({action:"modal",params:['open']});
-  }
-  closeModal3() {
-    this.modalActions3.emit({action:"modal",params:['close']});
-  }
-
 }

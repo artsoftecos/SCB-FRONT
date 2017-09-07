@@ -15,15 +15,20 @@ input{
     color: gray;
 }
 
-#tab_modal_crear_usuario{
+.tabs{
     background-color:  #f3f9ff;
 }
-.div_contenido_form{
-    background-color: white;
-}
+
 h2{
     color: black;
 }
 .row, input{
     margin-bottom: 0px !important;
+}
+
+#div_tab{
+    background-color: white;
+    padding-bottom: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
