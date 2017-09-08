@@ -43,10 +43,6 @@ export class AppComponent {
   }
 
   setRole() {    
-    console.log(this.user);
-    console.log(this.user.role);
-    console.log(TypeRoles.Applicant);
-
     if(this.user != null && this.user.role != null) {
       switch(this.user.role) {
         case TypeRoles.Administrator:{          

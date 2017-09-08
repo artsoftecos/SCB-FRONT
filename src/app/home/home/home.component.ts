@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadComponent } from '../../input-fields/file-upload/file-upload.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   fullImagePath: string;
   constructor() { 
-    this.fullImagePath = '../../assets/img/img1.jpg'  
+    this.fullImagePath = environment.ClientUrl + '/assets/img/img1.jpg'  
   }
 
   ngOnInit() {
