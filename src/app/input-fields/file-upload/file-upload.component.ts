@@ -35,7 +35,7 @@ export class FileUploadComponent implements OnInit {
         formData.append('file', inputEl.files.item(i));
         console.log(formData)
       }
-      formData.append('email', 'Chris');
+      formData.append('email', 'solicitanteApproved@artsoft.com');
       formData.append('name', 'name');
       console.log(formData)
       console.log(formData.getAll('file'));
