@@ -4,14 +4,19 @@ import { MaterializeModule } from 'angular2-materialize';
 import { FormsModule } from '@angular/forms';
 import { ValidateComponent } from './validate/validate.component';
 import { CreateComponent } from './create/create.component';
+import { RecaptchaModule } from 'ng2-recaptcha';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterializeModule,
-    FormsModule 
+    FormsModule,
+    RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
   ],
-  declarations: [ ValidateComponent, CreateComponent],
+  declarations: [ 
+    ValidateComponent, 
+    CreateComponent
+  ],
   exports: [
     CreateComponent
   ]
