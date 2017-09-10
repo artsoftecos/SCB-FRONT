@@ -1,4 +1,4 @@
-import { MaterializeModule } from 'angular2-materialize';
+import { MaterializeModule, MaterializeDirective } from 'angular2-materialize';
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from './models/user';

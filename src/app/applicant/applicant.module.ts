@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ValidateComponent } from './validate/validate.component';
 import { CreateComponent } from './create/create.component';
 import { RecaptchaModule } from 'ng2-recaptcha';
+import { UploadDocumentsComponent } from './upload-documents/upload-documents.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { RecaptchaModule } from 'ng2-recaptcha';
   ],
   declarations: [ 
     ValidateComponent, 
-    CreateComponent
+    CreateComponent, UploadDocumentsComponent
   ],
   exports: [
     CreateComponent
