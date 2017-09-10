@@ -35,7 +35,8 @@ export class FileUploadComponent implements OnInit {
         formData.append('file', inputEl.files.item(i));
         console.log(formData)
       }
-      formData.append('username', 'Chris');
+      formData.append('email', 'solicitanteApproved@artsoft.com');
+      formData.append('name', 'name');
       console.log(formData)
       console.log(formData.getAll('file'));
       this.http.post(environment.SERVER_URL + 'applicantDocument', 
@@ -66,8 +67,9 @@ export class FileUploadComponent implements OnInit {
   }
   ngOnInit() {
     this.headers = new Headers();
-    this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
-    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);    
+    //this.headers.append('Content-Type', 'multipart/form-data');
+    this.headers.append('enctype', 'multipart/form-data');    
     // this.headers.append('Authorization', 'Basic d2FsdGVyYWxvbnNvMjBAeWFob28uY29tOmFydHNvZnQ=');
   }
 }

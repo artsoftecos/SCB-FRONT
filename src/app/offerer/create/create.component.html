@@ -47,12 +47,14 @@
     <label for="contrasena_2">Repetir Contraseña</label>
   </div>
 </div>
+
 <div class="row">
-  <div class="input-field col s12 center-align">
-    <h2>CAPTCHA</h2>
-  </div>
+  <div class="col s12 center-align margin-top-15">
+    <recaptcha class="g-recaptcha" [(ngModel)]="captcha" name="captcha" required (resolved)="resolved($event)" siteKey="6LdKBzAUAAAAALt49pVJayxaszx30wEjoWXQO5R3"></recaptcha>
+  </div> 
 </div>
-  <div class="input-field col s12 center-align">
-    <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerOfferer()" >Enviar</a>
-  </div>
+
+<div class="input-field col s12 center-align">
+  <a class="waves-effect waves-light btn green" id="solictante" type="button" value="enviar" (click)="registerOfferer()" >Enviar</a>
+</div>
 </form>

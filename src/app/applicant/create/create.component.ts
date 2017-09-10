@@ -10,6 +10,9 @@ import swal from 'sweetalert2';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
+  resolved(captchaResponse: string) {
+      console.log(`Resolved captcha with response ${captchaResponse}:`);
+  }
   
   selectedOption = "";
   selectOptions = [];
@@ -18,13 +21,14 @@ export class CreateComponent implements OnInit {
   firstLastName = "";
   secondLastName = "";
   address = "";
-  documentType = "";
+  documentType = "1";
   documentNumber = "";
   email = "";
   cellphone = "";
   telephone = "";
   password = "";
   password2 = "";
+  captcha = "";
   headers = undefined;
 
   firstName_tooltip = undefined;
@@ -59,118 +63,121 @@ export class CreateComponent implements OnInit {
   }
 
   registerSolicitant() {
-    let data = {
-      "firstName": this.firstName,
-      "secondName": this.secondName,
-      "firstLastName": this.firstLastName,
-      "secondLastName": this.secondLastName,
-      "address": this.address,
-      "documentType": {'id':this.documentType},
-      "documentNumber": this.documentNumber,
-      "email": this.email,
-      "cellphone": this.cellphone,
-      "telephone": this.telephone,
-      "password": this.password,
-      "password2": this.password2,
-    }
-    console.log('Registrar solicitante');
-    console.log(data);
+    if(this.captcha != ""){
+      let data = {
+        "firstName": this.firstName,
+        "secondName": this.secondName,
+        "firstLastName": this.firstLastName,
+        "secondLastName": this.secondLastName,
+        "address": this.address,
+        "documentType": {'id':this.documentType},
+        "documentNumber": this.documentNumber,
+        "email": this.email,
+        "cellphone": this.cellphone,
+        "telephone": this.telephone,
+        "password": this.password,
+        "password2": this.password2,
+        "captcha": this.captcha
+      }
+      console.log('Registrar solicitante');
+      console.log(data);
 
-
-    this.http.post(environment.SERVER_URL + 'applicant', 
-        JSON.stringify(data),
-        {headers:this.headers})
-    .map((res: Response) => res.json())
-    .subscribe(
-      (response) => {
-          /* this function is executed every time there's a new output */
-        console.log("VALUE RECEIVED: "+response);
-      },
-      (err) => {console.log(err.json());
-        let errores = err.json();
-        if(errores['error'] == "Bad Request"){
-          swal('Oops...', 'Something went wrong!', 'error').catch(swal.noop);
-        }else{
-          for (var variable in errores) {
-            if (errores.hasOwnProperty(variable)) {
-              var element = errores[variable];
-              switch(variable) { 
-                case "firstName": { 
-                  this.firstName_tooltip = [];
-                  this.firstName_tooltip['error'] = errores[variable];
-                  break; 
+      this.http.post(environment.SERVER_URL + 'applicant', 
+          JSON.stringify(data),
+          {headers:this.headers})
+      .map((res: Response) => res.json())
+      .subscribe(
+        (response) => {
+            /* this function is executed every time there's a new output */
+          console.log("VALUE RECEIVED: "+response);
+        },
+        (err) => {console.log(err.json());
+          let errores = err.json();
+          if(errores['error'] == "Bad Request"){
+            swal('Oops...', 'Something went wrong!', 'error').catch(swal.noop);
+          }else{
+            for (var variable in errores) {
+              if (errores.hasOwnProperty(variable)) {
+                var element = errores[variable];
+                switch(variable) { 
+                  case "firstName": { 
+                    this.firstName_tooltip = [];
+                    this.firstName_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "secondName": { 
+                    this.secondName_tooltip = [];
+                    this.secondName_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "firstLastName": { 
+                    this.firstLastName_tooltip = [];
+                    this.firstLastName_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "secondLastName": { 
+                    console.log("NIT")
+                    this.secondLastName_tooltip = [];
+                    this.secondLastName_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "address": { 
+                    this.address_tooltip = [];
+                    this.address_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "documentType": { 
+                    this.documentType_tooltip = [];
+                    this.documentType_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "documentNumber": { 
+                    this.documentNumber_tooltip = [];
+                    this.documentNumber_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "cellphone": { 
+                    this.cellphone_tooltip = [];
+                    this.cellphone_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "telephone": { 
+                    this.telephone_tooltip = [];
+                    this.telephone_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "email": { 
+                    this.email_tooltip = [];
+                    this.email_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "password": { 
+                    this.password_tooltip = [];
+                    this.password_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "password2": { 
+                    this.password2_tooltip = [];
+                    this.password2_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
                 } 
-                case "secondName": { 
-                  this.secondName_tooltip = [];
-                  this.secondName_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "firstLastName": { 
-                  this.firstLastName_tooltip = [];
-                  this.firstLastName_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "secondLastName": { 
-                  console.log("NIT")
-                  this.secondLastName_tooltip = [];
-                  this.secondLastName_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "address": { 
-                  this.address_tooltip = [];
-                  this.address_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "documentType": { 
-                  this.documentType_tooltip = [];
-                  this.documentType_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "documentNumber": { 
-                  this.documentNumber_tooltip = [];
-                  this.documentNumber_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "cellphone": { 
-                  this.cellphone_tooltip = [];
-                  this.cellphone_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "telephone": { 
-                  this.telephone_tooltip = [];
-                  this.telephone_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "email": { 
-                  this.email_tooltip = [];
-                  this.email_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "password": { 
-                  this.password_tooltip = [];
-                  this.password_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "password2": { 
-                  this.password2_tooltip = [];
-                  this.password2_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-              } 
-              var att = document.createAttribute("data-tooltip");
-              att.value = errores[variable];
-              document.getElementById(variable).setAttributeNode(att);
+                var att = document.createAttribute("data-tooltip");
+                att.value = errores[variable];
+                document.getElementById(variable).setAttributeNode(att);
+              }
             }
           }
+          // [materializeParams]="tooltip"
+          console.log("ERROR: "+err);
+        },
+        () => {
+          /* this function is executed when the observable ends (completes) its stream */
+          console.log("COMPLETED");
         }
-        // [materializeParams]="tooltip"
-        console.log("ERROR: "+err);
-      },
-      () => {
-        /* this function is executed when the observable ends (completes) its stream */
-        console.log("COMPLETED");
-      }
-    );
+      );
+    }else{
+      alert("Confirma que no eres un robot")
+    }
   }
-
 }
