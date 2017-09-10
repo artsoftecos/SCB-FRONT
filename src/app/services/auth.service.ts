@@ -12,6 +12,8 @@ export class AuthService {
   login(email: string, password: string) {
     let headers = this.buildHeader(email, password);
     let options = new RequestOptions({ headers: headers });
+    
+    // return this.http.get(environment.SERVER_LOCAL + 'login', options)
     return this.http.get(environment.SERVER_URL + 'login', options)
       .map(res => res.json())
   }
@@ -44,6 +46,9 @@ export class AuthService {
     headers.append('Authorization', 'Basic ' + base64);
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
+    
+    headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
+    // headers.append('Access-Control-Allow-Origin', environment.SERVER_LOCAL);
 
     return headers;
   }

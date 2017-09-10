@@ -59,6 +59,7 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.headers = new Headers();
     this.headers.append('Access-Control-Allow-Origin', environment.SERVER_URL);
+    // this.headers.append('Access-Control-Allow-Origin', environment.SERVER_LOCAL);
     this.headers.append('Content-Type', 'application/json');
   }
 
@@ -83,6 +84,7 @@ export class CreateComponent implements OnInit {
       console.log(data);
 
       this.http.post(environment.SERVER_URL + 'applicant', 
+      // this.http.post(environment.SERVER_LOCAL + 'applicant', 
           JSON.stringify(data),
           {headers:this.headers})
       .map((res: Response) => res.json())

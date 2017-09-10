@@ -6,7 +6,7 @@ export class User {
 
     constructor(obj?: any) {
         if (obj) {
-            this.name = obj.name;
+            this.name = obj.fullName;
             this.email = obj.email;
             switch (obj.role) {
                 case "APPLICANT":        
