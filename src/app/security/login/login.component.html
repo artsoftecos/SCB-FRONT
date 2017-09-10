@@ -1,35 +1,24 @@
-<div id="div_solicitante" class="col s12 div_contenido_form">
-  <br>
-  <div class="row">
-    <div class="col s12 m8 offset-m2 loginPanel">
-      <h3 style="text-align: center">Iniciar Sesión</h3>
-      <form #formLogin="ngForm" class="center">
-        <div class="row">
-          <div class="input-field">
-            <input name="email" type="email" class="validate" #email="ngModel" [(ngModel)]="userLogin.email" required>
-            <label>Correo electrónico</label>
-          </div>
 
+<div class="row">
+  <div class="col s12 m8 offset-m2 loginPanel div_contenido_form z-depth-4">
+    <h3 style="text-align: center">Iniciar Sesión</h3>
+    <form #formLogin="ngForm" class="center">
+      <div class="row">
+        <div class="input-field">
+          <input name="email" type="email" class="validate" #email="ngModel" [(ngModel)]="userLogin.email" required>
+          <label>Correo electrónico</label>
         </div>
-        <div class="row">
-          <div class="input-field">
-            <input name="password" type="password" class="validate" #password="ngModel" [(ngModel)]="userLogin.password" required>
-            <label>Contraseña</label>
-          </div>
+
+      </div>
+      <div class="row">
+        <div class="input-field">
+          <input name="password" type="password" class="validate" #password="ngModel" [(ngModel)]="userLogin.password" required>
+          <label>Contraseña</label>
         </div>
-        <div class="input-field center-align">
-          <a class="waves-effect waves-light btn light-blue darken-4 col s12" type="button" (click)="onLogin()">Iniciar Sesión</a>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="input-field center-align">
+        <a class="waves-effect waves-light btn light-blue darken-4 col s12 m4 offset-m4" type="button" (click)="onLogin()">Iniciar Sesión</a>
+      </div>
+    </form>
   </div>
 </div>
-<!-- <div class="col s4">
-  <a routerLink="/home" routerLinkActive="active">
-    <div class="center promo promo-example">
-      <i class="material-icons home-icons">home</i>
-      <p class="promo-caption">Inicio</p>
-      <p class="light center">Volver al inicio.</p>
-    </div>
-  </a>
-</div> -->
