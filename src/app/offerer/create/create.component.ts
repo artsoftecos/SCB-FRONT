@@ -137,5 +137,9 @@ export class CreateComponent implements OnInit {
       alert("Confirma que no eres un robot")
     }
   }
+  
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
+  }
 
 }
