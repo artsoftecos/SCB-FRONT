@@ -33,17 +33,17 @@ export class LoginComponent implements OnInit {
 
       this.authService.setCurrentUser(this.user);
 
-      // switch (this.user.role) {
-      //   case TypeRoles.Applicant:
-      //     this.goToApplicant();
-      //     break;
-      //   case TypeRoles.Administrator:       
-      //     this.goToAdministrator();
-      //     break;
-      //   case TypeRoles.Offerer: 
-      //     this.goToOfferer();
-      //     break;
-      // }
+      switch (this.user.role) {
+        case TypeRoles.Applicant:
+          this.goToApplicant();
+          break;
+        case TypeRoles.Administrator:
+          this.goToAdministrator();
+          break;
+        case TypeRoles.Offerer:
+          this.goToOfferer();
+          break;
+      }
     }, err => {
       console.log(err);
     });

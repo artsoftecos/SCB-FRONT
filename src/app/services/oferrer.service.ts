@@ -11,15 +11,15 @@ export class OferrerService extends BaseService {
     public entity: String = 'offerer';
 
     getApproved() {
-        return this.baseGet(this.entity);
+        return this.baseGet(this.entity + '/approved');
     }
 
     getDenied() {
-        return this.baseGet(this.entity);
+        return this.baseGet(this.entity + '/rejected');
     }
 
     getPending() {
-        return this.baseGet(this.entity);
+        return this.baseGet(this.entity + '/pending');
     }
 
     approve(nit: string) {
