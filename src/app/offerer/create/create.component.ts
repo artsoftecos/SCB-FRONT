@@ -3,6 +3,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { MaterializeDirective,MaterializeAction } from "angular2-materialize";
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'offerer-create',
@@ -134,7 +135,7 @@ export class CreateComponent implements OnInit {
         }
       );
     }else{
-      alert("Confirma que no eres un robot")
+      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
     }
   }
 

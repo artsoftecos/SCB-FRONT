@@ -177,7 +177,7 @@ export class CreateComponent implements OnInit {
         }
       );
     }else{
-      alert("Confirma que no eres un robot")
+      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
     }
   }
 }
