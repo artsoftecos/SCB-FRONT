@@ -9,6 +9,9 @@ import { ApplicantModule } from './applicant/applicant.module';
 import { AdministratorModule } from './administrator/administrator.module';
 import { SecurityModule } from './security/security.module';
 //Routes
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { Provider } from '@angular/core';
+import { ɵROUTER_PROVIDERS } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 import { InputFieldsModule } from './input-fields/input-fields.module';
@@ -38,7 +41,7 @@ import { UserService } from './services/user.service';
     AppRoutingModule,
     InputFieldsModule
   ],
-  providers: [UserService],
+  providers: [UserService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
