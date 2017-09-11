@@ -14,10 +14,7 @@ export class OfferersApprovedComponent implements OnInit {
   constructor(private offererService: OferrerService) { }
 
   ngOnInit() {
-    this.offererService.getApproved().subscribe(oferrers => {
-      this.oferrers = oferrers;
-      console.log(oferrers);
-    });
+    this.loadApprovedOfferers();
   }
 
   edit(nit) {
@@ -26,9 +23,14 @@ export class OfferersApprovedComponent implements OnInit {
 
   reject(nit) {
     this.offererService.reject(nit).subscribe(response => {
-      console.log(response);
+      this.loadApprovedOfferers();
     });
-    console.log("Rechazar a " + nit);
+
   }
 
+  loadApprovedOfferers() {
+    this.offererService.getApproved().subscribe(oferrers => {
+      this.oferrers = oferrers;
+    });
+  }
 }

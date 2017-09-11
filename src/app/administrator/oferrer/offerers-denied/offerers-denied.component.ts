@@ -14,17 +14,20 @@ export class OfferersDeniedComponent implements OnInit {
   constructor(private offererService: OferrerService) { }
 
   ngOnInit() {
-    this.offererService.getDenied().subscribe(oferrers => {
-      this.oferrers = oferrers;
-      console.log(oferrers);
-    });
+    this.loadDeniedOfferers();
   }
 
   approve(nit) {
     this.offererService.approve(nit).subscribe(response => {
-      console.log(response);
+      this.loadDeniedOfferers();
     });
     console.log("Aprobar a " + nit);
+  }
+
+  loadDeniedOfferers() {
+    this.offererService.getDenied().subscribe(oferrers => {
+      this.oferrers = oferrers;
+    });
   }
 
 }

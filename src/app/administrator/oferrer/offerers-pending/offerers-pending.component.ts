@@ -14,24 +14,24 @@ export class OfferersPendingComponent implements OnInit {
   constructor(private offererService: OferrerService) { }
 
   ngOnInit() {
-    this.offererService.getPending().subscribe(oferrers => {
-      this.oferrers = oferrers;
-      console.log(oferrers);
-    });
+    this.loadPendingOfferers();
   }
 
   approve(nit) {
     this.offererService.approve(nit).subscribe(response => {
-      console.log(response);
+      this.loadPendingOfferers();
     });
-    console.log("Aprobar a " + nit);
   }
 
   reject(nit) {
     this.offererService.reject(nit).subscribe(response => {
-      console.log(response);
+      this.loadPendingOfferers();
     });
-    console.log("Rechazar a " + nit);
   }
 
+  loadPendingOfferers() {
+    this.offererService.getPending().subscribe(oferrers => {
+      this.oferrers = oferrers;
+    });
+  }
 }
