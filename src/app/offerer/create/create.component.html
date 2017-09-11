@@ -13,7 +13,7 @@
 </div>
 <div class="row">
   <div class="input-field col s12 m6">
-    <input *ngIf="email_tooltip !== undefined" [(ngModel)]="email" name="email" id="email" type="email" class="validate" materialize="tooltip" [materializeParams]="email_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="email_tooltip['error']">
+    <input *ngIf="email_tooltip !== undefined" [(ngModel)]="email" name="email" id="email" type="email" class="validate invalid" materialize="tooltip" [materializeParams]="email_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="email_tooltip['error']">
     <input *ngIf="email_tooltip === undefined" [(ngModel)]="email" name="email" id="email" type="text" class="validate">
     <label for="email">Correo Electronico</label>
   </div>
