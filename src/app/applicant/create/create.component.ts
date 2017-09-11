@@ -64,25 +64,85 @@ export class CreateComponent implements OnInit {
   }
 
   registerSolicitant() {
-    if(this.captcha != ""){
-      let data = {
-        "firstName": this.firstName,
-        "secondName": this.secondName,
-        "firstLastName": this.firstLastName,
-        "secondLastName": this.secondLastName,
-        "address": this.address,
-        "documentType": {'id':this.documentType},
-        "documentNumber": this.documentNumber,
-        "email": this.email,
-        "cellphone": this.cellphone,
-        "telephone": this.telephone,
-        "password": this.password,
-        "password2": this.password2,
-        "captcha": this.captcha
-      }
-      console.log('Registrar solicitante');
-      console.log(data);
+    let data = {
+      "firstName": this.firstName,
+      "secondName": this.secondName,
+      "firstLastName": this.firstLastName,
+      "secondLastName": this.secondLastName,
+      "address": this.address,
+      "documentType": {'id':this.documentType},
+      "documentNumber": this.documentNumber,
+      "email": this.email,
+      "cellphone": this.cellphone,
+      "telephone": this.telephone,
+      "password": this.password,
+      "password2": this.password2,
+      "captcha": this.captcha
+    }
 
+    let errores = false;
+    if(this.password2 == ""){
+      this.password2_tooltip = [];
+      this.password2_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.firstName == ""){
+      this.firstName_tooltip = [];
+      this.firstName_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.password == ""){
+      this.password_tooltip = [];
+      this.password_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+
+    if(this.email == ""){
+      this.email_tooltip = [];
+      this.email_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.documentNumber == ""){
+      this.documentNumber_tooltip = [];
+      this.documentNumber_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+
+    if(this.firstLastName == ""){
+      this.firstLastName_tooltip = [];
+      this.firstLastName_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.password != "" && this.password2 != ""){
+
+      if(this.password.length < 7 ){
+        this.password_tooltip = [];
+        this.password_tooltip['error'] = "La contraseña debe tener mas de 8 caracteres";
+        errores = true;
+      }
+
+      if(this.password2.length < 7 ){
+        this.password2_tooltip = [];
+        this.password2_tooltip['error'] = "La contraseña debe tener mas de 8 caracteres";
+        errores = true;
+      }
+
+      if(this.password != this.password2 ){
+        swal('Oops...', 'Las contraseñas ingresadas no coinciden', 'error').catch(swal.noop);
+        errores = true;
+      }
+    }
+
+    if(this.captcha == ""){
+      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
+      errores = true;
+    }
+
+    if(!errores){
       this.http.post(environment.SERVER_URL + 'applicant', 
       // this.http.post(environment.SERVER_LOCAL + 'applicant', 
           JSON.stringify(data),
@@ -90,13 +150,14 @@ export class CreateComponent implements OnInit {
       .map((res: Response) => res.json())
       .subscribe(
         (response) => {
-            /* this function is executed every time there's a new output */
-          console.log("VALUE RECEIVED: "+response);
+          swal('Exito!', 'Se ha registrado tu usuario, revisa tu bandeja de correo electronico para completar la validacion', 'success').catch(swal.noop);
         },
-        (err) => {console.log(err.json());
+        (err) => {
+          console.log(err.json());
+          console.log(err);
           let errores = err.json();
-          if(errores['error'] == "Bad Request"){
-            swal('Oops...', 'Something went wrong!', 'error').catch(swal.noop);
+          if(err['status'] == 400){
+            swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
           }else{
             for (var variable in errores) {
               if (errores.hasOwnProperty(variable)) {
@@ -118,7 +179,6 @@ export class CreateComponent implements OnInit {
                     break; 
                   } 
                   case "secondLastName": { 
-                    console.log("NIT")
                     this.secondLastName_tooltip = [];
                     this.secondLastName_tooltip['error'] = errores[variable];
                     break; 
@@ -167,6 +227,7 @@ export class CreateComponent implements OnInit {
                 var att = document.createAttribute("data-tooltip");
                 att.value = errores[variable];
                 document.getElementById(variable).setAttributeNode(att);
+                document.getElementById(variable).classList.add("invalid");
               }
             }
           }
@@ -178,8 +239,7 @@ export class CreateComponent implements OnInit {
           console.log("COMPLETED");
         }
       );
-    }else{
-      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
     }
+    
   }
 }
