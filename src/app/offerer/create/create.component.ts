@@ -43,99 +43,146 @@ export class CreateComponent implements OnInit {
   }
 
   registerOfferer() {
-    if(this.captcha != ""){
-      console.log('Registrar oferente');
-      let data = {
-        "name": this.name,
-        "legalRepresentative": this.legalRepresentative,
-        "email": this.email,
-        "nit": this.nit,
-        "address": this.address,
-        "telephone": this.telephone,
-        "password": this.password,
-        "password2": this.password2,
-        "captcha": this.captcha
-      }
-      console.log('Registrar solicitante');
-      console.log(data);
+    let data = {
+      "name": this.name,
+      "legalRepresentative": this.legalRepresentative,
+      "email": this.email,
+      "nit": this.nit,
+      "address": this.address,
+      "telephone": this.telephone,
+      "password": this.password,
+      "password2": this.password2,
+      "captcha": this.captcha
+    }
 
+    let errores = false;
+    
+    if(this.name == ""){
+      this.name_tooltip = [];
+      this.name_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    if(this.nit == ""){
+      this.nit_tooltip = [];
+      this.nit_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    if(this.email == ""){
+      this.email_tooltip = [];
+      this.email_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+  
+    if(this.password == ""){
+      this.password_tooltip = [];
+      this.password_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.password2 == ""){
+      this.password2_tooltip = [];
+      this.password2_tooltip['error'] = "Este campo es obligatorio";
+      errores = true;
+    }
+    
+    if(this.password != "" && this.password2 != ""){
+      if(this.password.length < 7 ){
+        this.password_tooltip = [];
+        this.password_tooltip['error'] = "La contraseña debe tener mas de 8 caracteres";
+        errores = true;
+      }
+
+      if(this.password2.length < 7 ){
+        this.password2_tooltip = [];
+        this.password2_tooltip['error'] = "La contraseña debe tener mas de 8 caracteres";
+        errores = true;
+      }
+
+      if(this.password != this.password2 ){
+        swal('Oops...', 'Las contraseñas ingresadas no coinciden', 'error').catch(swal.noop);
+        errores = true;
+      }
+    }
+
+    if(this.captcha == ""){
+      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
+      errores = true;
+    }
+
+    if(!errores){
       this.http.post(environment.SERVER_URL + 'offerer', 
           JSON.stringify(data),
           {headers:this.headers})
       .map((res: Response) => res.json())
       .subscribe(
         (response) => {
-              /* this function is executed every time there's a new output */
-              console.log("VALUE RECEIVED: "+response);
+          swal('Exito!', 'Se ha registrado tu usuario, se iniciara el proceso de validacion', 'success').catch(swal.noop);
         },
         (err) => {
-          /* this function is executed when there's an ERROR */
           console.log(err.json());
+          console.log(err);
           let errores = err.json();
-          for (var variable in errores) {
-            if (errores.hasOwnProperty(variable)) {
-              var element = errores[variable];
-              switch(variable) { 
-                case "name": { 
-                  this.name_tooltip = [];
-                  this.name_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "legalRepresentative": { 
-                  this.legalRepresentative_tooltip = [];
-                  this.legalRepresentative_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "email": { 
-                  this.email_tooltip = [];
-                  this.email_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "nit": { 
-                  console.log("NIT")
-                  this.nit_tooltip = [];
-                  this.nit_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "address": { 
-                  this.address_tooltip = [];
-                  this.address_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "telephone": { 
-                  this.telephone_tooltip = [];
-                  this.telephone_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "password": { 
-                  this.password_tooltip = [];
-                  this.password_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-                case "password2": { 
-                  this.password2_tooltip = [];
-                  this.password2_tooltip['error'] = errores[variable];
-                  break; 
-                } 
-            } 
-              var att = document.createAttribute("data-tooltip");
-              att.value = errores[variable];
-              document.getElementById(variable).setAttributeNode(att);
-              console.log(variable)
-              console.log(document.getElementById(variable))
-              document.getElementById(variable).classList.add("invalid");
+          if(err['status'] == 400){
+            swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+          }else{
+            let errores = err.json();
+            for (var variable in errores) {
+              if (errores.hasOwnProperty(variable)) {
+                var element = errores[variable];
+                switch(variable) { 
+                  case "name": { 
+                    this.name_tooltip = [];
+                    this.name_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "legalRepresentative": { 
+                    this.legalRepresentative_tooltip = [];
+                    this.legalRepresentative_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "email": { 
+                    this.email_tooltip = [];
+                    this.email_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "nit": { 
+                    this.nit_tooltip = [];
+                    this.nit_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "address": { 
+                    this.address_tooltip = [];
+                    this.address_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "telephone": { 
+                    this.telephone_tooltip = [];
+                    this.telephone_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "password": { 
+                    this.password_tooltip = [];
+                    this.password_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+                  case "password2": { 
+                    this.password2_tooltip = [];
+                    this.password2_tooltip['error'] = errores[variable];
+                    break; 
+                  } 
+              } 
+                var att = document.createAttribute("data-tooltip");
+                att.value = errores[variable];
+                document.getElementById(variable).setAttributeNode(att);
+                document.getElementById(variable).classList.add("invalid");
+              }
             }
           }
-          // [materializeParams]="tooltip"
-          console.log("ERROR: "+err);
         },
         () => {
-              /* this function is executed when the observable ends (completes) its stream */
-              console.log("COMPLETED");
+          console.log("COMPLETADO: ");
         }
       );
-    }else{
-      swal('Oops...', 'Confirma que no eres un robot', 'error').catch(swal.noop);
     }
   }
   
