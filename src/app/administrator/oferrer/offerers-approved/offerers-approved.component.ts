@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OferrerService } from '../../../services/oferrer.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administrator-offerers-approved',
@@ -24,6 +25,7 @@ export class OfferersApprovedComponent implements OnInit {
   reject(nit) {
     this.offererService.reject(nit).subscribe(response => {
       this.loadApprovedOfferers();
+      swal('Exito!', 'Se ha rechazado el oferente satisfactoriamente', 'success').catch(swal.noop);
     });
 
   }
