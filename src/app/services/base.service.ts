@@ -18,14 +18,29 @@ export class BaseService {
             .map(res => res.json());
     }
 
-    basePost(entity: String) {
+    basePost(entity: String, data?: any) {
+        console.log(entity);
+        let headers = this.buildHeader();
+        let options = new RequestOptions({ headers: headers });
+        let body = "";
+        if(data !== undefined && data !== null) {
+            body = JSON.stringify(data)
+        }
+
+        console.log(body);
+        console.log(options);
+        return this.http.post(environment.SERVER_URL + entity,body, options)
+            .map(res => res.json());
+    }
+
+    /*basePost(entity: String, data: any) {
         console.log(entity);
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
         console.log(options);
         return this.http.post(environment.SERVER_URL + entity, options)
             .map(res => res.json());
-    }
+    }*/
 
     basePut(entity: String) {
         let headers = this.buildHeader();

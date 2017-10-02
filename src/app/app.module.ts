@@ -7,7 +7,9 @@ import { MaterializeModule } from 'angular2-materialize';
 //Modules
 import { ApplicantModule } from './applicant/applicant.module';
 import { AdministratorModule } from './administrator/administrator.module';
+import { OffererModule } from './offerer/offerer.module';
 import { SecurityModule } from './security/security.module';
+
 //Routes
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Provider } from '@angular/core';
@@ -37,6 +39,7 @@ import { UserService } from './services/user.service';
     ApplicantModule,
     AdministratorModule,
     SecurityModule,
+    OffererModule,
     HttpModule,
     AppRoutingModule,
     InputFieldsModule

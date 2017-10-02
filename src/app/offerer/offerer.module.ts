@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { CreateComponent } from './create/create.component';
 import { MaterializeModule } from "angular2-materialize";
 import { RecaptchaModule } from 'ng2-recaptcha';
+import { HomeComponent } from './home/home.component';
+import { OffererRoutingModule } from './offerer-routing.module'
+import { ConvocatoryModule } from '../convocatory/convocatory.module'
 
 @NgModule({
   imports: [
@@ -11,10 +14,10 @@ import { RecaptchaModule } from 'ng2-recaptcha';
     CommonModule,
     FormsModule,
     RecaptchaModule.forRoot(),
+    OffererRoutingModule,
+    ConvocatoryModule
   ],
-  declarations: [CreateComponent],
-  exports: [
-    CreateComponent
-  ]
+  declarations: [CreateComponent, HomeComponent],
+  exports: [CreateComponent, OffererRoutingModule]
 })
 export class OffererModule { }

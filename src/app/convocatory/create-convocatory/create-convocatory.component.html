@@ -1,0 +1,37 @@
+<form id="form_create_convocatory">
+    <div class="row">
+      <div class="input-field col s6 m3">
+        <input *ngIf="name_tooltip !== undefined" [(ngModel)]="convocatory.name" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="name_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="name_tooltip['error']" />
+        <input *ngIf="name_tooltip === undefined" [(ngModel)]="convocatory.name" name="name" id="name" type="text" class="validate" />
+        <label>Nombre</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <input *ngIf="type_tooltip !== undefined" [(ngModel)]="selectedType" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="type_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="type_tooltip['error']" />
+        <select [(ngModel)]="selectedType" name="convocatoryType" materialize="material_select" [materializeSelectOptions]="convocatoryTypes" [disabled]="null">        
+          <option *ngFor="let option of convocatoryTypes" [value]="option.value">{{option.name}}</option>
+        </select>
+        <label>Tipo</label>  
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 m3">
+        <input *ngIf="place_tooltip !== undefined" [(ngModel)]="convocatory.place" name="place" id="place" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="place_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="place_tooltip['error']"/>
+        <input *ngIf="place_tooltip === undefined" [(ngModel)]="convocatory.place" name="place" id="place" type="text" class="validate"/>
+        <label>Plaza</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 m3">
+          <input *ngIf="description_tooltip !== undefined" [(ngModel)]="convocatory.description" name="description" id="description" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="description_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="description_tooltip['error']" />
+          <textarea *ngIf="description_tooltip === undefined" [(ngModel)]="convocatory.description" name="description" id="description" type="text" class="validate"></textarea>
+        <label>Descripcion</label>
+      </div>
+    </div> 
+    
+    <div class="input-field col s12 center-align">
+      <a class="waves-effect waves-light btn green" id="convocatory" type="button" value="enviar" (click)="registerConvocatory()" >Enviar</a>
+    </div>
+    </form>
+    
