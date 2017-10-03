@@ -5,7 +5,9 @@
 
 export const environment = {
   production: false,
-  SERVER_URL: 'http://localhost:8080/',
-  SERVER_LOCAL: 'http://localhost:8080/',
+ // SERVER_URL: 'http://localhost:8080/',
+  //SERVER_LOCAL: 'http://localhost:8080/',
+  SERVER_URL : 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/SCB-Back/',
+  //ClientUrl : 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/scb/'
   ClientUrl: 'http://localhost:4200/'
 };

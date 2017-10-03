@@ -12,35 +12,38 @@
     <ul class="right hide-on-med-and-down">
       <li><a>MIN EDU</a></li>
       <li><a>LOGO</a></li>
-        <li *ngIf="user == null" class="light-blue">
-          <a routerLink="/register" routerLinkActive="active">Registro</a>
-        </li>
-        <li *ngIf="user == null" class="light-blue lighten-1">
-          <a routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-
-
-        <li *ngIf="user !== undefined && user !== null && isApplicant">
-          <a routerLink="/convocatories" routerLinkActive="active">Ver convocatorias</a>
-        </li>  
-        <li *ngIf="user !== undefined && user !== null && isApplicant">
-          <a routerLink="/upload_document" routerLinkActive="active">Subir documentos</a>
-        </li>
-        <li *ngIf="user !== undefined && user !== null && isAdmin">
-          <a routerLink="/administrator/profile" routerLinkActive="active">Perfil</a>
-        </li>
-
-        <li *ngIf="user !== undefined && user !== null">
-          <a (click)="logout();">Logout</a>                   
-        </li>
-    </ul>
-    <ul class="side-nav"  materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav">
-      <!-- <li><a class="modal-trigger" href="#modal_crear_usuario">Registro</a></li> -->
-      <!-- <applicant-create></applicant-create> -->
-      <li *ngIf="user == null" >
+      <li *ngIf="user == null" class="light-blue">
         <a routerLink="/register" routerLinkActive="active">Registro</a>
       </li>
-      <li  *ngIf="user == null" class="">
+      <li *ngIf="user == null" class="light-blue">
+        <a routerLink="/form" routerLinkActive="active">Form</a>
+      </li>
+      <li *ngIf="user == null" class="light-blue lighten-1">
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+      </li>
+
+
+      <li *ngIf="user !== undefined && user !== null && isApplicant">
+        <a routerLink="/convocatories" routerLinkActive="active">Ver convocatorias</a>
+      </li>
+      <li *ngIf="user !== undefined && user !== null && isApplicant">
+        <a routerLink="/upload_document" routerLinkActive="active">Subir documentos</a>
+      </li>
+      <li *ngIf="user !== undefined && user !== null && isAdmin">
+        <a routerLink="/administrator/profile" routerLinkActive="active">Perfil</a>
+      </li>
+
+      <li *ngIf="user !== undefined && user !== null">
+        <a (click)="logout();">Logout</a>
+      </li>
+    </ul>
+    <ul class="side-nav" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions" data-activates="sidenav">
+      <!-- <li><a class="modal-trigger" href="#modal_crear_usuario">Registro</a></li> -->
+      <!-- <applicant-create></applicant-create> -->
+      <li *ngIf="user == null">
+        <a routerLink="/register" routerLinkActive="active">Registro</a>
+      </li>
+      <li *ngIf="user == null" class="">
         <a routerLink="/login" routerLinkActive="active">Login</a>
       </li>
     </ul>

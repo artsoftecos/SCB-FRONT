@@ -6,6 +6,7 @@ import { ValidateComponent } from './validate/validate.component';
 import { CreateComponent } from './create/create.component';
 import { RecaptchaModule } from 'ng2-recaptcha';
 import { UploadDocumentsComponent } from './upload-documents/upload-documents.component';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   imports: [
@@ -14,9 +15,9 @@ import { UploadDocumentsComponent } from './upload-documents/upload-documents.co
     FormsModule,
     RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
   ],
-  declarations: [ 
-    ValidateComponent, 
-    CreateComponent, UploadDocumentsComponent
+  declarations: [
+    ValidateComponent,
+    CreateComponent, UploadDocumentsComponent, FormComponent
   ],
   exports: [
     CreateComponent
