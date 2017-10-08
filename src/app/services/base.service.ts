@@ -13,7 +13,7 @@ export class BaseService {
 
     baseGet(entity: String) {
         let headers = this.buildHeader();
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({ headers: headers, withCredentials: true });
         return this.http.get(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }
@@ -59,6 +59,7 @@ export class BaseService {
     buildHeader() {
         let headers = new Headers();
         headers.append('Authorization', 'Basic ' + this.authService.getToken());
+        headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
 

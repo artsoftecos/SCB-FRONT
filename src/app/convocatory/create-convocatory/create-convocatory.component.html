@@ -1,3 +1,11 @@
+<div class="row">
+  <div class="col s2"></div>
+  <nav class="nav-extended col s8" style="background-color: #01579b">
+    <div class="nav-wrapper">
+      <h3 class="brand-logo center"> Crear Convocatoria </h3>
+    </div>
+  </nav>
+</div>
 <form id="form_create_convocatory">
     <div class="row">
       <div class="input-field col s6 m3">
@@ -10,7 +18,7 @@
       <div class="input-field col s12 m6">
         <input *ngIf="type_tooltip !== undefined" [(ngModel)]="selectedType" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="type_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="type_tooltip['error']" />
         <select [(ngModel)]="selectedType" name="convocatoryType" materialize="material_select" [materializeSelectOptions]="convocatoryTypes" [disabled]="null">        
-          <option *ngFor="let option of convocatoryTypes" [value]="option.value">{{option.name}}</option>
+          <option *ngFor="let option of convocatoryTypes" [value]="option.id">{{option.name}}</option>
         </select>
         <label>Tipo</label>  
       </div>
@@ -32,6 +40,6 @@
     
     <div class="input-field col s12 center-align">
       <a class="waves-effect waves-light btn green" id="convocatory" type="button" value="enviar" (click)="registerConvocatory()" >Enviar</a>
+      <a class="waves-effect waves-light btn red" id="convocatoryCancel" type="button" value="Cancelar" (click)="cancelRegisterConvocatory()" >Cancelar</a>
     </div>
     </form>
-    

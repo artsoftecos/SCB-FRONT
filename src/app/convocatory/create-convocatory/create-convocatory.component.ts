@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Convocatory } from '../../models/convocatory'
+import { ConvocatoryType } from '../../models/convocatory-type'
 import { ConvocatoryTypeService } from '../../services/convocatory-type.service'
 import { ConvocatoryService } from '../../services/convocatory.service'
 import swal from 'sweetalert2';
@@ -12,8 +13,8 @@ import swal from 'sweetalert2';
 })
 export class CreateConvocatoryComponent implements OnInit {
   convocatory: Convocatory = new Convocatory();
-  convocatoryTypes: any[];
-  selectedType : number;
+  convocatoryTypes: ConvocatoryType[];
+  selectedType: number;
 
   //Tooltips
   name_tooltip = undefined;
@@ -21,7 +22,10 @@ export class CreateConvocatoryComponent implements OnInit {
   description_tooltip = undefined;
   type_tooltip = undefined;
 
-  constructor(private convocatoryTypeService: ConvocatoryTypeService, 
+  @Output()
+  cancelation = new EventEmitter();
+
+  constructor(private convocatoryTypeService: ConvocatoryTypeService,
     private convocatoryService: ConvocatoryService) { }
 
   ngOnInit() {
@@ -29,23 +33,25 @@ export class CreateConvocatoryComponent implements OnInit {
   }
 
   loadConvocatoryTypes() {
-    this.convocatoryService.post(this.convocatory).subscribe(response => {
-      this.convocatory = new Convocatory();
-      swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
-    });
-
     this.convocatoryTypeService.get().subscribe(convocatoryTypes => {
-      this.convocatoryTypes = convocatoryTypes;
-    }, 
-    err => {
-      console.log(err);
-      console.log(err.json());
-      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
-    });
+      let conv = new ConvocatoryType();
+      conv.id = -1;
+      conv.name = "Seleccione tipo de convocatoria";      
+      this.convocatoryTypes=convocatoryTypes;
+      this.convocatoryTypes.unshift(conv);
+    },
+      err => {
+        console.log(err);
+        console.log(err.json());
+        swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+      });
+      this.convocatory.name = "aaaa";
   }
 
   registerConvocatory() {
-    this.convocatory.type = this.selectedType;
+    let type = new ConvocatoryType();
+    type.id = this.selectedType;
+    this.convocatory.type = type;
     if (!this.isValidConvocatory()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
@@ -54,47 +60,60 @@ export class CreateConvocatoryComponent implements OnInit {
       this.convocatory = new Convocatory();
       swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
     },
-    err => { 
-      console.log("error:");
-      console.log(err);     
-      console.log(err.status);
-      console.log(err.json());
-      if(err.status == 400){
-        swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
-      }else{
-        this.handleUiErrors(err);
-        swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
-      }
-    });
+      err => {
+        console.log("error:");
+        console.log(err);
+        console.log(err.status);
+        console.log(err.json());
+        if (err.status == 400) {
+          swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+        } else {
+          this.handleUiErrors(err);
+          swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
+        }
+      });
   };
 
-  isValidConvocatory() : boolean {
+  isValidConvocatory(): boolean {
     let isValid = true;
-    if(this.convocatory.name === ""){
-      this.name_tooltip = [];
-      this.name_tooltip['error'] = "Este campo es obligatorio";
-      isValid = false;
-    }
-    
-    if(this.convocatory.place.toString() === ""){
-      this.place_tooltip = [];
-      this.place_tooltip['error'] = "Este campo es obligatorio";
-      isValid = false;
-    }
-    
-    if(this.convocatory.place <= 0){
-      this.place_tooltip = [];
-      this.place_tooltip['error'] = "Las plazas deben ser mayores a 0";
-      isValid = false;
-    }
+    try {
+      if (this.convocatory.name === undefined ||this.convocatory.name === "") {
+        this.name_tooltip = [];
+        this.name_tooltip['error'] = "Este campo es obligatorio";
+        isValid = false;
+      }
 
-    if (this.convocatoryTypes.indexOf(this.convocatory.type) == -1) {
-      this.type_tooltip = [];
-      this.type_tooltip['error'] = "El tipo de convocatoria no existe.";
-      isValid = false;
+      if (this.convocatory.place === undefined || this.convocatory.place === null || this.convocatory.place.toString() === "") {
+        this.place_tooltip = [];
+        this.place_tooltip['error'] = "Este campo es obligatorio";
+        isValid = false;
+      }
+
+      if (this.convocatory.place !== undefined && this.convocatory.place !== null && this.convocatory.place <= 0) {
+        this.place_tooltip = [];
+        this.place_tooltip['error'] = "Las plazas deben ser mayores a 0";
+        isValid = false;
+      }
+
+      if (this.convocatory.type === undefined || this.convocatory.type.id === undefined) {
+        this.type_tooltip = [];
+        this.type_tooltip['error'] = "Seleccione el tipo de convocatoria.";
+        isValid = false;
+      }
+
+      var idsConvocatoryTypes = this.convocatoryTypes.map(function(a) {return a.id;});
+      if (this.convocatory.type !== undefined && this.convocatory.type.id !== undefined 
+          && idsConvocatoryTypes.indexOf(this.convocatory.type.id) == -1) {
+        this.type_tooltip = [];
+        this.type_tooltip['error'] = "El tipo de convocatoria no existe.";
+        isValid = false;
+      }
     }
-    
-    return isValid;    
+    catch (e) {
+      swal('Oops...', (<Error>e).message, 'error').catch(swal.noop);
+      return false;
+    }
+    return isValid;
   };
 
   handleUiErrors(err: any) {
@@ -102,23 +121,23 @@ export class CreateConvocatoryComponent implements OnInit {
     for (var variable in errors) {
       if (errors.hasOwnProperty(variable)) {
         var element = errors[variable];
-        switch(variable) { 
-          case "name": { 
-            this.name_tooltip = [];               
+        switch (variable) {
+          case "name": {
+            this.name_tooltip = [];
             this.name_tooltip['error'] = errors[variable];
-            break; 
-          } 
-          case "place": { 
+            break;
+          }
+          case "place": {
             this.place_tooltip = [];
             this.place_tooltip['error'] = errors[variable];
-            break; 
-          } 
-          case "description": { 
+            break;
+          }
+          case "description": {
             this.description_tooltip = [];
             this.description_tooltip['error'] = errors[variable];
-            break; 
-          } 
-        } 
+            break;
+          }
+        }
         var att = document.createAttribute("data-tooltip");
         att.value = errors[variable];
         document.getElementById(variable).setAttributeNode(att);
@@ -126,40 +145,10 @@ export class CreateConvocatoryComponent implements OnInit {
       }
     }
   }
-}
-/*
-this.userService.get(this.userLogin).subscribe(
-        user => { 
-          this.userService.setCurrentUser(user);
-          window.location.reload();
-          this.router.navigate(['/profile']);  
-        },
-        err => { 
-          console.log("error:");
-          console.log(err); 
-         this.toastOptions.msg = err;
-         console.log(err.status);
-        if(err.status == 404) {
-             this.toastOptions.msg = "Usuario o contraseña invalidos";
-         }
-        this.toastyService.error(this.toastOptions);
-      }
-*/
 
-/*
-
- get(userLogin: UserLogin): Observable<User> {
-    let body = JSON.stringify(userLogin);
-    let headers = this.buildHeader();
-    let options = new RequestOptions({ headers: headers });
-
-    var apiUrl = environment.apiUrl;   
-    var url = apiUrl + "/login/login";
-
-    return this.http.post(url, body, options)
-        .map((res:Response) => {         
-          return res.json() as User;
-        }) // ...and calling .json() on the response to return data
-        .catch(this.handleError); //...errors if any
+  cancelRegisterConvocatory() {
+    this.cancelation.emit();
   }
-*/
+}
+
+

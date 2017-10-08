@@ -47,12 +47,7 @@ La tabla q lista las "por publicar" y las "publicadas"
 <div id="modal_create_convocatory" class="modal"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreateConvocatory">
   <div class="modal-content">
     <div class="row">
-      <app-create-convocatory ></app-create-convocatory>
-    </div>
-    <div class="modal-footer">
-      <div class="input-field col s12 center-align">
-        <a class="waves-effect waves-light btn" (click)="closeModalCreateConvocatory()">Close</a>
-      </div>
+      <app-create-convocatory (cancelation)="closeModalCreateConvocatory()" ></app-create-convocatory>
     </div>
   </div>
 </div>
