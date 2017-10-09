@@ -10,11 +10,20 @@ import { EventEmitter } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+ public action: String = 'published';
+
   modalActionsCreateConvocatory = new EventEmitter<string|MaterializeAction>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+goToPublished() {
+    this.action = 'published';
+  }
+  goToPendingPublish() {
+    this.action = 'pending';
   }
 
   openModalCreateConvocatory() {

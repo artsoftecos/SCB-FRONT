@@ -42,10 +42,16 @@ export class BaseService {
             .map(res => res.json());
     }*/
 
-    basePut(entity: String) {
+    basePut(entity: String, data?: any) {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(environment.SERVER_URL + entity, options)
+
+        let body = "";
+        if(data !== undefined && data !== null) {
+            body = JSON.stringify(data)
+        }
+
+        return this.http.put(environment.SERVER_URL + entity,body, options)
             .map(res => res.json());
     }
 

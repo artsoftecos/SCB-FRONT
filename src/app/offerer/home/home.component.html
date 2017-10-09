@@ -19,29 +19,24 @@ La tabla q lista las "por publicar" y las "publicadas"
           <i class="material-icons left">add</i>Crear</a>
       </ul>
     </div>
-    <!--<div class="nav-content">
+    <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a (click)="goToPending()">Por Aprobar</a></li>
-        <li class="tab"><a (click)="goToApproved()">Aprobados</a></li>
-        <li class="tab"><a (click)="goToDenied()">Rechazados</a></li>
+        <li class="tab"><a (click)="goToPublished()">Publicadas</a></li>
+        <li class="tab"><a (click)="goToPendingPublish()">Por Publicar</a></li>
       </ul>
-    </div>-->
+    </div>
   </nav>
 </div>
 
-
-<!--<div class="row" [ngSwitch]="action">
+<div class="row" [ngSwitch]="action">
   <div class="col s2"></div>
+  <div class="col s8" *ngSwitchCase="'published'">
+    <app-published-list-convocatory></app-published-list-convocatory>
+  </div>
   <div class="col s8" *ngSwitchCase="'pending'">
-    <app-administrator-offerers-pending></app-administrator-offerers-pending>
+    <app-pending-publishlist--convocatory></app-pending-publish-list-convocatory>
   </div>
-  <div class="col s8" *ngSwitchCase="'approved'">
-    <app-administrator-offerers-approved></app-administrator-offerers-approved>
-  </div>
-  <div class="col s8" *ngSwitchCase="'denied'">
-    <app-administrator-offerers-denied></app-administrator-offerers-denied>
-  </div>
-</div>-->
+</div>
 
 
 <div id="modal_create_convocatory" class="modal modal-height"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreateConvocatory">
