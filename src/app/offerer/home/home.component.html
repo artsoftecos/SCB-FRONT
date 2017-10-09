@@ -44,7 +44,7 @@ La tabla q lista las "por publicar" y las "publicadas"
 </div>-->
 
 
-<div id="modal_create_convocatory" class="modal"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreateConvocatory">
+<div id="modal_create_convocatory" class="modal modal-height"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreateConvocatory">
   <div class="modal-content">
     <div class="row">
       <app-create-convocatory (cancelation)="closeModalCreateConvocatory()" ></app-create-convocatory>

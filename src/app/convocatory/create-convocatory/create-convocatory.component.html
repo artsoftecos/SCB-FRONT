@@ -15,8 +15,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12 m6">
-        <input *ngIf="type_tooltip !== undefined" [(ngModel)]="selectedType" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="type_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="type_tooltip['error']" />
+      <div class="input-field col s12 m6">        
         <select [(ngModel)]="selectedType" name="convocatoryType" materialize="material_select" [materializeSelectOptions]="convocatoryTypes" [disabled]="null">        
           <option *ngFor="let option of convocatoryTypes" [value]="option.id">{{option.name}}</option>
         </select>
@@ -33,7 +32,7 @@
     <div class="row">
       <div class="input-field col s6 m3">
           <input *ngIf="description_tooltip !== undefined" [(ngModel)]="convocatory.description" name="description" id="description" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="description_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="description_tooltip['error']" />
-          <textarea *ngIf="description_tooltip === undefined" [(ngModel)]="convocatory.description" name="description" id="description" type="text" class="validate"></textarea>
+          <textarea *ngIf="description_tooltip === undefined" [(ngModel)]="convocatory.description" name="description" id="description" type="text" class="validate" rows="15" cols="70"></textarea>
         <label>Descripcion</label>
       </div>
     </div> 

@@ -45,7 +45,6 @@ export class CreateConvocatoryComponent implements OnInit {
         console.log(err.json());
         swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
       });
-      this.convocatory.name = "aaaa";
   }
 
   registerConvocatory() {
@@ -58,7 +57,9 @@ export class CreateConvocatoryComponent implements OnInit {
     }
     this.convocatoryService.post(this.convocatory).subscribe(response => {
       this.convocatory = new Convocatory();
+      this.selectedType = -1;
       swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
+      this.cancelRegisterConvocatory();
     },
       err => {
         console.log("error:");
@@ -103,7 +104,7 @@ export class CreateConvocatoryComponent implements OnInit {
 
       var idsConvocatoryTypes = this.convocatoryTypes.map(function(a) {return a.id;});
       if (this.convocatory.type !== undefined && this.convocatory.type.id !== undefined 
-          && idsConvocatoryTypes.indexOf(this.convocatory.type.id) == -1) {
+          && idsConvocatoryTypes.indexOf(parseInt(this.convocatory.type.id.toString())) == -1) {
         this.type_tooltip = [];
         this.type_tooltip['error'] = "El tipo de convocatoria no existe.";
         isValid = false;
@@ -140,8 +141,12 @@ export class CreateConvocatoryComponent implements OnInit {
         }
         var att = document.createAttribute("data-tooltip");
         att.value = errors[variable];
-        document.getElementById(variable).setAttributeNode(att);
-        document.getElementById(variable).classList.add("invalid");
+        var elementToMap = document.getElementById(variable);
+        if (elementToMap !== undefined)
+        {
+          document.getElementById(variable).setAttributeNode(att);
+          document.getElementById(variable).classList.add("invalid");
+        }
       }
     }
   }
