@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
+declare var jQuery: any;
 
 @Component({
   selector: 'app-list-phases',
@@ -10,6 +12,30 @@ export class ListPhasesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Materialize('.collapsible').collapsible();
   }
 
+actions1 = new EventEmitter<string|MaterializeAction>();
+
+
+    params = [
+      {
+        onOpen: (el) => {
+          console.log("Collapsible open", el);
+        },
+        onClose: (el) => {
+          console.log("Collapsible close", el);
+        }
+      }
+    ];
+
+    values = ["First", "Second", "Third"];
+
+    openFirst() {
+      this.actions1.emit({action:"collapsible",params:['open',0]});
+    }
+
+    closeFirst() {
+      this.actions1.emit({action:"collapsible",params:['close',0]});
+    }
 }

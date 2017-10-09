@@ -15,6 +15,8 @@ import { UpdatePhaseComponent } from './phase/update-phase/update-phase.componen
 import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.component';
 import { PostulatedConvocatoryComponent } from './postulation/postulated-convocatory/postulated-convocatory.component';
 import { ConvocatoryRoutingModule } from './convocatory-routing.module';
+import { PublishedConvocatoryComponent } from './published-convocatory/published-convocatory.component';
+import { PendingPublishConvocatoryComponent } from './pending-publish-convocatory/pending-publish-convocatory.component';
 
 @NgModule({
   imports: [
@@ -24,7 +26,7 @@ import { ConvocatoryRoutingModule } from './convocatory-routing.module';
     ConvocatoryRoutingModule
   ],
   exports: [CreateConvocatoryComponent, PendingPublishListConvocatoryComponent, PublishedListConvocatoryComponent],
-  declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, PostulatedConvocatoryComponent],
+  declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent],
   providers: [ConvocatoryTypeService, ConvocatoryService, AuthService]
 })
 export class ConvocatoryModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoryService } from '../../services/convocatory.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-published-list-convocatory',
@@ -10,7 +11,7 @@ export class PublishedListConvocatoryComponent implements OnInit {
 
   public convocatories: any = [];
   
-  constructor(private convocatoryService : ConvocatoryService) { }
+  constructor(private router: Router, private convocatoryService : ConvocatoryService) { }
 
   ngOnInit() {
     this.loadPublishedConvocatories();
@@ -23,6 +24,6 @@ export class PublishedListConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-    //TODO: ir al detalle de convocatoria
+     this.router.navigate(['/publishedConvocatory/'+ convocatoryId]);
   }
 }

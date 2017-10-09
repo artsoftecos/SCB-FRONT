@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoryService } from '../../services/convocatory.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-pending-publish-list-convocatory',
@@ -10,7 +11,7 @@ export class PendingPublishListConvocatoryComponent implements OnInit {
 
    public convocatories: any = [];
   
-  constructor(private convocatoryService : ConvocatoryService) { }
+  constructor(private router: Router, private convocatoryService : ConvocatoryService) { }
 
   ngOnInit() {
     this.loadPendingPublishConvocatories();
@@ -23,7 +24,7 @@ export class PendingPublishListConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-    //TODO: ir al detalle de convocatoria
+     this.router.navigate(['/pendingPublishConvocatory/'+ convocatoryId]);
   }
 
 }
