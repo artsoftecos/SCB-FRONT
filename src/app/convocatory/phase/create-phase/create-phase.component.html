@@ -7,7 +7,7 @@
   </nav>
 </div>
 <form id="form_create_phase">
-    <div class="row">
+    <div class="row">      
       <div class="input-field col s6 m3">
         <input *ngIf="name_tooltip !== undefined" [(ngModel)]="phase.name" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="name_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="name_tooltip['error']" />
         <input *ngIf="name_tooltip === undefined" [(ngModel)]="phase.name" name="name" id="name" type="text" class="validate" />
