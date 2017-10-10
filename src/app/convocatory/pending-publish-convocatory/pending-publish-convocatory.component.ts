@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MaterializeAction } from 'angular2-materialize';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pending-publish-convocatory',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PendingPublishConvocatoryComponent implements OnInit {
 
+  modalActionsCreatePhase = new EventEmitter<string|MaterializeAction>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  openModalCreatePhase() {
+    this.modalActionsCreatePhase.emit({action:"modal",params:['open']});
+  }
+  closeModalCreatePhase() {
+    this.modalActionsCreatePhase.emit({action:"modal",params:['close']});
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
 declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-list-phases',
@@ -8,6 +9,7 @@ declare var jQuery: any;
   styleUrls: ['./list-phases.component.css']
 })
 export class ListPhasesComponent implements OnInit {
+  actions1 = new EventEmitter<string|MaterializeAction>();
 
   constructor() { }
 
@@ -15,10 +17,13 @@ export class ListPhasesComponent implements OnInit {
     // Materialize('.collapsible').collapsible();
   }
 
-actions1 = new EventEmitter<string|MaterializeAction>();
+  ngAfterViewInit() {    
+    $('.collapsible').collapsible({
+      accordion : true
+    });
+  }
 
-
-    params = [
+  params = [
       {
         onOpen: (el) => {
           console.log("Collapsible open", el);
