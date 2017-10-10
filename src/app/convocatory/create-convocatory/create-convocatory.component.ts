@@ -152,6 +152,7 @@ export class CreateConvocatoryComponent implements OnInit {
   }
 
   cancelRegisterConvocatory() {
+    this.convocatory = new Convocatory();
     this.cancelation.emit();
   }
 }

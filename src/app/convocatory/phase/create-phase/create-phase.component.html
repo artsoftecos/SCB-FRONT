@@ -1,3 +1,5 @@
+https://github.com/InfomediaLtd/angular2-materialize/issues/127
+
 <div class="row">
   <div class="col s2"></div>
   <nav class="nav-extended col s8" style="background-color: #01579b">
@@ -6,7 +8,7 @@
     </div>
   </nav>
 </div>
-<form id="form_create_convocatory">
+<form id="form_create_phase">
     <div class="row">
       <div class="input-field col s6 m3">
         <input *ngIf="name_tooltip !== undefined" [(ngModel)]="phase.name" name="name" id="name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="name_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="name_tooltip['error']" />
@@ -23,29 +25,29 @@
     </div> 
     <div class="row">
       <div class="input-field col s6 m3">
-          <input *ngIf="startDate_tooltip !== undefined" [(ngModel)]="phase.startDate" name="startDate" id="startDate" type="text" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="startDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="startDate_tooltip['error']" />
-          <input *ngIf="startDate_tooltip === undefined" [(ngModel)]="phase.startDate" name="startDate" id="startDate" type="text" class="datepicker validate" />
-        <label>Fecha inicio</label>
+          <input *ngIf="startDate_tooltip !== undefined" [(ngModel)]="phase.startDate" name="startDate" id="startDate" type="date" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="startDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="startDate_tooltip['error']" />
+          <input *ngIf="startDate_tooltip === undefined" [(ngModel)]="phase.startDate" name="startDate" id="startDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
+        <label>Fecha inicio</label> 
       </div>
     </div> 
     <div class="row">
       <div class="input-field col s6 m3">
-          <input *ngIf="finishDate_tooltip !== undefined" [(ngModel)]="phase.finishDate" name="finishDate" id="finishDate" type="text" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="finishDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="finishDate_tooltip['error']" />
-          <input *ngIf="finishDate_tooltip === undefined" [(ngModel)]="phase.finishDate" name="finishDate" id="finishDate" type="text" class="datepicker validate" />
+          <input *ngIf="finishDate_tooltip !== undefined" [(ngModel)]="phase.finishDate" name="finishDate" id="finishDate" type="date" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="finishDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="finishDate_tooltip['error']" />
+          <input *ngIf="finishDate_tooltip === undefined" [(ngModel)]="phase.finishDate" name="finishDate" id="finishDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
         <label>Fecha fin</label>
       </div>
     </div> 
     <div class="row">
       <div class="input-field col s6 m3">
-          <input *ngIf="startApprovalPostulation_tooltip !== undefined" [(ngModel)]="phase.startApprovalPostulation" name="startApprovalPostulation" id="startApprovalPostulation" type="text" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="startApprovalPostulation_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="startApprovalPostulation_tooltip['error']" />
-          <input *ngIf="startApprovalPostulation_tooltip === undefined" [(ngModel)]="phase.startApprovalPostulation" name="startApprovalPostulation" id="startApprovalPostulation" type="text" class="datepicker validate" />
+          <input *ngIf="startApprovalPostulation_tooltip !== undefined" [(ngModel)]="phase.startApprovalPostulation" name="startApprovalPostulation" id="startApprovalPostulation" type="date" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="startApprovalPostulation_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="startApprovalPostulation_tooltip['error']" />
+          <input *ngIf="startApprovalPostulation_tooltip === undefined" [(ngModel)]="phase.startApprovalPostulation" name="startApprovalPostulation" id="startApprovalPostulation" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
         <label>Fecha inicio aprobación</label>
       </div>
     </div> 
     <div class="row">
       <div class="input-field col s6 m3">
-          <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="text" class="datepicker invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
-          <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="text" class="datepicker validate" />
+          <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="date" class="datepicker invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
+          <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
         <label>Fecha resultados</label>
       </div>
     </div> 

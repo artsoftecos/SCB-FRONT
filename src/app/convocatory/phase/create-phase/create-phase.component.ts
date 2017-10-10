@@ -154,6 +154,7 @@ export class CreatePhaseComponent implements OnInit {
   }
 
   cancelRegisterPhase() {
+    this.phase = new Phase();
     this.cancelation.emit();
   }
 }
