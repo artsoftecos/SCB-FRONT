@@ -96,12 +96,60 @@ export class CreatePhaseComponent implements OnInit {
         this.resultDate_tooltip['error'] = "Este campo es obligatorio";
         isValid = false;
       }
+
+      if (!isValid) {
+        return false;
+      }
+      isValid = this.ValidateDates();
     }
     catch (e) {
       swal('Oops...', (<Error>e).message, 'error').catch(swal.noop);
       return false;
     }
     return isValid;
+  };
+
+  private ValidateDates(): boolean {
+      var isValid = true;
+        var today = new Date();
+        var startDate = new Date(this.phase.startDate);
+
+        if (startDate < today) {
+          this.startDate_tooltip = [];
+          this.startDate_tooltip['error'] = "Fecha de inicio no puede ser menor a hoy.";
+          isValid = false;
+        }
+
+        var finishDate = new Date(this.phase.finishDate);
+        if (finishDate < today) {
+          this.finishDate_tooltip = [];
+          this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
+          isValid = false;
+        } else if (finishDate < startDate){
+          this.finishDate_tooltip = [];
+          this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a la fecha de inicio.";
+          isValid = false;
+        }
+
+        var startApprovalPostulation = new Date(this.phase.startApprovalPostulation);
+        if (startApprovalPostulation < startDate) {
+          this.startApprovalPostulation_tooltip = [];
+          this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de inicio.";
+          isValid = false;
+        } else if (startApprovalPostulation > finishDate)
+        {
+          this.startApprovalPostulation_tooltip = [];
+          this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser mayor a la fecha fin.";
+          isValid = false;
+        }
+
+         var resultDate = new Date(this.phase.resultDate);
+         if (resultDate < finishDate) {
+          this.resultDate_tooltip = [];
+          this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a la fecha de fin.";
+          isValid = false;
+        }
+        return isValid;
   };
 
   handleUiErrors(err: any) {
