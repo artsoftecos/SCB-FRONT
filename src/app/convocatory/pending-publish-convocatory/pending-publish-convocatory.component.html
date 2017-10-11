@@ -5,16 +5,23 @@
   <div class="col s2"></div>
   <nav class="nav-extended col s8" style="background-color: #01579b">
     <div class="nav-wrapper">
-      <h3 class="brand-logo center"> Convocatorias </h3>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <h3 class="brand-logo center"> Convocatoria </h3>
+      <!--<ul id="nav-mobile" class="right hide-on-med-and-down">
         <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase"
           (click)="openModalCreatePhase()" >
           <i class="material-icons left">add</i>Crear</a>
-      </ul>
+      </ul>-->
     </div>   
   </nav>
 </div>
 
+<app-detail-basic-convocatory  [convocatory]="convocatory"  ></app-detail-basic-convocatory>
+
+<ul id="nav-mobile" class="right hide-on-med-and-down">
+    <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase"
+      (click)="openModalCreatePhase()" >
+      <i class="material-icons left">add</i>Crear</a>
+  </ul>
 <app-list-phases></app-list-phases>
 
 <div id="modal_create_phase" class="modal modal-height"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreatePhase">
