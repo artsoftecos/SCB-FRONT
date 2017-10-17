@@ -1,0 +1,25 @@
+.no-margin-bottom{
+    margin-bottom: 0px !important;
+}
+
+.modal-80{
+    height: 80%;
+}
+
+/* .modal-footer{
+    bottom: 0px;
+    position: absolute;
+} */
+
+h5{
+    margin-top: 0px;
+}
+/* .modal-content{
+    height: 400px;
+} */
+/* .modal-content-scroll{
+    width:100%;
+    height:100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+} */
