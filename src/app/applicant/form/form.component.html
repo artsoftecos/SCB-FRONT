@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-xs-1"></div>
   <div class="col-xs-10">
-    <form>
+    <!--<form>
       <div *ngFor="let question of fields" class="form-group">
         <label for="field">{{ question.name}}</label>
         <input *ngIf="question.field_type_id==1" type="email" class="validate" name="{{question.name}}" placeholder="{{question.name}}"
@@ -32,13 +32,12 @@
           ngModel>
           <input *ngIf="question.field_type_id==8" type="date" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
           ngModel>
-        <!--<button class="btn btn-danger" type="button" (click)="inDelete(question)" data-toggle="modal" data-target="#validateDelete"
-          data-dismiss="modal" data-backdrop="false">Eliminar {{question.name}}</button>-->
       </div>
 
     </form>
   </div>
   <div class="col-xs-12 div-btn">
     <button (click)="goToCreateQuestion()" class="btn btn-success center-block">Agregar Campo</button>
+  </div>-->
+    <dynamic-form [questions]="questions"></dynamic-form>
   </div>
-</div>
