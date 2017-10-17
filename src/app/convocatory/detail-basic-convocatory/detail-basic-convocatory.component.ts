@@ -8,17 +8,24 @@ import { Convocatory } from '../../models/convocatory';
 })
 export class DetailBasicConvocatoryComponent implements OnInit {
 
+  @Input() 
+  name: string;
   @Input()
-  convocatory: any;
+  type: string;
+  @Input()
+  numberBeneficiaries: number;
+  @Input()
+  description: string;
+  @Input()
+  resultDate: string;
 
   constructor() { 
-    console.log("ssss");
-    console.log(this.convocatory);
+   
   }
 
   ngOnInit() {
-    //console.log("ssss");
-    //console.log(this.convocatory);-->
+    console.log('nameee 5');
+    console.log(this.name);
   }
 
 }

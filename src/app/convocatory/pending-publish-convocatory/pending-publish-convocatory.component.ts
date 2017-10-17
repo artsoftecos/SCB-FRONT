@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { Convocatory } from '../../models/convocatory';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ConvocatoryService } from '../../services/convocatory.service';
+import { ConvocatoryType } from '../../models/convocatory-type';
 
 @Component({
   selector: 'app-pending-publish-convocatory',
@@ -20,6 +21,10 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;
+    this.convocatory.convocatoryType = new ConvocatoryType();
+    this.convocatory.convocatoryType.name = "pepito";
+    this.convocatory.resultDate = "2017-01-01";  
+    console.log(this.convocatory);  
   }
 
   ngOnInit() {
@@ -27,6 +32,7 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     /*this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;*/
+    //TODO: UnComment this part
     /*this.route.paramMap
     .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(convocatory => this.convocatory = convocatory);*/
