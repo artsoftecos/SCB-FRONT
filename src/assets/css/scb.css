@@ -77,6 +77,22 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:not(.browser-d
     color: gray !important;;
 }
 
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{
+    margin-left: 3rem !important;
+    width: 92% !important;
+    width: calc(100% - 3rem) !important;
+}
+
+.input-field .prefix.active {
+    color: rgb(101, 155, 102) !important;
+}
+
+.input_icon{
+    margin-left: 3rem !important;
+    width: 92% !important;
+    width: calc(100% - 3rem) !important;
+}
+
 .text-xs-center {
     text-align: center !important;;
 }
@@ -105,4 +121,18 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:not(.browser-d
     .parallax-container{
         height: auto !important;
     }
+}
+
+.dropdown-content li > a, .dropdown-content li > span{
+    color: black !important;
+}
+
+.date_picker_icono > div > input{
+    margin-left: 3rem !important;
+    width: 92% !important;
+    width: calc(100% - 3rem) !important;
+    color: black !important;
+}
+.ngx-datepicker-calendar-container{
+    z-index: 2;
 }
