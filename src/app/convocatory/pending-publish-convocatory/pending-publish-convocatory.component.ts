@@ -19,14 +19,14 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     console.log("1");
     this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
-    this.convocatory.place = 24;
+    this.convocatory.numberBeneficiaries = 24;
   }
 
   ngOnInit() {
     console.log("2");
     /*this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
-    this.convocatory.place = 24;*/
+    this.convocatory.numberBeneficiaries = 24;*/
     /*this.route.paramMap
     .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(convocatory => this.convocatory = convocatory);*/
