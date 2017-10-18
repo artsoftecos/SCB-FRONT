@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
+import { Router } from '@angular/router';
 import { PhaseService } from '../../../services/phase-service';
 import { Phase } from '../../../models/phase';
 
@@ -17,10 +18,11 @@ export class ListPhasesComponent implements OnInit {
   @Input() 
   convocatoryId: number;
 
-  constructor(private phaseService: PhaseService) { }
+  constructor(private router: Router, private phaseService: PhaseService) { }
 
   ngOnInit() {
     let phaseOne = new Phase();
+    phaseOne.id = 1;
     phaseOne.name = "nombre 1";
     phaseOne.description = "description 1";
     phaseOne.startDate = "2017/05/21";
@@ -28,6 +30,7 @@ export class ListPhasesComponent implements OnInit {
     phaseOne.startApprovalPostulation = "2016/05/21";
 
     let phaseTwo = new Phase();
+    phaseTwo.id = 2;
     phaseTwo.name = "nombre 2";
     phaseTwo.description = "description 2";
     phaseTwo.startDate = "3017/05/21";
@@ -71,5 +74,9 @@ export class ListPhasesComponent implements OnInit {
       .subscribe(phases => {
         this.phases = phases;
       });
+    }
+
+    goToPhase(phaseId: number) {
+      this.router.navigate(['/phase/'+ phaseId]);
     }
 }
