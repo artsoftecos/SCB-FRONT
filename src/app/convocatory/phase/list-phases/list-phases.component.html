@@ -1,6 +1,26 @@
-
 <ul class="collapsible" data-collapsible="accordion">
-  <li>
+    <li *ngFor="let phase of phases">
+      <div class="collapsible-header active">
+        <i class="material-icons"></i>{{ phase }}
+      </div>
+      <div class="collapsible-body">
+          <div class="row">
+            <div class="col s12">
+              <!--Fecha Inicio : {{ phase.startDate }} 
+              Fecha Finalización : {{ phase.finishDate }} 
+              Fecha Inicio aprobación postulación : {{ phase.startApprovalPostulation }}
+              Description : {{ phase.description }}-->
+            </div>
+          </div>
+      </div>
+    </li>  
+  </ul>
+
+
+
+
+<!--<ul class="collapsible" data-collapsible="accordion">
+  <li *ngFor="let phase of phases">
     <div class="collapsible-header active"><i class="material-icons"></i>First</div>
     <div class="collapsible-body">
         <div class="row">
@@ -47,7 +67,7 @@
       <p>Lorem ipsum dolor sit amet.</p>
     </div>
   </li>
-</ul>
+</ul>-->
 <!--
 <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
           <li>
@@ -125,3 +145,14 @@
         </ul>-->
 
 
+
+
+        <tr *ngFor="let item of oferrers;let i=index">
+            
+                  <td>{{item.nit}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.telephone}}</td>
+                  <td><a (click)="edit(item.nit)" class="waves-effect waves-light btn blue"><i class="small material-icons center">create</i></a></td>
+                  <td><a (click)="reject(item.nit)" class="waves-effect waves-light btn red"><i class="small material-icons center">highlight_off</i></a></td>
+                </tr>

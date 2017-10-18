@@ -12,9 +12,10 @@
 
 <div class="row" >
   <div class="col s3">
-    <app-detail-basic-convocatory  [name]="convocatory.name" [type]="convocatory.type.name" 
+    HOLAAAAAAAAAAAAAAAA {{ convocatory.name }}
+    <!--<app-detail-basic-convocatory  [name]="convocatory.name" [type]="convocatory.type.name" 
     [numberBeneficiaries] = "convocatory.numberBeneficiaries" [description] = "convocatory.description" 
-    [resultDate] = "convocatory.resultDate" ></app-detail-basic-convocatory>
+    [resultDate] = "convocatory.resultDate" ></app-detail-basic-convocatory>-->
   </div> 
   <div class="col s9">
       <div class="row">
@@ -31,7 +32,7 @@
       </div>
         <div class="row">
             <div class="col s10">
-              <app-list-phases></app-list-phases>
+              <app-list-phases [convocatoryId]="convocatory.id" ></app-list-phases>
             </div>
         </div>
 

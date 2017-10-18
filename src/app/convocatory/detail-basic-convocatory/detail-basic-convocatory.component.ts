@@ -20,7 +20,7 @@ export class DetailBasicConvocatoryComponent implements OnInit {
   resultDate: string;
 
   constructor() { 
-   
+    console.log('ctor DetailBasicConvocatoryComponent');
   }
 
   ngOnInit() {
