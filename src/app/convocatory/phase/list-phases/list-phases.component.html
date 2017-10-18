@@ -1,10 +1,51 @@
-<p>
-  list-phases works!
-
-</p>
-
 <ul class="collapsible" data-collapsible="accordion">
-  <li>
+    <li *ngFor="let phase of phases">
+      <div class="collapsible-header active">
+        <i class="material-icons"></i><h5 class="text-xs-center col s12">{{ phase.name }}</h5>
+      </div>
+      <div class="collapsible-body">
+          <div class="row">
+            <div class="input-field inline col s12">
+                <strong>Fecha Inicio:</strong>
+                <span>{{ phase.startDate }} </span>
+            </div>
+            <div class="input-field inline col s12">
+                <strong>Fecha Finalización:</strong>
+                <span>{{ phase.finishDate }} </span>
+            </div>
+            <div class="input-field inline col s12">
+                <strong>Fecha Inicio aprobación postulación:</strong>
+                <span>{{ phase.startApprovalPostulation }} </span>
+            </div>
+            <div class="input-field inline col s12">
+                <strong>Description:</strong>
+                <span>{{ phase.description }} </span>
+            </div>
+               <!-- <div class="row">
+                    <div class="input-field col s6">
+                      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input id="last_name" type="text" class="validate">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+
+              Fecha Inicio : 
+              Fecha Finalización : {{ phase.finishDate }} 
+              Fecha Inicio aprobación postulación : {{  }}
+              Description : {{ phase.description }}-->            
+          </div>
+      </div>
+    </li>  
+  </ul>
+
+
+
+
+<!--<ul class="collapsible" data-collapsible="accordion">
+  <li *ngFor="let phase of phases">
     <div class="collapsible-header active"><i class="material-icons"></i>First</div>
     <div class="collapsible-body">
         <div class="row">
@@ -51,7 +92,7 @@
       <p>Lorem ipsum dolor sit amet.</p>
     </div>
   </li>
-</ul>
+</ul>-->
 <!--
 <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
           <li>
@@ -59,7 +100,7 @@
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
           </li>
           <li>
-            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+            <div class="collapsible-header"><i class="material-icons">numberBeneficiaries</i>Second</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
           </li>
           <li>
@@ -97,7 +138,7 @@
           sfdsdaffsd<br/>dasesdfds</p></div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+        <div class="collapsible-header"><i class="material-icons">numberBeneficiaries</i>Second</div>
         <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
     </li>
     <li>
@@ -112,7 +153,7 @@
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
           </li>
           <li>
-            <div class="collapsible-header active"><i class="material-icons">place</i>Second</div>
+            <div class="collapsible-header active"><i class="material-icons">numberBeneficiaries</i>Second</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
           </li>
           <li>
@@ -129,3 +170,14 @@
         </ul>-->
 
 
+
+
+        <tr *ngFor="let item of oferrers;let i=index">
+            
+                  <td>{{item.nit}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.telephone}}</td>
+                  <td><a (click)="edit(item.nit)" class="waves-effect waves-light btn blue"><i class="small material-icons center">create</i></a></td>
+                  <td><a (click)="reject(item.nit)" class="waves-effect waves-light btn red"><i class="small material-icons center">highlight_off</i></a></td>
+                </tr>

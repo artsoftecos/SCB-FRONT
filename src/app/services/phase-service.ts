@@ -28,4 +28,11 @@ export class PhaseService extends BaseService {
     let entity = this.entity;
     return this.basePut(entity, phase);
   }
+
+  //TODO: ajustar el metodo para que le apunte a la controladora que si traiga todas las fases de 
+  //una convocatoria
+  getByConvocatory(idConvocatory: number) {
+    let entity = this.entity + "getByConvocatory/" + idConvocatory;
+    return this.baseGet(entity);
+  }
 }

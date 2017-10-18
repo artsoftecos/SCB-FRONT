@@ -42,13 +42,13 @@
         <label>Fecha inicio aprobación</label>
       </div>
     </div> 
-    <div class="row">
+    <!--<div class="row">
       <div class="input-field col s6 m3">
           <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="date" class="datepicker invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
           <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="phase.resultDate" name="resultDate" id="resultDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
         <label>Fecha resultados</label>
       </div>
-    </div> 
+    </div> -->
     <div class="input-field col s12 center-align">
       <a class="waves-effect waves-light btn green" id="phase" type="button" value="enviar" (click)="registerPhase()" >Enviar</a>
       <a class="waves-effect waves-light btn red" id="phaseCancel" type="button" value="Cancelar" (click)="cancelRegisterPhase()" >Cancelar</a>

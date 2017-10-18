@@ -183,11 +183,11 @@ export class CreatePhaseComponent implements OnInit {
             this.startApprovalPostulation_tooltip['error'] = errors[variable];
             break;
           }
-          case "resultDate": {
+          /*case "resultDate": {
             this.resultDate_tooltip = [];
             this.resultDate_tooltip['error'] = errors[variable];
             break;
-          }
+          }*/
         }
         var att = document.createAttribute("data-tooltip");
         att.value = errors[variable];

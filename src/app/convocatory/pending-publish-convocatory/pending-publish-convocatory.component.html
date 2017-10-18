@@ -1,21 +1,44 @@
 <div class="row">
-  <div class="col s9"></div>
-</div>
+    <div class="col s9"></div>    
+  </div>
 <div class="row">
   <div class="col s2"></div>
   <nav class="nav-extended col s8" style="background-color: #01579b">
     <div class="nav-wrapper">
-      <h3 class="brand-logo center"> Convocatorias </h3>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase"
-          (click)="openModalCreatePhase()" >
-          <i class="material-icons left">add</i>Crear</a>
-      </ul>
+      <h3 class="brand-logo center"> Convocatoria </h3>
     </div>   
   </nav>
 </div>
 
-<app-list-phases></app-list-phases>
+<div class="row" >
+  <div class="col s3">
+    HOLAAAAAAAAAAAAAAAA {{ convocatory.name }}
+    <!--<app-detail-basic-convocatory  [name]="convocatory.name" [type]="convocatory.type.name" 
+    [numberBeneficiaries] = "convocatory.numberBeneficiaries" [description] = "convocatory.description" 
+    [resultDate] = "convocatory.resultDate" ></app-detail-basic-convocatory>-->
+  </div> 
+  <div class="col s9">
+      <div class="row">
+        <div class="col s8">
+              <h4 class="text-xs-center"> Fases </h4>              
+        </div>
+        <div class="col s2">
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase"
+                    (click)="openModalCreatePhase()" >
+                  <i class="material-icons left">add</i>Crear</a>
+                </ul>
+        </div>
+      </div>
+        <div class="row">
+            <div class="col s10">
+              <app-list-phases [convocatoryId]="convocatory.id" ></app-list-phases>
+            </div>
+        </div>
+
+  </div> 
+</div>
+ 
 
 <div id="modal_create_phase" class="modal modal-height"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreatePhase">
   <div class="modal-content">

@@ -1,5 +1,8 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
+import { PhaseService } from '../../../services/phase-service';
+import { Phase } from '../../../models/phase';
+
 declare var jQuery: any;
 declare var $: any;
 
@@ -10,11 +13,30 @@ declare var $: any;
 })
 export class ListPhasesComponent implements OnInit {
   actions1 = new EventEmitter<string|MaterializeAction>();
+  phases : Phase[];
+  @Input() 
+  convocatoryId: number;
 
-  constructor() { }
+  constructor(private phaseService: PhaseService) { }
 
   ngOnInit() {
-    // Materialize('.collapsible').collapsible();
+    let phaseOne = new Phase();
+    phaseOne.name = "nombre 1";
+    phaseOne.description = "description 1";
+    phaseOne.startDate = "2017/05/21";
+    phaseOne.finishDate = "2018/05/21";
+    phaseOne.startApprovalPostulation = "2016/05/21";
+
+    let phaseTwo = new Phase();
+    phaseTwo.name = "nombre 2";
+    phaseTwo.description = "description 2";
+    phaseTwo.startDate = "3017/05/21";
+    phaseTwo.finishDate = "3018/05/21";
+    phaseTwo.startApprovalPostulation = "3016/05/21";
+
+    //this.phases = new Phase[1];
+    this.phases= [phaseOne, phaseTwo];
+    //this.loadPhases();
   }
 
   ngAfterViewInit() {    
@@ -42,5 +64,12 @@ export class ListPhasesComponent implements OnInit {
 
     closeFirst() {
       this.actions1.emit({action:"collapsible",params:['close',0]});
+    }
+
+    loadPhases() {
+      this.phaseService.getByConvocatory(this.convocatoryId)
+      .subscribe(phases => {
+        this.phases = phases;
+      });
     }
 }
