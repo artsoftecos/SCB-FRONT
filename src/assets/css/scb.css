@@ -140,3 +140,14 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:not(.browser-d
 .white-background{
     background-color: white !important;
 }
+
+.space-margin-top{
+    margin-top: 15px !important;
+}
+.no-space-margin-bottom{
+    margin-bottom: 0px !important;
+}
+
+.space-padding-top{
+    padding-top: 15px !important;
+}
