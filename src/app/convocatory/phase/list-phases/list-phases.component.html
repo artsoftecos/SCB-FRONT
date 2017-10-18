@@ -154,16 +154,3 @@
             <div class="collapsible-body"><p>{{value}}</p></div>
           </li>
         </ul>-->
-
-
-
-
-        <tr *ngFor="let item of oferrers;let i=index">
-            
-                  <td>{{item.nit}}</td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.email}}</td>
-                  <td>{{item.telephone}}</td>
-                  <td><a (click)="edit(item.nit)" class="waves-effect waves-light btn blue"><i class="small material-icons center">create</i></a></td>
-                  <td><a (click)="reject(item.nit)" class="waves-effect waves-light btn red"><i class="small material-icons center">highlight_off</i></a></td>
-                </tr>
