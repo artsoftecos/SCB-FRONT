@@ -91,8 +91,8 @@ export class AddFieldComponent implements OnInit {
     maxYear: 2030,
     displayFormat: 'MMM D[,] YYYY',
     barTitleFormat: 'MMMM YYYY',
-    firstCalendarDay: 1, // 0 - Sunday, 1 - Monday
-    locale: 'es',
+    firstCalendarDay: 1 // 0 - Sunday, 1 - Monday
+    //locale: 'es',
   };
 
   
