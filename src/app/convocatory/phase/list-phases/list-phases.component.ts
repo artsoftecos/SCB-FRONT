@@ -28,7 +28,7 @@ export class ListPhasesComponent implements OnInit {
     phaseOne.startApprovalPostulation = "2016/05/21";
 
     //this.phases = new Phase[1];
-    this.phases[0] = phaseOne;
+    this.phases= [phaseOne];
     //this.loadPhases();
   }
 
