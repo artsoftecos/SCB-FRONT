@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoryService } from '../../services/convocatory.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-published-list-convocatory',
