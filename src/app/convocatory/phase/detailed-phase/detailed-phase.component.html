@@ -1,3 +1,45 @@
-<p>
-  detailed-phase works!
-</p>
+<div class="row">
+    <div class="col s9"></div>
+  </div>
+  <div class="row">
+    <div class="col s2"></div>
+    <nav class="nav-extended col s8" style="background-color: #01579b">
+      <div class="nav-wrapper">
+        <h3 class="brand-logo center"> Fase </h3>
+      </div>
+    </nav>
+  </div>
+  
+  <div class="row">
+    <div class="col s3">
+      <app-detailed-basic-phase [phase]="phase"></app-detailed-basic-phase>
+    </div>
+    <div class="col s9">
+      <div class="row">
+        <div class="col s8">
+          <h4 class="text-xs-center"> Campos </h4>
+        </div>
+        <div class="col s2">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_fields" (click)="openModalCreateFields()">
+                    <i class="material-icons left">add</i>Crear</a>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s10">
+          listado de campos...... 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="modal_create_fields" class="modal modal-height" materialize="modal" [materializeParams]="[{dismissible: false}]"
+    [materializeActions]="modalActionsCreateFields">
+    <div class="modal-content">
+      <div class="row">
+        <!--<app-create-phase (cancelation)="closeModalCreateFields()"></app-create-phase>-->
+      </div>
+    </div>
+  </div>

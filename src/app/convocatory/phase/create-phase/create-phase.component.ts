@@ -91,11 +91,11 @@ export class CreatePhaseComponent implements OnInit {
         isValid = false;
       }
 
-      if (this.phase.resultDate === undefined || this.phase.resultDate.toString() === "") {
+      /*if (this.phase.resultDate === undefined || this.phase.resultDate.toString() === "") {
         this.resultDate_tooltip = [];
         this.resultDate_tooltip['error'] = "Este campo es obligatorio";
         isValid = false;
-      }
+      }*/
 
       if (!isValid) {
         return false;
@@ -143,12 +143,12 @@ export class CreatePhaseComponent implements OnInit {
           isValid = false;
         }
 
-         var resultDate = new Date(this.phase.resultDate);
+        /* var resultDate = new Date(this.phase.resultDate);
          if (resultDate < finishDate) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a la fecha de fin.";
           isValid = false;
-        }
+        }*/
         return isValid;
   };
 
