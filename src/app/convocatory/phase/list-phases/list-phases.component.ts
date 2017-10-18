@@ -27,8 +27,15 @@ export class ListPhasesComponent implements OnInit {
     phaseOne.finishDate = "2018/05/21";
     phaseOne.startApprovalPostulation = "2016/05/21";
 
+    let phaseTwo = new Phase();
+    phaseTwo.name = "nombre 2";
+    phaseTwo.description = "description 2";
+    phaseTwo.startDate = "3017/05/21";
+    phaseTwo.finishDate = "3018/05/21";
+    phaseTwo.startApprovalPostulation = "3016/05/21";
+
     //this.phases = new Phase[1];
-    this.phases= [phaseOne];
+    this.phases= [phaseOne, phaseTwo];
     //this.loadPhases();
   }
 
