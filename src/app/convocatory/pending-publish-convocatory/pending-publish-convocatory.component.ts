@@ -5,6 +5,7 @@ import { Convocatory } from '../../models/convocatory';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ConvocatoryService } from '../../services/convocatory.service';
 import { ConvocatoryType } from '../../models/convocatory-type';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-pending-publish-convocatory',
@@ -16,7 +17,8 @@ export class PendingPublishConvocatoryComponent implements OnInit {
   modalActionsCreatePhase = new EventEmitter<string|MaterializeAction>();
   convocatory: Convocatory;
 
-  constructor(private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
+  constructor(private location: Location, 
+    private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
     console.log("1");
     this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
@@ -45,6 +47,9 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     this.modalActionsCreatePhase.emit({action:"modal",params:['close']});
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 
   
 }
