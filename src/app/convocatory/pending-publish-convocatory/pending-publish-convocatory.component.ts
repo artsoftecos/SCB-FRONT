@@ -15,6 +15,8 @@ import { Location } from '@angular/common';
 export class PendingPublishConvocatoryComponent implements OnInit {
 
   modalActionsCreatePhase = new EventEmitter<string|MaterializeAction>();
+  modalActionsUpdateConvocatory = new EventEmitter<string|MaterializeAction>();
+
   convocatory: Convocatory;
 
   constructor(private location: Location, 
@@ -45,6 +47,13 @@ export class PendingPublishConvocatoryComponent implements OnInit {
   }
   closeModalCreatePhase() {
     this.modalActionsCreatePhase.emit({action:"modal",params:['close']});
+  }
+
+  openModalUpdateConvocatory() {
+    this.modalActionsUpdateConvocatory.emit({action:"modal",params:['open']});
+  }
+  closeModalUpdateConvocatory() {
+    this.modalActionsUpdateConvocatory.emit({action:"modal",params:['close']});
   }
 
   goBack(): void {
