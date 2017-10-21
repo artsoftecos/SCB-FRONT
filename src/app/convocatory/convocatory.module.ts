@@ -23,6 +23,7 @@ import { HelperService } from '../services/helper.service';
 import { DetailedBasicPhaseComponent } from './phase/detailed-basic-phase/detailed-basic-phase.component';
 import { EditConvocatoryComponent } from './edit-convocatory/edit-convocatory.component';
 import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
+import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-approve-phases-convocatory/pending-list-approve-phases-convocatory.component';
 
 @NgModule({
   imports: [
@@ -31,8 +32,12 @@ import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
     FormsModule,
     ConvocatoryRoutingModule
   ],
-  exports: [CreateConvocatoryComponent, PendingPublishListConvocatoryComponent, PublishedListConvocatoryComponent],
-  declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent, DetailBasicConvocatoryComponent, DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent],
+  exports: [CreateConvocatoryComponent, PendingPublishListConvocatoryComponent,
+    PublishedListConvocatoryComponent, PendingListApprovePhasesConvocatoryComponent],
+  declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, 
+    DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, 
+    PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent, DetailBasicConvocatoryComponent, 
+    DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent, PendingListApprovePhasesConvocatoryComponent],
   providers: [ConvocatoryTypeService, ConvocatoryService, AuthService, PhaseService, HelperService]
 })
 export class ConvocatoryModule { }

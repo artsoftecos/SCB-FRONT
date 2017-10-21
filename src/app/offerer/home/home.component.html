@@ -19,6 +19,7 @@
         <ul class="tabs tabs-transparent">
           <li class="tab"><a (click)="goToPublished()" style="color: white !important;">Publicadas</a></li>
           <li class="tab"><a (click)="goToPendingPublish()" style="color: white !important;">Por Publicar</a></li>
+          <li class="tab"><a (click)="goToPendingApproveApplicants()" style="color: white !important;">Por Aprobar solicitantes</a></li>
         </ul>
       </div>
     </nav>
@@ -30,6 +31,9 @@
       <div class="white-background" *ngSwitchCase="'pending'">
         <app-pending-publish-list-convocatory></app-pending-publish-list-convocatory>
       </div>
+      <div class="white-background" *ngSwitchCase="'pendingApprovedPhases'">
+          <app-pending-list-approve-phases-convocatory></app-pending-list-approve-phases-convocatory>
+        </div>
     </div>
   </div>
   

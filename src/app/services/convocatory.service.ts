@@ -11,6 +11,7 @@ export class ConvocatoryService extends BaseService {
   public entity: String = 'convocatory';
   public published: string = 'published';
   public pendingPublish: string = 'pendingPublish';
+  public pendingApprovePhases: string = 'getByPendingPhases';
 
   post(convocatory: Convocatory) {
     let entity = this.entity;
@@ -28,6 +29,10 @@ export class ConvocatoryService extends BaseService {
   }
 
   getPendingPublish() {
+    return this.baseGet(this.entity + "/" + this.pendingPublish);
+  }
+
+  getPendingApprovePhases() {
     return this.baseGet(this.entity + "/" + this.pendingPublish);
   }
   

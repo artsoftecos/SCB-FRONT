@@ -26,6 +26,11 @@ goToPublished() {
     this.action = 'pending';
   }
 
+  goToPendingApproveApplicants() {
+    this.action = 'pendingApprovedPhases';
+  }
+
+
   openModalCreateConvocatory() {
       this.modalActionsCreateConvocatory.emit({action:"modal",params:['open']});
   }
