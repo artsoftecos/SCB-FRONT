@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { Phase } from '../../../models/phase';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PhaseService } from '../../../services/phase-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detailed-phase',
@@ -13,9 +14,10 @@ import { PhaseService } from '../../../services/phase-service';
 export class DetailedPhaseComponent implements OnInit {
 
   modalActionsCreateFields = new EventEmitter<string|MaterializeAction>();
+  modalActionsUpdatePhase = new EventEmitter<string|MaterializeAction>();  
   phase: Phase;
 
-  constructor(private route: ActivatedRoute, private phaseService: PhaseService) { 
+  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) { 
     console.log("1");
     this.phase = new Phase();
     this.phase.name="aaaa";
@@ -42,5 +44,14 @@ export class DetailedPhaseComponent implements OnInit {
     this.modalActionsCreateFields.emit({action:"modal",params:['close']});
   }
 
+  openModalUpdatePhase() {
+    this.modalActionsUpdatePhase.emit({action:"modal",params:['open']});
+  }
+  closeModalUpdatePhase() {
+    this.modalActionsUpdatePhase.emit({action:"modal",params:['close']});
+  }
 
+  goBack(): void {
+    this.location.back();
+  }
 }
