@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class CreatePhaseComponent implements OnInit {
   phase: Phase = new Phase();
-
+  summary: string = "";
   //Tooltips
   name_tooltip = undefined;
   description_tooltip = undefined;
@@ -41,6 +41,7 @@ export class CreatePhaseComponent implements OnInit {
   }
 
   registerPhase() {  
+    this.cleanSummay();
     if (!this.isValidPhase()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
@@ -153,6 +154,7 @@ export class CreatePhaseComponent implements OnInit {
   };
 
   handleUiErrors(err: any) {
+    this.cleanSummay();  
     let errors = err.json();
     for (var variable in errors) {
       if (errors.hasOwnProperty(variable)) {
@@ -203,7 +205,12 @@ export class CreatePhaseComponent implements OnInit {
 
   cancelRegisterPhase() {
     this.phase = new Phase();
+    this.cleanSummay();
     this.cancelation.emit();
+  }
+  
+  cleanSummay() {
+    this.summary = "";
   }
 }
 

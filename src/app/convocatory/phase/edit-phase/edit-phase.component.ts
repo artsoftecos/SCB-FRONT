@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Phase } from '../../../models/phase'
 import { PhaseService } from '../../../services/phase-service'
@@ -12,7 +12,15 @@ declare var $: any;
 })
 export class EditPhaseComponent implements OnInit {
 
-  phase: Phase = new Phase();
+  @Input()
+  phase: Phase;
+  
+  originalName: string;
+  originalDescription: string;    
+  originalStartDate: string;
+  originalFinishDate: string;
+  originalStartApprovalPostulation: string;    
+  summary: string = "";
 
   //Tooltips
   name_tooltip = undefined;
@@ -28,6 +36,11 @@ export class EditPhaseComponent implements OnInit {
   constructor(private phaseService: PhaseService) { }
 
   ngOnInit() {
+    this.originalName = this.phase.name;
+    this.originalDescription = this.phase.description;    
+    this.originalStartDate = this.phase.startDate;
+    this.originalFinishDate = this.phase.finishDate;
+    this.originalStartApprovalPostulation = this.phase.startApprovalPostulation;
   }
 
   ngAfterViewInit() {
@@ -42,6 +55,7 @@ export class EditPhaseComponent implements OnInit {
   }
 
   updatePhase() {
+    this.cleanSummay();
     if (!this.isValidPhase()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
@@ -153,6 +167,7 @@ export class EditPhaseComponent implements OnInit {
   };
 
   handleUiErrors(err: any) {
+    this.cleanSummay();
     let errors = err.json();
     for (var variable in errors) {
       if (errors.hasOwnProperty(variable)) {
@@ -201,7 +216,18 @@ export class EditPhaseComponent implements OnInit {
   }
 
   cancelUpdatePhase() {
-    this.phase = new Phase();
+
+    this.phase.name = this.originalName;
+    this.phase.description = this.originalDescription;
+    this.phase.startDate = this.originalStartDate;
+    this.phase.finishDate = this.originalFinishDate;
+    this.phase.startApprovalPostulation = this.originalStartApprovalPostulation;
+
+    this.cleanSummay(); 
     this.cancelation.emit();
+  }
+
+  cleanSummay() {
+    this.summary = "";
   }
 }

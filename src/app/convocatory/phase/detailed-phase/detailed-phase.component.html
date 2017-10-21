@@ -71,7 +71,7 @@
   [materializeActions]="modalActionsUpdatePhase">
   <div class="modal-content">
     <div class="row">
-      <app-edit-phase (cancelation)="closeModalUpdatePhase()"></app-edit-phase>
+      <app-edit-phase [phase]="phase" (cancelation)="closeModalUpdatePhase()"></app-edit-phase>
     </div>
   </div>
 </div>

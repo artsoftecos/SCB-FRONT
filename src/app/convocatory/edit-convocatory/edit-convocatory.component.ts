@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Convocatory } from '../../models/convocatory'
 import { ConvocatoryType } from '../../models/convocatory-type'
@@ -18,7 +18,16 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class EditConvocatoryComponent implements OnInit {
 
-  convocatory: Convocatory = new Convocatory();
+  @Input()
+  convocatory: Convocatory;
+
+  originalName: string;
+  originalConvocatoryType: ConvocatoryType;
+  originalNumberBeneficiaries: number;
+  originalDescription: string;
+  //originalOfferer: Oferrer;
+  originalResultDate: string;
+
   convocatoryTypes: ConvocatoryType[];
   selectedType: number;
   summary: string = "";
@@ -41,9 +50,16 @@ export class EditConvocatoryComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-     this.route.paramMap
+    this.originalName = this.convocatory.name;
+    this.originalConvocatoryType = this.convocatory.convocatoryType;
+    this.originalNumberBeneficiaries = this.convocatory.numberBeneficiaries;
+    this.originalDescription = this.convocatory.description;
+    this.originalResultDate = this.convocatory.resultDate;
+    //originalOfferer: Oferrer;
+    
+    /* this.route.paramMap
     .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(convocatory => this.convocatory = convocatory);    
+    .subscribe(convocatory => this.convocatory = convocatory);   */ 
     this.loadConvocatoryTypes();
   }
 
@@ -222,7 +238,11 @@ export class EditConvocatoryComponent implements OnInit {
   }
 
   cancelUpdateConvocatory() {
-    this.convocatory = new Convocatory();
+    this.convocatory.name = this.originalName;
+    this.convocatory.convocatoryType = this.originalConvocatoryType;
+    this.convocatory.numberBeneficiaries = this.originalNumberBeneficiaries;
+    this.convocatory.description = this.originalDescription;
+    this.convocatory.resultDate = this.originalResultDate;
     this.cleanSummay();
     this.cancelation.emit();
   }

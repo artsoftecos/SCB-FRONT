@@ -67,7 +67,7 @@
 [materializeActions]="modalActionsUpdateConvocatory">
 <div class="modal-content">
   <div class="row">
-    <app-edit-convocatory (cancelation)="closeModalUpdateConvocatory()"></app-edit-convocatory>
+    <app-edit-convocatory [convocatory]="convocatory" (cancelation)="closeModalUpdateConvocatory()"></app-edit-convocatory>
   </div>
 </div>
 </div>
