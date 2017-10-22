@@ -25,6 +25,7 @@ import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
 import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-approve-phases-convocatory/pending-list-approve-phases-convocatory.component';
 import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-approve-phases/convocatory-pending-approve-phases.component';
 import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-phase/applicant-to-approve-phase.component';
+//import { NgDatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
   imports: [
