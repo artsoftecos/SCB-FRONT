@@ -8,16 +8,8 @@
         <th class="center-align" style="width:60px">Ver</th>      
       </tr>
     </thead>
-  <!-- TODO: Remover fila -->
     <tbody>
-      <tr>
-        <td>Soy test</td>
-        <td>nombre</td>
-        <td>desc</td>
-        <td>5</td>
-        <td><a (click)="goToConvocatory(1)" class="waves-effect waves-light btn green"><i class="small material-icons center">visibility</i></a></td>
-      </tr>
-      <tr *ngFor="let item of convocatories;let i=index">
+      <tr *ngFor="let item of convocatories;">
   
         <td>{{item.type.name}}</td>
         <td>{{item.name}}</td>

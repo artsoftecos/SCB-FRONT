@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoryService } from '../../services/convocatory.service';
 import { Router } from '@angular/router'
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-pending-publish-list-convocatory',
@@ -11,15 +12,17 @@ export class PendingPublishListConvocatoryComponent implements OnInit {
 
    public convocatories: any = [];
   
-  constructor(private router: Router, private convocatoryService : ConvocatoryService) { }
+  constructor(private authService: AuthService,
+    private router: Router, private convocatoryService : ConvocatoryService) { }
 
   ngOnInit() {
     this.loadPendingPublishConvocatories();
   }
 
  loadPendingPublishConvocatories() {
-    this.convocatoryService.getPendingPublish().subscribe(convocatories => {
-      this.convocatories = convocatories;
+  let user = this.authService.getCurrentUser();
+    this.convocatoryService.getPendingPublish(user.email).subscribe(convocatories => {
+      this.convocatories = convocatories.Response;
     });
   }
 

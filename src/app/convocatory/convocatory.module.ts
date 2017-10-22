@@ -17,7 +17,6 @@ import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.co
 import { PostulatedConvocatoryComponent } from './postulation/postulated-convocatory/postulated-convocatory.component';
 import { ConvocatoryRoutingModule } from './convocatory-routing.module';
 import { PublishedConvocatoryComponent } from './published-convocatory/published-convocatory.component';
-import { PendingPublishConvocatoryComponent } from './pending-publish-convocatory/pending-publish-convocatory.component';
 import { DetailBasicConvocatoryComponent } from './detail-basic-convocatory/detail-basic-convocatory.component';
 import { HelperService } from '../services/helper.service';
 import { DetailedBasicPhaseComponent } from './phase/detailed-basic-phase/detailed-basic-phase.component';
@@ -38,7 +37,7 @@ import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-p
     PublishedListConvocatoryComponent, PendingListApprovePhasesConvocatoryComponent],
   declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, 
     DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, 
-    PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent, DetailBasicConvocatoryComponent, 
+    PostulatedConvocatoryComponent, PublishedConvocatoryComponent, DetailBasicConvocatoryComponent, 
     DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent, PendingListApprovePhasesConvocatoryComponent, ConvocatoryPendingApprovePhasesComponent, ApplicantToApprovePhaseComponent],
   providers: [ConvocatoryTypeService, ConvocatoryService, AuthService, PhaseService, HelperService]
 })

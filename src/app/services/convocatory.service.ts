@@ -9,39 +9,33 @@ import { Convocatory  } from '../models/convocatory'
 export class ConvocatoryService extends BaseService {
   
   public entity: String = 'convocatory';
-  public published: string = 'published';
-  public pendingPublish: string = 'pendingPublish';
   public pendingApprovePhases: string = 'getByPendingPhases';
+  public statePublished: number = 4;
+  public statePending: number = 1;
 
   post(convocatory: Convocatory) {
     let entity = this.entity;
-    return this.basePost(entity, convocatory);
+    return this.basePost(entity+"/create", convocatory);
   }
 
-//TODO: Rest services:
-// published
-//pendingPublish
-// put
-// get/convocatoryId -> este ya devuelve todas las fases de la convocatoria
-
-  getPublished() {
-    return this.baseGet(this.entity + "/" + this.published);
+  getPublished(emailOfferer: string) {
+    return this.baseGet(this.entity + "/getByOffererState/" + emailOfferer+"/"+this.statePublished);
   }
 
-  getPendingPublish() {
-    return this.baseGet(this.entity + "/" + this.pendingPublish);
+  getPendingPublish(emailOfferer: string) {
+    return this.baseGet(this.entity + "/getByOffererState/" + emailOfferer+"/"+this.statePending);
   }
 
-  getPendingApprovePhases() {
-    return this.baseGet(this.entity + "/" + this.pendingPublish);
+  getPendingApprovePhases(emailOfferer: string) {
+    return this.baseGet(this.entity + "/" + this.pendingApprovePhases+"/"+emailOfferer);
   }
   
   put(convocatory: Convocatory) {
     let entity = this.entity;
-    return this.basePut(entity, convocatory);
+    return this.basePut(entity+"/update", convocatory);
   }
   
   get(convocatoryId: number) {
-    return this.baseGet(this.entity + "/" + convocatoryId);
+    return this.basePost(this.entity + "/getById/" + convocatoryId);
   }
 }
