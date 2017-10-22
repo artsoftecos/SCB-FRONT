@@ -24,7 +24,7 @@ export class PendingListApprovePhasesConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-    this.router.navigate(['/publishedConvocatory/'+ convocatoryId]);
+    this.router.navigate(['/approveApplicants/'+ convocatoryId]);
   }
 
 }

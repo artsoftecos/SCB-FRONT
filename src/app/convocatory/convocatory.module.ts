@@ -24,6 +24,8 @@ import { DetailedBasicPhaseComponent } from './phase/detailed-basic-phase/detail
 import { EditConvocatoryComponent } from './edit-convocatory/edit-convocatory.component';
 import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
 import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-approve-phases-convocatory/pending-list-approve-phases-convocatory.component';
+import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-approve-phases/convocatory-pending-approve-phases.component';
+import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-phase/applicant-to-approve-phase.component';
 
 @NgModule({
   imports: [
@@ -37,7 +39,7 @@ import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-app
   declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, 
     DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, 
     PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent, DetailBasicConvocatoryComponent, 
-    DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent, PendingListApprovePhasesConvocatoryComponent],
+    DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent, PendingListApprovePhasesConvocatoryComponent, ConvocatoryPendingApprovePhasesComponent, ApplicantToApprovePhaseComponent],
   providers: [ConvocatoryTypeService, ConvocatoryService, AuthService, PhaseService, HelperService]
 })
 export class ConvocatoryModule { }

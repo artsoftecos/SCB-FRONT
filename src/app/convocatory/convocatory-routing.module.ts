@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { PublishedConvocatoryComponent } from './published-convocatory/published-convocatory.component'
 import { PendingPublishConvocatoryComponent } from './pending-publish-convocatory/pending-publish-convocatory.component'
 import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.component'
+import { DetailedConvocatoryComponent } from './detailed-convocatory/detailed-convocatory.component'
+import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-approve-phases/convocatory-pending-approve-phases.component'
 
 const routes: Routes = [  
-  { path: 'publishedConvocatory/:id',  component: PublishedConvocatoryComponent },
-  { path: 'pendingPublishConvocatory/:id',  component: PendingPublishConvocatoryComponent },
+  { path: 'convocatory/:id',  component: DetailedConvocatoryComponent },
+  { path: 'approveApplicants/:id',  component: ConvocatoryPendingApprovePhasesComponent },
   { path: 'phase/:id',  component: DetailedPhaseComponent }
 ];
 

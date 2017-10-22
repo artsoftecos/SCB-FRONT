@@ -16,6 +16,7 @@ export class DetailedPhaseComponent implements OnInit {
   modalActionsCreateFields = new EventEmitter<string|MaterializeAction>();
   modalActionsUpdatePhase = new EventEmitter<string|MaterializeAction>();  
   phase: Phase;
+  
 
   constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) { 
     console.log("1");

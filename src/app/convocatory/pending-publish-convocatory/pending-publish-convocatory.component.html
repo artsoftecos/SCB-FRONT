@@ -18,7 +18,7 @@
         <div class="white-background">
           <app-detail-basic-convocatory [convocatory]="convocatory"></app-detail-basic-convocatory>
           <div class="col s12">
-            <div class="row">
+            <div class="row" *ngIf="isAbleEdit">
               <div class="space-padding-top">
                 <a class="waves-effect center-align waves-light btn light-blue modal-trigger" href="#modal_update_convocatory" (click)="openModalUpdateConvocatory()">
                 <i class="material-icons left" >mode_edit</i>Editar

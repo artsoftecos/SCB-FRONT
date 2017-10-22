@@ -24,7 +24,7 @@ export class PendingPublishListConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-     this.router.navigate(['/pendingPublishConvocatory/'+ convocatoryId]);
+     this.router.navigate(['/convocatory/'+ convocatoryId]);
   }
 
 }
