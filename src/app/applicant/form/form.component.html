@@ -1,43 +1,5 @@
 <div class="container">
   <div class="col-xs-1"></div>
   <div class="col-xs-10">
-    <!--<form>
-      <div *ngFor="let question of fields" class="form-group">
-        <label for="field">{{ question.name}}</label>
-        <input *ngIf="question.field_type_id==1" type="email" class="validate" name="{{question.name}}" placeholder="{{question.name}}"
-          ngModel>
-        <input *ngIf="question.field_type_id==2" type="number" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
-          ngModel>
-        <input *ngIf="question.field_type_id==3" type="text" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
-          ngModel>
-        <div *ngIf="question.field_type_id==4" class="form-group">
-          <textarea class="materialize-textarea" name="{{question.name}}" ngModel></textarea>
-        </div>
-        <div *ngIf="question.field_type_id==5" class="row">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>Archivo</span>
-              <input id="the-file" type="file" [multiple]="multiple" #fileInput>
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
-        </div>
-
-        <input *ngIf="question.field_type_id==6" type="date" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
-        ngModel>
-
-        <input *ngIf="question.field_type_id==7" type="url" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
-          ngModel>
-          <input *ngIf="question.field_type_id==8" type="date" class="form-control" name="{{question.name}}" placeholder="{{question.name}}"
-          ngModel>
-      </div>
-
-    </form>
-  </div>
-  <div class="col-xs-12 div-btn">
-    <button (click)="goToCreateQuestion()" class="btn btn-success center-block">Agregar Campo</button>
-  </div>-->
-    <dynamic-form [questions]="questions"></dynamic-form>
+    <dynamic-form [questions]="fields"></dynamic-form>
   </div>

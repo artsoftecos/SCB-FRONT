@@ -6,11 +6,18 @@
     </div>
 
     <div class="form-row">
-      <button type="submit" [disabled]="!form.valid">Save</button>
+      <button class="btn waves-effect waves-ligh disabled" [disabled]="!form.valid" *ngIf="!form.valid" type="submit" name="action">Probar
+        <i class="material-icons right">send</i>
+      </button>
+
+      <button class="btn waves-effect waves-ligh" *ngIf="form.valid" type="submit" name="action">Probar
+        <i class="material-icons right">send</i>
+      </button>
     </div>
   </form>
 
   <div *ngIf="payLoad" class="form-row">
-    <strong>Saved the following values</strong><br>{{payLoad}}
+    <strong>Saved the following values</strong>
+    <br>{{payLoad}}
   </div>
 </div>
