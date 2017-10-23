@@ -24,20 +24,49 @@ import { DetailedBasicPhaseComponent } from './phase/detailed-basic-phase/detail
 import { EditConvocatoryComponent } from './edit-convocatory/edit-convocatory.component';
 import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
 import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-approve-phases-convocatory/pending-list-approve-phases-convocatory.component';
+// import { AddFieldComponent } from '../input-fields/add-field/add-field.component';
+import { InputFieldsModule } from '../input-fields/input-fields.module';
 
 @NgModule({
   imports: [
+    // AddFieldComponent,
     CommonModule,
     MaterializeModule,
     FormsModule,
-    ConvocatoryRoutingModule
+    ConvocatoryRoutingModule,
+    InputFieldsModule,
   ],
-  exports: [CreateConvocatoryComponent, PendingPublishListConvocatoryComponent,
-    PublishedListConvocatoryComponent, PendingListApprovePhasesConvocatoryComponent],
-  declarations: [CreateConvocatoryComponent, PublishedListConvocatoryComponent, PendingPublishListConvocatoryComponent, 
-    DetailedConvocatoryComponent, ListPhasesComponent, CreatePhaseComponent, UpdatePhaseComponent, DetailedPhaseComponent, 
-    PostulatedConvocatoryComponent, PublishedConvocatoryComponent, PendingPublishConvocatoryComponent, DetailBasicConvocatoryComponent, 
-    DetailedBasicPhaseComponent, EditConvocatoryComponent, EditPhaseComponent, PendingListApprovePhasesConvocatoryComponent],
-  providers: [ConvocatoryTypeService, ConvocatoryService, AuthService, PhaseService, HelperService]
+  exports: [
+    CreateConvocatoryComponent, 
+    PendingPublishListConvocatoryComponent,
+    PublishedListConvocatoryComponent, 
+    PendingListApprovePhasesConvocatoryComponent
+  ],
+  declarations: [
+    // AddFieldComponent,
+    CreateConvocatoryComponent,
+    PublishedListConvocatoryComponent,
+    PendingPublishListConvocatoryComponent,
+    DetailedConvocatoryComponent,
+    ListPhasesComponent,
+    CreatePhaseComponent,
+    UpdatePhaseComponent,
+    DetailedPhaseComponent,
+    PostulatedConvocatoryComponent,
+    PublishedConvocatoryComponent,
+    PendingPublishConvocatoryComponent,
+    DetailBasicConvocatoryComponent,
+    DetailedBasicPhaseComponent,
+    EditConvocatoryComponent,
+    EditPhaseComponent,
+    PendingListApprovePhasesConvocatoryComponent
+  ],
+  providers: [
+    ConvocatoryTypeService,
+    ConvocatoryService,
+    AuthService,
+    PhaseService,
+    HelperService
+  ]
 })
 export class ConvocatoryModule { }

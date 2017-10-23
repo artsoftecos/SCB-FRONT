@@ -144,10 +144,18 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:not(.browser-d
 .space-margin-top{
     margin-top: 15px !important;
 }
+.no-space-margin-top{
+    margin-top: 0px !important;
+}
 .no-space-margin-bottom{
     margin-bottom: 0px !important;
 }
 
 .space-padding-top{
     padding-top: 15px !important;
+}
+
+hr{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }

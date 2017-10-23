@@ -1,17 +1,24 @@
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn green" (click)="openModal()"><i class="fa fa-plus-circle"></i> Agregar campo</a>
+<a *ngIf="create" class="waves-effect waves-light btn green" (click)="openModal()"><i class="fa fa-plus-circle"></i> Agregar campo</a>
+<a *ngIf="edit" class="waves-effect waves-light btn amber" (click)="openModal()"><i class="fa fa-edit"></i> Editar campo</a>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
-  <div class="modal-content"  style="height: 500px; max-height: 500px;">
-    <div class="modal-content-scroll">
+  <div class="modal-content-scroll">
+    <nav class="nav-extended" style="background-color: #01579b">
+      <div class="nav-wrapper">
+        <h4 *ngIf="create" class="brand-logo center" style="margin: 15px;"> Crear campo </h4>
+        <h4 *ngIf="edit" class="brand-logo center" style="margin: 15px;"> Editar campo </h4>
+      </div>
+    </nav>
+    <div class="modal-content"  style="height: 500px; max-height: 500px;">
       
       <div class="col s12">
         <h5>Seleccionar campo</h5>
       </div>
       
       <div class="input-field col s12">
-        <select [(ngModel)]="selectedField" name="selectedField" materialize="material_select" [materializeSelectOptions]="selectOptions" [disabled]="null">
+        <select [(ngModel)]="fieldInstance.selectedField" name="fieldInstance.selectedField" materialize="material_select" [materializeSelectOptions]="fieldInstance.selectOptions" [disabled]="null">
           <!-- <option *ngFor="let option of selectOptions" [value]="option.value" data-icon="option.icon">{{option.name}}</option> -->
           <option [value]="0">Seleccione una opcion</option>
           <option [value]="1" data-icon="fa fa-minus">Texto corto</option>
@@ -25,64 +32,64 @@
         </select>
         <label>Tipo de campo</label>
       </div>
-      <div *ngIf="selectedField !== '0'">
+      <div *ngIf="fieldInstance.selectedField !== '0'">
         <!-- <div class="col s12" style="margin-top: 20px;"> -->
         <div class="col s12">
           <h5><i class="{{iconSelected}}"></i> Informacion del campo</h5>
         </div>
         <div class="input-field col s12">
-          <input *ngIf="fieldNameTooltip !== undefined" [(ngModel)]="fieldName" name="fieldName" id="fieldName" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldNameTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldNameTooltip['error']">
-          <input *ngIf="fieldNameTooltip === undefined" [(ngModel)]="fieldName" name="fieldName" id="fieldName" type="text" class="validate">
+          <input *ngIf="fieldInstance.fieldNameTooltip !== undefined" [(ngModel)]="fieldInstance.fieldName" name="fieldInstance.fieldName" id="fieldInstance.fieldName" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.fieldNameTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.fieldNameTooltip['error']">
+          <input *ngIf="fieldInstance.fieldNameTooltip === undefined" [(ngModel)]="fieldInstance.fieldName" name="fieldInstance.fieldName" id="fieldInstance.fieldName" type="text" class="validate">
           <label>Nombre</label>
         </div>
         <div class="col s12 switch">
           <p>
-            <input type="checkbox" id="obligatorio" [(ngModel)]="isRequired" [checked]="isRequired" [disabled]="isDisabled?true:null"/>
+            <input type="checkbox" id="obligatorio" [(ngModel)]="fieldInstance.isRequired" [disabled]="isDisabled?true:null" [checked]="fieldInstance.isRequired"/>
             <label for="obligatorio">Es obligatorio</label>
           </p>
         </div>
 
-        <div class="col s12" *ngIf="selectedField === '1' || selectedField === '2'">
+        <div class="col s12" *ngIf="fieldInstance.selectedField === '1' || fieldInstance.selectedField === '2'">
             <h5>Agregar validaciones</h5>
             <h6>Ingrese la cantidad de caracteres</h6>
             <div class="row">
               <div class="input-field col s6">
                 <i class="material-icons prefix">import_export</i>
-                <input *ngIf="validateMinLenTooltip !== undefined" [(ngModel)]="validateMinLen" name="validateMinLen" id="validateMinLen" type="number" class="validate invalid" materialize="tooltip" [materializeParams]="validateMinLenTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="validateMinLenTooltip['error']">
-                <input *ngIf="validateMinLenTooltip === undefined" id="validateMinLen" type="number" [(ngModel)]="validateMinLen" name="validateMinLen" class="validate input_icon">
-                <label for="validateMinLen" class="active">Minimo</label>
+                <input *ngIf="fieldInstance.validateMinLenTooltip !== undefined" [(ngModel)]="fieldInstance.validateMinLen" name="fieldInstance.validateMinLen" id="fieldInstance.validateMinLen" type="number" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.validateMinLenTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.validateMinLenTooltip['error']">
+                <input *ngIf="fieldInstance.validateMinLenTooltip === undefined" id="fieldInstance.validateMinLen" type="number" [(ngModel)]="fieldInstance.validateMinLen" name="fieldInstance.validateMinLen" class="validate input_icon">
+                <label for="fieldInstance.validateMinLen" class="active">Minimo</label>
               </div>
               <div class="input-field col s6">
                 <i class="material-icons prefix">import_export</i>
-                <input *ngIf="validateMaxLenTooltip !== undefined" [(ngModel)]="validateMaxLen" name="validateMaxLen" id="validateMaxLen" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="validateMaxLenTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="validateMaxLenTooltip['error']">
-                <input *ngIf="validateMaxLenTooltip === undefined" id="validateMaxLen" type="number" [(ngModel)]="validateMaxLen" name="validateMaxLen" class="validate input_icon">
-                <label for="validateMaxLen" class="active">Maximo</label>
+                <input *ngIf="fieldInstance.validateMaxLenTooltip !== undefined" [(ngModel)]="fieldInstance.validateMaxLen" name="fieldInstance.validateMaxLen" id="fieldInstance.validateMaxLen" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.validateMaxLenTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.validateMaxLenTooltip['error']">
+                <input *ngIf="fieldInstance.validateMaxLenTooltip === undefined" id="fieldInstance.validateMaxLen" type="number" [(ngModel)]="fieldInstance.validateMaxLen" name="fieldInstance.validateMaxLen" class="validate input_icon">
+                <label for="fieldInstance.validateMaxLen" class="active">Maximo</label>
               </div>
             </div>
           </div>
 <!--   
-          <div class="col s12" *ngIf="selectedField === '2'">
+          <div class="col s12" *ngIf="fieldInstance.selectedField === '2'">
             <h5>Agregar validaciones</h5>
             <h6>Ingrese la cantidad de caracteres</h6>
             <div class="row">
               <div class="input-field col s6">
                 <i class="material-icons prefix">import_export</i>
-                <input id="validacion_minimo" type="number" [(ngModel)]="validateMinLen" name="validateMinLen" class="validate input_icon" value="0">
+                <input id="validacion_minimo" type="number" [(ngModel)]="fieldInstance.validateMinLen" name="fieldInstance.validateMinLen" class="validate input_icon" value="0">
                 <label for="validacion_minimo" class="active">Minimo</label>
               </div>
               <div class="input-field col s6">
                 <i class="material-icons prefix">import_export</i>
-                <input id="validacion_maximo" type="number" [(ngModel)]="validateMaxLen" name="validateMaxLen" class="validate input_icon" value="150">
+                <input id="validacion_maximo" type="number" [(ngModel)]="fieldInstance.validateMaxLen" name="fieldInstance.validateMaxLen" class="validate input_icon" value="150">
                 <label for="validacion_maximo" class="active">Maximo</label>
               </div>
             </div>
           </div> -->
 
-        <div class="col s12" *ngIf="selectedField === '3' || selectedField === '4'">
+        <div class="col s12" *ngIf="fieldInstance.selectedField === '3' || fieldInstance.selectedField === '4'">
           <h5>Agregar opciones</h5>
 
-          <div *ngFor="let option of addedOptions; let i = index" [attr.data-index]="i" class="row addedOption">
-          <!-- <div *ngFor="let option of addedOptions" class="row"> -->
+          <div *ngFor="let option of fieldInstance.addedOptions; let i = index" [attr.data-index]="i" class="row addedOption">
+          <!-- <div *ngFor="let option of fieldInstance.addedOptions" class="row"> -->
             <div class="input-field col s10">
                 <i class="material-icons prefix">check_circle</i>
                 <input id="input_opcion" type="text" class="validate input_icon" value="{{option}}">
@@ -95,7 +102,7 @@
           <div class="row">
             <div class="input-field col s10">
               <i class="material-icons prefix">check_circle</i>
-              <input id="input_opcion" [(ngModel)]="optionValue" name="optionValue" type="text" class="validate input_icon">
+              <input id="input_opcion" [(ngModel)]="fieldInstance.optionValue" name="fieldInstance.optionValue" type="text" class="validate input_icon">
               <label for="input_opcion">Nombre de la opcion</label>
             </div>
             <div class="col s2">
@@ -104,12 +111,12 @@
           </div>
         </div>
 
-        <div class="col s12" *ngIf="selectedField === '5'">
+        <div class="col s12" *ngIf="fieldInstance.selectedField === '5'">
           <h5>Agregar validaciones</h5>
           <h6>Seleccione los tipos de archivo</h6>
           <h6><i>*Si no se seleccionan campos todos seran aceptados</i></h6>
           <div class="row">
-            <div *ngFor="let option of fileTypes; let i = index" [attr.data-index]="i" class="col s3 switch">
+            <div *ngFor="let option of fieldInstance.fileTypes; let i = index" [attr.data-index]="i" class="col s3 switch">
               <p>
                 <input type="checkbox" id="{{option.name}}" [(ngModel)]="option.value" [disabled]="isDisabled?true:null"/>
                 <label for="{{option.name}}">{{option.name}}</label>
@@ -118,76 +125,76 @@
           </div>
         </div>
 
-        <div class="col s12" *ngIf="selectedField === '6'">
+        <div class="col s12" *ngIf="fieldInstance.selectedField === '6'">
           <h5>Agregar validaciones</h5>
-          <select [(ngModel)]="dateValidationType" name="dateValidationType" materialize="material_select" [materializeSelectOptions]="dateValidationTypeOptions" [disabled]="null">
-            <option *ngFor="let option of dateValidationTypeOptions" [value]="option.value">{{option.name}}</option>
+          <select [(ngModel)]="fieldInstance.dateValidationType" name="fieldInstance.dateValidationType" materialize="material_select" [materializeSelectOptions]="fieldInstance.dateValidationTypeOptions" [disabled]="null">
+            <option *ngFor="let option of fieldInstance.dateValidationTypeOptions" [value]="option.value">{{option.name}}</option>
           </select>
           <label>Tipo de validacion</label>
-          <div class="row" *ngIf="dateValidationType === '1'">
+          <div class="row" *ngIf="fieldInstance.dateValidationType === '1'">
             <div class="input-field col s12">
               <i class="fa fa-calendar-minus-o prefix"></i>
-              <ng-datepicker class="date_picker_icono" [(ngModel)]="minDate" [options]="options"></ng-datepicker>
+              <ng-datepicker class="date_picker_icono" [(ngModel)]="fieldInstance.minDate" [options]="options"></ng-datepicker>
               <label for="validacion_minimo" class="active">Minimo</label>
             </div>
           </div>
-          <div class="row" *ngIf="dateValidationType === '2'">
+          <div class="row" *ngIf="fieldInstance.dateValidationType === '2'">
             <div class="input-field col s12">
               <i class="fa fa-calendar-plus-o prefix"></i>
-              <ng-datepicker class="date_picker_icono" [(ngModel)]="maxDate" [options]="options"></ng-datepicker>
+              <ng-datepicker class="date_picker_icono" [(ngModel)]="fieldInstance.maxDate" [options]="options"></ng-datepicker>
               <label for="validacion_maximo" class="active">Maximo</label>
             </div>
           </div>
-          <div class="row" *ngIf="dateValidationType === '3'">
+          <div class="row" *ngIf="fieldInstance.dateValidationType === '3'">
             <div class="input-field col s6">
               <i class="fa fa-calendar-minus-o prefix"></i>
-              <ng-datepicker *ngIf="minDateTooltip !== undefined" class="date_picker_icono validate invalid" [(ngModel)]="minDate" [options]="options" materialize="tooltip" [materializeParams]="minDateTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="minDateTooltip['error']"></ng-datepicker>
-              <ng-datepicker  *ngIf="minDateTooltip === undefined" class="date_picker_icono" [(ngModel)]="minDate" [options]="options"></ng-datepicker>
-              <label for="minDate" class="active">Minimo</label>
+              <ng-datepicker *ngIf="fieldInstance.minDateTooltip !== undefined" class="date_picker_icono validate invalid" [(ngModel)]="fieldInstance.minDate" [options]="options" materialize="tooltip" [materializeParams]="fieldInstance.minDateTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.minDateTooltip['error']"></ng-datepicker>
+              <ng-datepicker  *ngIf="fieldInstance.minDateTooltip === undefined" class="date_picker_icono" [(ngModel)]="fieldInstance.minDate" [options]="options"></ng-datepicker>
+              <label for="fieldInstance.minDate" class="active">Minimo</label>
             </div>
             <div class="input-field col s6">
               <i class="fa fa-calendar-plus-o prefix"></i>
-              <ng-datepicker *ngIf="maxDateTooltip !== undefined" class="date_picker_icono validate invalid" [(ngModel)]="maxDate" [options]="options" materialize="tooltip" [materializeParams]="maxDateTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="maxDateTooltip['error']"></ng-datepicker>
-              <ng-datepicker *ngIf="maxDateTooltip === undefined" class="date_picker_icono" [(ngModel)]="maxDate" [options]="options"></ng-datepicker>
+              <ng-datepicker *ngIf="fieldInstance.maxDateTooltip !== undefined" class="date_picker_icono validate invalid" [(ngModel)]="fieldInstance.maxDate" [options]="options" materialize="tooltip" [materializeParams]="fieldInstance.maxDateTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.maxDateTooltip['error']"></ng-datepicker>
+              <ng-datepicker *ngIf="fieldInstance.maxDateTooltip === undefined" class="date_picker_icono" [(ngModel)]="fieldInstance.maxDate" [options]="options"></ng-datepicker>
               <label for="validacion_maximo" class="active">Maximo</label>
             </div>
           </div>
         </div>
         
-        <div class="col s12" *ngIf="selectedField === '7'">
+        <div class="col s12" *ngIf="fieldInstance.selectedField === '7'">
           <h5>Agregar validaciones</h5>
-          <select [(ngModel)]="numberValidationType" name="numberValidationType" materialize="material_select" [materializeSelectOptions]="numberValidationTypeOptions" [disabled]="null">
-            <option *ngFor="let option of numberValidationTypeOptions" [value]="option.value">{{option.name}}</option>
+          <select [(ngModel)]="fieldInstance.numberValidationType" name="fieldInstance.numberValidationType" materialize="material_select" [materializeSelectOptions]="fieldInstance.numberValidationTypeOptions" [disabled]="null">
+            <option *ngFor="let option of fieldInstance.numberValidationTypeOptions" [value]="option.value">{{option.name}}</option>
           </select>
           <label>Tipo de validacion</label>
 
-          <div *ngIf="numberValidationType === '1'">
+          <div *ngIf="fieldInstance.numberValidationType === '1'">
             <div class="input-field col s12">
               <i class="material-icons prefix">chevron_left</i>
-              <input id="validacion_menor" type="number" [(ngModel)]="numberLessThan" class="validate input_icon" value="0">
+              <input id="validacion_menor" type="number" [(ngModel)]="fieldInstance.numberLessThan" class="validate input_icon" value="0">
               <label for="validacion_menor" class="active">Menor que</label>
             </div>
           </div>
-          <div *ngIf="numberValidationType === '2'">
+          <div *ngIf="fieldInstance.numberValidationType === '2'">
             <div class="input-field col s12">
               <i class="material-icons prefix">chevron_right</i>
-              <input id="validacion_mayor" type="number" [(ngModel)]="numberMoreThan" class="validate input_icon" value="0">
+              <input id="validacion_mayor" type="number" [(ngModel)]="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" class="validate input_icon" value="0">
               <label for="validacion_mayor" class="active">Mayor que</label>
             </div>
           </div>
 
-          <div *ngIf="numberValidationType === '3'">
+          <div *ngIf="fieldInstance.numberValidationType === '3'">
             <div class="input-field col s6">
               <i class="material-icons prefix">chevron_right</i>
-              <input *ngIf="numberMoreThanTooltip !== undefined" [(ngModel)]="numberMoreThan" name="numberMoreThan" id="numberMoreThan" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="numberMoreThanTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="numberMoreThanTooltip['error']">
-              <input *ngIf="numberMoreThanTooltip === undefined" id="numberMoreThan" type="number" [(ngModel)]="numberMoreThan" class="validate input_icon" value="0">
-              <label for="numberMoreThan" class="active">Mayor a</label>
+              <input *ngIf="fieldInstance.fieldInstance.selectedFieldnumberMoreThanTooltip !== undefined" [(ngModel)]="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" name="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" id="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.fieldInstance.selectedFieldnumberMoreThanTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.fieldInstance.selectedFieldnumberMoreThanTooltip['error']">
+              <input *ngIf="fieldInstance.fieldInstance.selectedFieldnumberMoreThanTooltip === undefined" id="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" type="number" [(ngModel)]="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" class="validate input_icon" value="0">
+              <label for="fieldInstance.fieldInstance.selectedFieldnumberMoreThan" class="active">Mayor a</label>
             </div>
             <div class="input-field col s6">
               <i class="material-icons prefix">chevron_left</i>
-              <input *ngIf="numberLessThanTooltip !== undefined" [(ngModel)]="numberLessThan" name="numberLessThan" id="numberLessThan" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="numberLessThanTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="numberLessThanTooltip['error']">
-              <input *ngIf="numberLessThanTooltip === undefined" id="numberLessThan" type="number" [(ngModel)]="numberLessThan" class="validate input_icon" value="0">
-              <label for="numberLessThan" class="active">Menor a</label>
+              <input *ngIf="fieldInstance.numberLessThanTooltip !== undefined" [(ngModel)]="fieldInstance.numberLessThan" name="fieldInstance.numberLessThan" id="fieldInstance.numberLessThan" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.numberLessThanTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.numberLessThanTooltip['error']">
+              <input *ngIf="fieldInstance.numberLessThanTooltip === undefined" id="fieldInstance.numberLessThan" type="number" [(ngModel)]="fieldInstance.numberLessThan" class="validate input_icon" value="0">
+              <label for="fieldInstance.numberLessThan" class="active">Menor a</label>
             </div>
           </div>
         </div>
