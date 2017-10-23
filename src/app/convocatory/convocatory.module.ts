@@ -45,6 +45,7 @@ import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-p
   ],
   declarations: [
     // AddFieldComponent,
+    ConvocatoryPendingApprovePhasesComponent,
     CreateConvocatoryComponent,
     PublishedListConvocatoryComponent,
     PendingPublishListConvocatoryComponent,
