@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoryService } from '../../services/convocatory.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-pending-list-approve-phases-convocatory',
@@ -11,20 +12,22 @@ export class PendingListApprovePhasesConvocatoryComponent implements OnInit {
 
   public convocatories: any = [];
   
-  constructor(private router: Router, private convocatoryService : ConvocatoryService) { }
+  constructor(private authService: AuthService,
+    private router: Router, private convocatoryService : ConvocatoryService) { }
 
   ngOnInit() {
     this.loadPendingApprovedPhases();
   }
 
   loadPendingApprovedPhases() {
-    this.convocatoryService.getPendingApprovePhases().subscribe(convocatories => {
-      this.convocatories = convocatories;
+    let user = this.authService.getCurrentUser();
+    this.convocatoryService.getPendingApprovePhases(user.email).subscribe(convocatories => {
+      this.convocatories = convocatories.Response;
     });
   }
 
   goToConvocatory(convocatoryId: number) {
-    this.router.navigate(['/publishedConvocatory/'+ convocatoryId]);
+    this.router.navigate(['/approveApplicants/'+ convocatoryId]);
   }
 
 }

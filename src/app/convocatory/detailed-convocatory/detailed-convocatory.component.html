@@ -1,24 +1,73 @@
-<div class="row">
-  <div class="col s9"></div>
-  <!--<div class="col s3">
-    <a class="waves-effect waves-light btn light-blue darken-4 typesButton" type="button">Tipos de Convocatoria</a>
-  </div>-->
+<div class="space-margin-top">
+  <div class="row no-space-margin-bottom">
+    <div class="col m8 s12 offset-m2 z-depth-4" style="padding:0px;">
+      <nav class="nav-extended" style="background-color: #01579b">
+        <div class="nav-wrapper">
+          <div class="left-align col m2 s4" style="padding-left: 20px;">
+            <a class="waves-effect center-align waves-light btn light-green" href="javascript:void();" (click)="goBack()">
+                        <i class="material-icons left" style="line-height: 40px;">navigate_before</i>Volver
+                </a>
+          </div>
+          <div class="col m6 s8">
+            <h3 class="brand-logo center"> Convocatoria </h3>
+          </div>
+        </div>
+      </nav>
+
+      <div class="row no-space-margin-bottom">
+        <div class="white-background">
+          <app-detail-basic-convocatory [convocatory]="convocatory"></app-detail-basic-convocatory>
+          <div class="col s12">
+            <div class="row" *ngIf="isAbleEdit">
+              <div class="space-padding-top">
+                <a class="waves-effect center-align waves-light btn light-blue modal-trigger" href="#modal_update_convocatory" (click)="openModalUpdateConvocatory()">
+                <i class="material-icons left" >mode_edit</i>Editar
+            </a>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <div class="row space-padding-top no-space-margin-bottom white-background">
+        <h5 class="text-xs-center" style="margin: 0px;"> Fases </h5>
+        <div class="right-align" style="padding-right: 20px;">
+          <a class="waves-effect center-align waves-light btn light-green modal-trigger" href="#modal_create_phase" (click)="openModalCreatePhase()">
+              <i class="material-icons left">add</i>Crear
+            </a>
+        </div>
+        <!-- <div class="col s8">
+          <h4 class="text-xs-center"> Fases </h4>
+        </div>
+        <div class="col s2">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase" (click)="openModalCreatePhase()">
+                    <i class="material-icons left">add</i>Crear</a>
+          </ul>
+        </div> -->
+        <app-list-phases [convocatoryId]="convocatory.id"></app-list-phases>
+      </div>
+
+
+    </div>
+  </div>
 </div>
-<div class="row">
-  <div class="col s2"></div>
-  <nav class="nav-extended col s8" style="background-color: #01579b">
-    <div class="nav-wrapper">
-      <h3 class="brand-logo center"> Convocatoria </h3>
-      <!--<ul id="nav-mobile" class="right hide-on-med-and-down">
-        <a class="waves-effect waves-light btn light-green"><i class="material-icons left">add</i>Crear Oferente</a>
-      </ul>-->
+
+
+<div id="modal_create_phase" class="modal modal-height" materialize="modal" [materializeParams]="[{dismissible: false}]"
+  [materializeActions]="modalActionsCreatePhase">
+  <div class="modal-content">
+    <div class="row">
+      <app-create-phase (cancelation)="closeModalCreatePhase()"></app-create-phase>
     </div>
-    <div class="nav-content">
-      <ul class="tabs tabs-transparent">
-      <!--  <li class="tab"><a (click)="goToPending()">Por Aprobar</a></li>
-        <li class="tab"><a (click)="goToApproved()">Aprobados</a></li>
-        <li class="tab"><a (click)="goToDenied()">Rechazados</a></li>-->
-      </ul>
-    </div>
-  </nav>
+  </div>
+</div>
+
+<div id="modal_update_convocatory" class="modal modal-height" materialize="modal" [materializeParams]="[{dismissible: false}]"
+[materializeActions]="modalActionsUpdateConvocatory">
+<div class="modal-content">
+  <div class="row">
+    <app-edit-convocatory [convocatory]="convocatory" (cancelation)="closeModalUpdateConvocatory()"></app-edit-convocatory>
+  </div>
+</div>
 </div>

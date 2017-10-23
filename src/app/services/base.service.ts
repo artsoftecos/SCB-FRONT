@@ -13,7 +13,7 @@ export class BaseService {
 
     baseGet(entity: String) {
         let headers = this.buildHeader();
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = new RequestOptions({ headers: headers });
         return this.http.get(environment.SERVER_URL + entity, options)
             .map(res => res.json());
     }

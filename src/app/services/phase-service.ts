@@ -35,4 +35,9 @@ export class PhaseService extends BaseService {
     let entity = this.entity + "getByConvocatory/" + idConvocatory;
     return this.baseGet(entity);
   }
+
+  getApplicantsToApprove(idPhase: number) {
+    let entity = this.entity + "getApplicantsToApprove/" + idPhase;
+    return this.baseGet(entity);
+  }
 }

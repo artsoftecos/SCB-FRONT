@@ -17,6 +17,9 @@ export class ListPhasesComponent implements OnInit {
   phases : Phase[];
   @Input() 
   convocatoryId: number;
+  
+  @Input()
+  includeApproveApplicants: boolean;
 
   constructor(private router: Router, private phaseService: PhaseService) { }
 

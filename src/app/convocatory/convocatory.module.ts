@@ -17,15 +17,16 @@ import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.co
 import { PostulatedConvocatoryComponent } from './postulation/postulated-convocatory/postulated-convocatory.component';
 import { ConvocatoryRoutingModule } from './convocatory-routing.module';
 import { PublishedConvocatoryComponent } from './published-convocatory/published-convocatory.component';
-import { PendingPublishConvocatoryComponent } from './pending-publish-convocatory/pending-publish-convocatory.component';
 import { DetailBasicConvocatoryComponent } from './detail-basic-convocatory/detail-basic-convocatory.component';
 import { HelperService } from '../services/helper.service';
 import { DetailedBasicPhaseComponent } from './phase/detailed-basic-phase/detailed-basic-phase.component';
 import { EditConvocatoryComponent } from './edit-convocatory/edit-convocatory.component';
 import { EditPhaseComponent } from './phase/edit-phase/edit-phase.component';
 import { PendingListApprovePhasesConvocatoryComponent } from './pending-list-approve-phases-convocatory/pending-list-approve-phases-convocatory.component';
-// import { AddFieldComponent } from '../input-fields/add-field/add-field.component';
 import { InputFieldsModule } from '../input-fields/input-fields.module';
+import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-approve-phases/convocatory-pending-approve-phases.component';
+import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-phase/applicant-to-approve-phase.component';
+//import { NgDatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
   imports: [
@@ -54,7 +55,6 @@ import { InputFieldsModule } from '../input-fields/input-fields.module';
     DetailedPhaseComponent,
     PostulatedConvocatoryComponent,
     PublishedConvocatoryComponent,
-    PendingPublishConvocatoryComponent,
     DetailBasicConvocatoryComponent,
     DetailedBasicPhaseComponent,
     EditConvocatoryComponent,

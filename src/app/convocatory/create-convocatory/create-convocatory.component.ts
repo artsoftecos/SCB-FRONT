@@ -9,6 +9,7 @@ import { User } from '../../models/user';
 import { Oferrer } from '../../models/oferrer';
 import { HelperService } from '../../services/helper.service';
 import swal from 'sweetalert2';
+//import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
   selector: 'app-create-convocatory',
@@ -55,6 +56,14 @@ export class CreateConvocatoryComponent implements OnInit {
       });
   }
 
+ /* options: DatepickerOptions = {
+    minYear: 1970,
+    maxYear: 2030,
+    displayFormat: 'MMM D[,] YYYY',
+    barTitleFormat: 'MMMM YYYY',
+    firstCalendarDay: 0 // 0 - Sunday, 1 - Monday
+  };*/
+
   registerConvocatory() {
     this.cleanSummay();
     let type = new ConvocatoryType();
@@ -68,8 +77,10 @@ export class CreateConvocatoryComponent implements OnInit {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-    let date = new Date(this.convocatory.resultDate);
-    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddHHmmssDash(date);
+    let date = this.helperService.dmyToDate(this.convocatory.resultDate);
+    //"17/9/2014".toDate("dd/MM/yyyy", "/")
+    //let date = new Date(this.convocatory.resultDate);
+    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);
     console.log(this.convocatory.resultDate);
     this.convocatoryService.post(this.convocatory).subscribe(response => {
       this.convocatory = new Convocatory();

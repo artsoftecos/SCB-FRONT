@@ -1,5 +1,6 @@
 import { ConvocatoryType } from './convocatory-type';
 import { Oferrer } from './oferrer';
+import { ConvocatoryState } from './convocatory-state';
 
 export class Convocatory {
     id: number;
@@ -9,4 +10,5 @@ export class Convocatory {
     description: string;
     offerer: Oferrer;
     resultDate: string;
+    convocatoryState: ConvocatoryState;
 }

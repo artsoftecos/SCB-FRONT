@@ -6,17 +6,17 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ConvocatoryService } from '../../services/convocatory.service';
 import { ConvocatoryType } from '../../models/convocatory-type';
 import { Location } from '@angular/common';
+import { ConvocatoryState } from '../../models/convocatory-state';
 
 @Component({
-  selector: 'app-pending-publish-convocatory',
-  templateUrl: './pending-publish-convocatory.component.html',
-  styleUrls: ['./pending-publish-convocatory.component.css']
+  selector: 'app-convocatory-pending-approve-phases',
+  templateUrl: './convocatory-pending-approve-phases.component.html',
+  styleUrls: ['./convocatory-pending-approve-phases.component.css']
 })
-export class PendingPublishConvocatoryComponent implements OnInit {
+export class ConvocatoryPendingApprovePhasesComponent implements OnInit {
 
   modalActionsCreatePhase = new EventEmitter<string|MaterializeAction>();
   modalActionsUpdateConvocatory = new EventEmitter<string|MaterializeAction>();
-
   convocatory: Convocatory;
 
   constructor(private location: Location, 
@@ -27,7 +27,9 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     this.convocatory.numberBeneficiaries = 24;
     this.convocatory.convocatoryType = new ConvocatoryType();
     this.convocatory.convocatoryType.name = "pepito";
-    this.convocatory.resultDate = "2017-01-01";  
+    this.convocatory.resultDate = "2017-01-01";
+    this.convocatory.convocatoryState = new ConvocatoryState();
+    this.convocatory.convocatoryState.name = "Pusblicada"; 
     console.log(this.convocatory);  
   }
 
@@ -40,25 +42,12 @@ export class PendingPublishConvocatoryComponent implements OnInit {
     /*this.route.paramMap
     .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(convocatory => this.convocatory = convocatory);*/
+ 
   }
-
-  openModalCreatePhase() {
-    this.modalActionsCreatePhase.emit({action:"modal",params:['open']});
-  }
-  closeModalCreatePhase() {
-    this.modalActionsCreatePhase.emit({action:"modal",params:['close']});
-  }
-
-  openModalUpdateConvocatory() {
-    this.modalActionsUpdateConvocatory.emit({action:"modal",params:['open']});
-  }
-  closeModalUpdateConvocatory() {
-    this.modalActionsUpdateConvocatory.emit({action:"modal",params:['close']});
-  }
-
+  
   goBack(): void {
     this.location.back();
   }
 
-  
+
 }

@@ -30,9 +30,13 @@
           <input *ngIf="numberBeneficiaries_tooltip === undefined" [(ngModel)]="convocatory.numberBeneficiaries" name="numberBeneficiaries" id="numberBeneficiaries" type="text" class="validate"/>
           <label>Plaza</label>
         </div>
+        <!--<div class="input-field col s12 m6">            
+          <ng2-datepicker [(ngModel)]="convocatory.resultDate" ></ng2-datepicker>
+          <label>Fecha resultados</label>
+        </div>-->
         <div class="input-field col s12 m6">
-          <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
-          <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
+          <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="text" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
+          <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="text" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
           <label>Fecha resultados</label>
         </div>
       </div> 

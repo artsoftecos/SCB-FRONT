@@ -21,6 +21,7 @@ export class DetailedPhaseComponent implements OnInit {
   fields: FieldModel[];
   // fields = [];
   phase: Phase;
+  
 
   constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) {
     this.fields = [];
