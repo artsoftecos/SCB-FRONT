@@ -6,7 +6,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PhaseService } from '../../../services/phase-service';
 import { Location } from '@angular/common';
 import { AddFieldComponent } from '../../../input-fields/add-field/add-field.component';
-import { FieldModel } from '../../../input-fields/add-field/field.model';
+import { FieldModel } from '../../../models/field.model';
 
 @Component({
   selector: 'app-detailed-phase',
@@ -35,14 +35,23 @@ export class DetailedPhaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  onDeletedField(arg){
+    console.log("ENTRA BORRAR")
+    let auxField = JSON.parse(JSON.stringify(arg));
+    for(var i = 0; i < this.fields.length; i++){
+      if(this.fields[i].orden > auxField.orden){
+        this.fields[i].orden -= 1;
+      }
+    }
+    console.log(this.fields)
+    console.log(auxField.orden)
+    this.fields.splice(auxField.orden-1, 1);
+  }
+
   onCreatedField(arg){
     let auxField = JSON.parse(JSON.stringify(arg))
-    console.log(this.fields)
     auxField.orden = this.fields.length+1;
-    console.log(auxField)
     this.fields.push(auxField);
-    console.log(this.fields)
-    console.log("----------")
   }
 
 /*   openModalCreateFields() {
