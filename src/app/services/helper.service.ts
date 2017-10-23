@@ -6,8 +6,11 @@ export class HelperService {
   constructor() { }
 
   getDateFormatYYYYMMddDash(date: Date) : string {
-    let dateResult : string = "";   
-    dateResult = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay();
+    let dateResult : string = ""; 
+    let anio =   date.getFullYear();
+    let mon = date.getMonth();
+    let day = date.getDate();
+    dateResult =  anio + "-" + (mon + 1) + "-" + day;
     return dateResult;
   }
 

@@ -32,10 +32,10 @@ export class ConvocatoryService extends BaseService {
   
   put(convocatory: Convocatory) {
     let entity = this.entity;
-    return this.basePut(entity+"/update", convocatory);
+    return this.basePost(entity+"/edit", convocatory);
   }
   
   get(convocatoryId: number) {
-    return this.basePost(this.entity + "/getById/" + convocatoryId);
+    return this.baseGet(this.entity + "/getById/" + convocatoryId);
   }
 }

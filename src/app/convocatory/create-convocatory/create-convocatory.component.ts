@@ -81,7 +81,6 @@ export class CreateConvocatoryComponent implements OnInit {
     //"17/9/2014".toDate("dd/MM/yyyy", "/")
     //let date = new Date(this.convocatory.resultDate);
     this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);
-    console.log(this.convocatory.resultDate);
     this.convocatoryService.post(this.convocatory).subscribe(response => {
       this.convocatory = new Convocatory();
       this.selectedType = -1;

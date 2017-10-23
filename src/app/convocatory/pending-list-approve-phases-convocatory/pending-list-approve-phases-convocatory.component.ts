@@ -22,7 +22,7 @@ export class PendingListApprovePhasesConvocatoryComponent implements OnInit {
   loadPendingApprovedPhases() {
     let user = this.authService.getCurrentUser();
     this.convocatoryService.getPendingApprovePhases(user.email).subscribe(convocatories => {
-      this.convocatories = convocatories.Response;
+      this.convocatories = convocatories;
     });
   }
 

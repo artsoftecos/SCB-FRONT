@@ -22,15 +22,27 @@ export class DetailedConvocatoryComponent implements OnInit {
 
   constructor(private location: Location, 
     private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
-    console.log("1");
+      /*this.route.paramMap
+      .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+      .subscribe(convocatory => {
+        console.log(convocatory);
+        this.convocatory = convocatory;
+        if (this.convocatory.convocatoryState.name === 'Publicada'){
+          this.isAbleEdit= false;
+        }
+      });*/
+   console.log("1");
     this.convocatory = new Convocatory();
+    this.convocatory.id = 1;
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;
     this.convocatory.convocatoryType = new ConvocatoryType();
-    this.convocatory.convocatoryType.name = "pepito";
+    this.convocatory.convocatoryType.id = 1;
+    this.convocatory.convocatoryType.name = "Beca parcial";
     this.convocatory.resultDate = "2017-01-01";
     this.convocatory.convocatoryState = new ConvocatoryState();
-    this.convocatory.convocatoryState.name = "Pusblicada"; 
+    this.convocatory.convocatoryState.id = 1; 
+    this.convocatory.convocatoryState.name = "Publicada"; 
     console.log(this.convocatory);  
   }
 
@@ -39,13 +51,8 @@ export class DetailedConvocatoryComponent implements OnInit {
     /*this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;*/
-    //TODO: UnComment this part
-    /*this.route.paramMap
-    .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(convocatory => this.convocatory = convocatory);*/
-    if (this.convocatory.convocatoryState.name === 'Publicada'){
-      this.isAbleEdit= false;
-    }
+    //TODO: UnComment this part    
+    
   }
 
   openModalCreatePhase() {

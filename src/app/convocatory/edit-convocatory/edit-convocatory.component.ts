@@ -25,7 +25,6 @@ export class EditConvocatoryComponent implements OnInit {
   originalConvocatoryType: ConvocatoryType;
   originalNumberBeneficiaries: number;
   originalDescription: string;
-  //originalOfferer: Oferrer;
   originalResultDate: string;
 
   convocatoryTypes: ConvocatoryType[];
@@ -55,11 +54,6 @@ export class EditConvocatoryComponent implements OnInit {
     this.originalNumberBeneficiaries = this.convocatory.numberBeneficiaries;
     this.originalDescription = this.convocatory.description;
     this.originalResultDate = this.convocatory.resultDate;
-    //originalOfferer: Oferrer;
-    
-    /* this.route.paramMap
-    .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(convocatory => this.convocatory = convocatory);   */ 
     this.loadConvocatoryTypes();
   }
 
@@ -91,9 +85,8 @@ export class EditConvocatoryComponent implements OnInit {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-    let date = new Date(this.convocatory.resultDate);
-    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddHHmmssDash(date);
-    console.log(this.convocatory.resultDate);
+    let date = this.helperService.dmyToDate(this.convocatory.resultDate);
+    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);    
     this.convocatoryService.put(this.convocatory).subscribe(response => {
       this.convocatory = new Convocatory();
       this.selectedType = -1;
