@@ -5,12 +5,16 @@ import { DatepickerOptions } from 'ng2-datepicker';
 import * as es from 'date-fns/locale/es/index';
 import swal from 'sweetalert2';
 // import * as moment from 'moment';
-import { FieldModel } from './field.model';
+import { FieldModel } from '../../models/field.model';
+import { InputFieldsService } from '../../services/input-fields.service';
+// import { HttpModule } from '@angular/http';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'add-field',
   templateUrl: './add-field.component.html',
-  styleUrls: ['./add-field.component.css']
+  styleUrls: ['./add-field.component.css'],
+  providers: [InputFieldsService]
 })
 export class AddFieldComponent implements OnInit {
   modalActions = new EventEmitter<string|MaterializeAction>();
@@ -18,17 +22,19 @@ export class AddFieldComponent implements OnInit {
 
   @Input() create: boolean;
   @Input() edit: boolean;
+  @Input() idPhase: string;
 
   @Input() fieldInstance: FieldModel;
  
   // modalActions = new EventEmitter<string|MaterializeAction>();
   @Output() created: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
+  @Output() deleted: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
   
   // Dict resultado
   fieldStructure = {};
 
   // fullImagePath: string;
- // @ViewChild('fieldName') fieldNameElement:ElementRef; 
+ // @ViewChild('name') nameElement:ElementRef; 
   
  iconSelected = "";
  
@@ -41,10 +47,11 @@ export class AddFieldComponent implements OnInit {
     //locale: 'es',
   };
 
-  constructor() { 
+  constructor(private inputFieldService: InputFieldsService,private http: Http) { 
+    this.idPhase = "";
     this.create = true;
     this.edit = false;
-    this.fieldInstance = new FieldModel();
+    this.fieldInstance = new FieldModel(this.idPhase);
     // this.fullImagePath = environment.ClientUrl + '/assets/img/img1.jpg';
   }
 
@@ -55,6 +62,11 @@ export class AddFieldComponent implements OnInit {
     if(value != "0"){
       this.iconSelected = this.fieldInstance.selectOptions[parseInt(value)-1].icon;
     }
+  }
+
+  deleteField(){
+    console.log("BORRAR")
+    this.deleted.emit(this.fieldInstance);
   }
 
   openModal() {
@@ -81,16 +93,38 @@ export class AddFieldComponent implements OnInit {
         swal('Oops...', fieldStructure['error'], 'error').catch(swal.noop);
       }
     }else{
+      // console.log("POST")
+      // console.log(this.fieldInstance)
+      // this.inputFieldService.post(this.fieldInstance).subscribe(response => {
+      //   console.log("exito")
+      //   /* this.convocatory = new Convocatory();
+      //   this.selectedType = -1;
+      //   swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
+      //   this.cancelRegisterConvocatory(); */
+      // },
+      // err => {
+      //   console.log("error:");
+      //   console.log(err);
+      //   console.log(err.status);
+      //   console.log(err.json());
+      //   if (err.status == 400) {
+      //     swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+      //   } else {
+      //     // this.handleUiErrors(err);
+      //     swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
+      //   }
+      // });
+
       this.closeModal();
       this.created.emit(this.fieldInstance);
       return this.fieldInstance;
     }
   }
 
-  getSelectedField(){
-    let selectedFieldId = this.fieldInstance.selectedField;
+  getTypeName(){
+    let typeId = this.fieldInstance.type;
     for(var i = 0; i < this.fieldInstance.selectOptions.length; i++){
-      if(selectedFieldId == this.fieldInstance.selectOptions[i]['id']){
+      if(typeId == this.fieldInstance.selectOptions[i]['id']){
         this.fieldInstance.selectedOptionName = this.fieldInstance.selectOptions[i].name;
       }
     }
@@ -99,24 +133,24 @@ export class AddFieldComponent implements OnInit {
   createFieldStructure(){
     this.fieldStructure = {};
 
-    if(this.fieldInstance.selectedField == "0"){
+    if(this.fieldInstance.type == "0"){
       return {'error': 'Debe seleccionar un tipo de campo!'}
     }
 
-    this.getSelectedField();
-    if(this.fieldInstance.fieldName.trim() == ""){
-      this.fieldInstance.fieldNameTooltip = [];
-      this.fieldInstance.fieldNameTooltip['error'] = "Este campo es obligatorio";
+    this.getTypeName();
+    if(this.fieldInstance.name.trim() == ""){
+      this.fieldInstance.nameTooltip = [];
+      this.fieldInstance.nameTooltip['error'] = "Este campo es obligatorio";
       return {'error': true}
     }else{
-      this.fieldInstance.fieldNameTooltip = undefined;
+      this.fieldInstance.nameTooltip = undefined;
     }
 
-    this.fieldStructure['field_type_id'] = this.fieldInstance.selectedField;
-    this.fieldStructure['field_name'] = this.fieldInstance.fieldName;
-    this.fieldStructure['is_required'] = this.fieldInstance.isRequired;
+    this.fieldStructure['field_type_id'] = this.fieldInstance.type;
+    this.fieldStructure['field_name'] = this.fieldInstance.name;
+    this.fieldStructure['is_required'] = this.fieldInstance.obligatory;
 
-    if(this.fieldInstance.selectedField == "1" || this.fieldInstance.selectedField == "2"){
+    if(this.fieldInstance.type == "1" || this.fieldInstance.type == "2"){
       if(this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen){
         this.fieldInstance.validateMinLenTooltip = [];
         this.fieldInstance.validateMinLenTooltip['error'] = "Este campo debe ser menor al maximo";
@@ -130,7 +164,7 @@ export class AddFieldComponent implements OnInit {
       this.fieldStructure['validation']['min_len'] = this.fieldInstance.validateMinLen;
       this.fieldStructure['validation']['max_len'] = this.fieldInstance.validateMaxLen;
     }else{
-      if(this.fieldInstance.selectedField == "3" || this.fieldInstance.selectedField == "4"){
+      if(this.fieldInstance.type == "3" || this.fieldInstance.type == "4"){
         if(this.fieldInstance.addedOptions.length < 2){
           return {'error': 'Debe agregar al menos 2 opciones al campo'}
         }
@@ -141,7 +175,7 @@ export class AddFieldComponent implements OnInit {
           this.fieldStructure['options'][i]['name'] = this.fieldInstance.addedOptions[i];
         }
       }else{
-        if(this.fieldInstance.selectedField == "5"){
+        if(this.fieldInstance.type == "5"){
           this.fieldStructure['format'] = {};
           for(var i = 0; i < this.fieldInstance.fileTypes.length; i++){
             if(this.fieldInstance.fileTypes[i]['value']){
@@ -151,7 +185,7 @@ export class AddFieldComponent implements OnInit {
             }
           }
         }else{
-          if(this.fieldInstance.selectedField == "6"){
+          if(this.fieldInstance.type == "6"){
             this.fieldStructure['validation'] = {};
             if(this.fieldInstance.dateValidationType == 1)
               this.fieldStructure['validation']['min_date'] = this.fieldInstance.minDate;
@@ -171,7 +205,7 @@ export class AddFieldComponent implements OnInit {
               this.fieldStructure['validation']['max_date'] = this.fieldInstance.maxDate;
             }
           }else{
-            if(this.fieldInstance.selectedField == "7"){
+            if(this.fieldInstance.type == "7"){
               if(this.fieldInstance.numberValidationType == 1)
                 this.fieldStructure['validation']['number_less_than'] = this.fieldInstance.numberLessThan;
               if(this.fieldInstance.numberValidationType == 2)

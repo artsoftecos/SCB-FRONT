@@ -43,22 +43,19 @@
             <table *ngIf="fields.length > 0" class="responsive-table striped">
                 <thead>
                   <tr>
-                    <th class="center-align">Tipo</th>
-                    <th class="center-align">Nombre</th>
-                    <th class="center-align">Validacion</th>
-                    <th class="center-align" style="width:60px">Opciones</th>
+                    <th width="25%" class="center-align">Tipo</th>
+                    <th width="40%" class="center-align">Nombre</th>
+                    <th width="25%" class="center-align">Validacion</th>
+                    <th width="10%" class="center-align" style="width:60px">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let field of fields">
                     <td class="center-align">{{field.selectedOptionName}}</td>
-                    <td class="center-align">{{field.fieldName}}</td>
-                    <td class="center-align">{{field.selectedField}}</td>
+                    <td class="center-align">{{field.name}}</td>
+                    <td class="center-align">{{field.type}}</td>
                     <td>
-                      <add-field [edit]="true" [create]="false" [fieldInstance]="field" ></add-field>
-                      <!-- <a class="waves-effect waves-light btn green">
-                        <i class="small material-icons center">edit</i>
-                      </a> -->
+                      <add-field [edit]="true" [create]="false" [idPhase]="phase.id" [fieldInstance]="field" (deleted)="onDeletedField($event)"></add-field>
                     </td>
                   </tr>
                 </tbody>
@@ -72,12 +69,6 @@
             <div class="space-margin-top">
               <add-field (created)="onCreatedField($event)"></add-field>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s10">
-            los por aprovar
-            
           </div>
         </div>
       </div>
