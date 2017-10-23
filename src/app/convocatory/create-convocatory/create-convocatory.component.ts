@@ -158,9 +158,9 @@ export class CreateConvocatoryComponent implements OnInit {
       }
       
       if (this.convocatory.resultDate !== undefined && this.convocatory.resultDate !== null) {
-          var resultDateWithGMT = new Date(this.convocatory.resultDate);
-          var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
-          var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
+        var resultDate =  this.helperService.dmyToDate(this.convocatory.resultDate);          
+          //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
+          //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
           if (resultDate < today) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a hoy.";

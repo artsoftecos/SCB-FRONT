@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, SimpleChange, 
+  OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Convocatory } from '../../models/convocatory'
 import { ConvocatoryType } from '../../models/convocatory-type'
@@ -16,7 +17,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './edit-convocatory.component.html',
   styleUrls: ['./edit-convocatory.component.css']
 })
-export class EditConvocatoryComponent implements OnInit {
+export class EditConvocatoryComponent implements OnChanges, OnInit {
 
   @Input()
   convocatory: Convocatory;
@@ -164,9 +165,12 @@ export class EditConvocatoryComponent implements OnInit {
       }
       
       if (this.convocatory.resultDate !== undefined && this.convocatory.resultDate !== null) {
-          var resultDateWithGMT = new Date(this.convocatory.resultDate);
+        var resultDate =  this.helperService.dmyToDate(this.convocatory.resultDate);          
+        //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
+        //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);  
+        /*var resultDateWithGMT = new Date(this.convocatory.resultDate);
           var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
-          var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
+          var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);*/
           if (resultDate < today) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a hoy.";
@@ -242,6 +246,19 @@ export class EditConvocatoryComponent implements OnInit {
 
   cleanSummay() {
     this.summary = "";
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Change - ');
+    console.log(changes.convocatory);
+    const conv: SimpleChange = changes.convocatory;
+    /*console.log('prev value: ', name.previousValue);
+    console.log('got name: ', name.currentValue);*/
+    console.log('current');
+    console.log(conv.currentValue);
+    console.log('previous');
+    console.log(conv.previousValue);
+    this.convocatory = conv.currentValue;
   }
 
 }

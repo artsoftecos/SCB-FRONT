@@ -21,7 +21,7 @@ export class PublishedListConvocatoryComponent implements OnInit {
 
  loadPublishedConvocatories() {
   let user = this.authService.getCurrentUser();
-  this.convocatoryService.getPublished(user.email).subscribe(convocatories => {    
+  this.convocatoryService.getPublished(user.email).subscribe(convocatories => {
       this.convocatories = convocatories;
     });
   }
