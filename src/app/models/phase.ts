@@ -1,11 +1,13 @@
 import { StatePhase } from './state-phase.enum' 
+import { Convocatory } from './convocatory';
 
 export class Phase {    
     id: number;
     name: string;
     description: string;    
     startDate: string;
-    finishDate: string;
-    startApprovalPostulation: string;    
+    endDate: string;
+    startApprovalDate: string;    
+    endApprovalDate: string;
+    convocatory: Convocatory;
 }
-//state: StatePhase;

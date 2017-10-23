@@ -1,7 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, SimpleChange, 
+  OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Phase } from '../../../models/phase'
-import { PhaseService } from '../../../services/phase-service'
+import { Convocatory } from '../../../models/convocatory';
+import { Phase } from '../../../models/phase';
+import { HelperService } from '../../../services/helper.service';
+import { PhaseService } from '../../../services/phase-service';
 import swal from 'sweetalert2';
 declare var $: any;
 
@@ -10,21 +13,27 @@ declare var $: any;
   templateUrl: './create-phase.component.html',
   styleUrls: ['./create-phase.component.css']
 })
-export class CreatePhaseComponent implements OnInit {
+export class CreatePhaseComponent implements OnChanges, OnInit {
   phase: Phase = new Phase();
   summary: string = "";
+  @Input()
+  convocatory: Convocatory;
+
   //Tooltips
   name_tooltip = undefined;
   description_tooltip = undefined;
   startDate_tooltip = undefined;
-  finishDate_tooltip = undefined;
-  startApprovalPostulation_tooltip = undefined;
+  endDate_tooltip = undefined;
+  startApprovalDate_tooltip = undefined;
+  endApprovalDate_tooltip = undefined;
   resultDate_tooltip = undefined;
+
   
   @Output()
   cancelation = new EventEmitter();
 
-  constructor(private phaseService: PhaseService) { }
+  constructor(private phaseService: PhaseService, 
+    private helperService: HelperService) { }
 
   ngOnInit() {    
   }
@@ -46,6 +55,16 @@ export class CreatePhaseComponent implements OnInit {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
+    this.phase.convocatory = this.convocatory;
+    let startDate = this.helperService.dmyToDate(this.phase.startDate);
+    let endDate = this.helperService.dmyToDate(this.phase.endDate);
+    let startApprovalDate = this.helperService.dmyToDate(this.phase.startApprovalDate);
+    let endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);
+
+    this.phase.startDate = this.helperService.getDateFormatYYYYMMddDash(startDate);
+    this.phase.endDate = this.helperService.getDateFormatYYYYMMddDash(endDate);
+    this.phase.startApprovalDate = this.helperService.getDateFormatYYYYMMddDash(startApprovalDate);
+    this.phase.endApprovalDate = this.helperService.getDateFormatYYYYMMddDash(endApprovalDate);
     this.phaseService.post(this.phase).subscribe(response => {
       this.phase = new Phase();      
       swal('Exito!', 'Se ha creado la fase satisfactoriamente', 'success').catch(swal.noop);
@@ -71,24 +90,35 @@ export class CreatePhaseComponent implements OnInit {
       if (this.phase.name === undefined ||this.phase.name === "") {
         this.name_tooltip = [];
         this.name_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "El nombre es requerido.<br/>";
         isValid = false;
       }
             
       if (this.phase.startDate === undefined || this.phase.startDate.toString() === "") {
         this.startDate_tooltip = [];
         this.startDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de inicio de fase es obligatoria.<br/>";
         isValid = false;
       }
 
-      if (this.phase.finishDate === undefined || this.phase.finishDate.toString() === "") {
-        this.finishDate_tooltip = [];
-        this.finishDate_tooltip['error'] = "Este campo es obligatorio";
+      if (this.phase.endDate === undefined || this.phase.endDate.toString() === "") {
+        this.endDate_tooltip = [];
+        this.endDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de fin de fase es obligatoria.<br/>";
         isValid = false;
       }
 
-      if (this.phase.startApprovalPostulation === undefined || this.phase.startApprovalPostulation.toString() === "") {
-        this.startApprovalPostulation_tooltip = [];
-        this.startApprovalPostulation_tooltip['error'] = "Este campo es obligatorio";
+      if (this.phase.startApprovalDate === undefined || this.phase.startApprovalDate.toString() === "") {
+        this.startApprovalDate_tooltip = [];
+        this.startApprovalDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de inicio de aprobacion es obligatoria.<br/>";
+        isValid = false;
+      }
+
+      if (this.phase.endApprovalDate === undefined || this.phase.endApprovalDate.toString() === "") {
+        this.endApprovalDate_tooltip = [];
+        this.endApprovalDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de fin de fase es obligatoria.<br/>";
         isValid = false;
       }
 
@@ -113,39 +143,50 @@ export class CreatePhaseComponent implements OnInit {
   private ValidateDates(): boolean {
       var isValid = true;
         var today = new Date();
-        var startDate = new Date(this.phase.startDate);
-
+        var startDate =  this.helperService.dmyToDate(this.phase.startDate);  
+        
         if (startDate < today) {
           this.startDate_tooltip = [];
           this.startDate_tooltip['error'] = "Fecha de inicio no puede ser menor a hoy.";
+          this.summary += "Fecha de inicio no puede ser menor a hoy.<br/>";
           isValid = false;
         }
 
-        var finishDate = new Date(this.phase.finishDate);
-        if (finishDate < today) {
-          this.finishDate_tooltip = [];
-          this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
+        var endDate =  this.helperService.dmyToDate(this.phase.endDate);          
+        if (endDate < today) {
+          this.endDate_tooltip = [];
+          this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
+          this.summary += "Fecha de fin no puede ser menor a hoy.<br/>";
           isValid = false;
-        } else if (finishDate < startDate){
-          this.finishDate_tooltip = [];
-          this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a la fecha de inicio.";
+        } else if (endDate < startDate){
+          this.endDate_tooltip = [];
+          this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a la fecha de inicio.";
+          this.summary += "Fecha de fin no puede ser menor a la fecha de inicio.<br/>";
           isValid = false;
         }
 
-        var startApprovalPostulation = new Date(this.phase.startApprovalPostulation);
-        if (startApprovalPostulation < startDate) {
-          this.startApprovalPostulation_tooltip = [];
-          this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de inicio.";
+        var startApprovalDate =  this.helperService.dmyToDate(this.phase.startApprovalDate);        
+        if (startApprovalDate < endDate) {
+          this.startApprovalDate_tooltip = [];
+          this.startApprovalDate_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.";
+          this.summary += "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.<br/>";
           isValid = false;
-        } else if (startApprovalPostulation > finishDate)
+        } /*else if (startApprovalDate > endDate)
         {
-          this.startApprovalPostulation_tooltip = [];
-          this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser mayor a la fecha fin.";
+          this.startApprovalDate_tooltip = [];
+          this.startApprovalDate_tooltip['error'] = "Fecha de inicio de aprobación no puede ser mayor a la fecha fin.";
           isValid = false;
-        }
+        }*/
 
+        var endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);        
+        if (endApprovalDate < startApprovalDate) {
+          this.endApprovalDate_tooltip = [];
+          this.endApprovalDate_tooltip['error'] = "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.";
+          this.summary += "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.<br/>";
+          isValid = false;
+        } 
         /* var resultDate = new Date(this.phase.resultDate);
-         if (resultDate < finishDate) {
+         if (resultDate < endDate) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a la fecha de fin.";
           isValid = false;
@@ -175,14 +216,23 @@ export class CreatePhaseComponent implements OnInit {
             this.startDate_tooltip['error'] = errors[variable];
             break;
           }
-          case "finishDate": {
-            this.finishDate_tooltip = [];
-            this.finishDate_tooltip['error'] = errors[variable];
+          case "endDate": {
+            this.endDate_tooltip = [];
+            this.endDate_tooltip['error'] = errors[variable];
             break;
           }
-          case "startApprovalPostulation": {
-            this.startApprovalPostulation_tooltip = [];
-            this.startApprovalPostulation_tooltip['error'] = errors[variable];
+          case "startApprovalDate": {
+            this.startApprovalDate_tooltip = [];
+            this.startApprovalDate_tooltip['error'] = errors[variable];
+            break;
+          }
+          case "endApprovalDate": {
+            this.endApprovalDate_tooltip = [];
+            this.endApprovalDate_tooltip['error'] = errors[variable];
+            break;
+          }
+          case "summary": {
+            this.summary += errors[variable];
             break;
           }
           /*case "resultDate": {
@@ -211,6 +261,19 @@ export class CreatePhaseComponent implements OnInit {
   
   cleanSummay() {
     this.summary = "";
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Change - ');
+    console.log(changes.convocatory);
+    const conv: SimpleChange = changes.convocatory;
+    /*console.log('prev value: ', name.previousValue);
+    console.log('got name: ', name.currentValue);*/
+    console.log('current');
+    console.log(conv.currentValue);
+    console.log('previous');
+    console.log(conv.previousValue);
+    this.convocatory = conv.currentValue;
   }
 }
 

@@ -9,7 +9,7 @@ import { Convocatory  } from '../models/convocatory'
 export class ConvocatoryService extends BaseService {
   
   public entity: String = 'convocatory';
-  public pendingApprovePhases: string = 'getByPendingPhases';
+  public pendingApprovePhases: string = 'getPending';
   public statePublished: number = 4;
   public statePending: number = 1;
 

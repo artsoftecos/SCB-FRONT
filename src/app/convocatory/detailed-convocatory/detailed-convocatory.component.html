@@ -44,8 +44,8 @@
             <a class="waves-effect waves-light btn light-green modal-trigger" href="#modal_create_phase" (click)="openModalCreatePhase()">
                     <i class="material-icons left">add</i>Crear</a>
           </ul>
-        </div> -->
-          <app-list-phases *ngIf="convocatory.id" [convocatoryId]="convocatory.id"></app-list-phases>
+        </div> --> 
+          <app-list-phases [convocatoryId]="convocatory.id"></app-list-phases>
         </div>
 
       </div>
@@ -58,7 +58,7 @@
     [materializeActions]="modalActionsCreatePhase">
     <div class="modal-content">
       <div class="row">
-        <app-create-phase (cancelation)="closeModalCreatePhase()"></app-create-phase>
+        <app-create-phase [convocatory]="convocatory" (cancelation)="closeModalCreatePhase()"></app-create-phase>
       </div>
     </div>
   </div>

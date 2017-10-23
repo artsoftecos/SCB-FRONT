@@ -1,7 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, SimpleChange, 
+  OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Phase } from '../../../models/phase'
-import { PhaseService } from '../../../services/phase-service'
+import { Phase } from '../../../models/phase';
+import { Convocatory } from '../../../models/convocatory';
+import { PhaseService } from '../../../services/phase-service';
+import { HelperService } from '../../../services/helper.service';
 import swal from 'sweetalert2';
 declare var $: any;
 
@@ -10,7 +13,7 @@ declare var $: any;
   templateUrl: './edit-phase.component.html',
   styleUrls: ['./edit-phase.component.css']
 })
-export class EditPhaseComponent implements OnInit {
+export class EditPhaseComponent implements OnChanges, OnInit {
 
   @Input()
   phase: Phase;
@@ -18,29 +21,35 @@ export class EditPhaseComponent implements OnInit {
   originalName: string;
   originalDescription: string;    
   originalStartDate: string;
-  originalFinishDate: string;
-  originalStartApprovalPostulation: string;    
+  originalendDate: string;
+  originalStartApprovalDate: string;    
+  originalEndApprovalDate: string;    
+  originalConvocatory: Convocatory;
   summary: string = "";
 
   //Tooltips
   name_tooltip = undefined;
   description_tooltip = undefined;
   startDate_tooltip = undefined;
-  finishDate_tooltip = undefined;
-  startApprovalPostulation_tooltip = undefined;
+  endDate_tooltip = undefined;
+  startApprovalDate_tooltip = undefined;
+  endApprovalDate_tooltip = undefined;
   resultDate_tooltip = undefined;
 
   @Output()
   cancelation = new EventEmitter();
 
-  constructor(private phaseService: PhaseService) { }
+  constructor(private phaseService: PhaseService,
+    private helperService: HelperService) { }
 
   ngOnInit() {
     this.originalName = this.phase.name;
     this.originalDescription = this.phase.description;    
     this.originalStartDate = this.phase.startDate;
-    this.originalFinishDate = this.phase.finishDate;
-    this.originalStartApprovalPostulation = this.phase.startApprovalPostulation;
+    this.originalendDate = this.phase.endDate;
+    this.originalStartApprovalDate = this.phase.startApprovalDate;
+    this.originalConvocatory = this.phase.convocatory;
+    this.originalEndApprovalDate = this.phase.endApprovalDate;
   }
 
   ngAfterViewInit() {
@@ -60,6 +69,16 @@ export class EditPhaseComponent implements OnInit {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
+
+    let startDate = this.helperService.dmyToDate(this.phase.startDate);
+    let endDate = this.helperService.dmyToDate(this.phase.endDate);
+    let startApprovalDate = this.helperService.dmyToDate(this.phase.startApprovalDate);
+    let endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);
+
+    this.phase.startDate = this.helperService.getDateFormatYYYYMMddDash(startDate);
+    this.phase.endDate = this.helperService.getDateFormatYYYYMMddDash(endDate);
+    this.phase.startApprovalDate = this.helperService.getDateFormatYYYYMMddDash(startApprovalDate);
+    this.phase.endApprovalDate = this.helperService.getDateFormatYYYYMMddDash(endApprovalDate);
     this.phaseService.put(this.phase).subscribe(response => {
       this.phase = new Phase();
       swal('Exito!', 'Se ha actualizado la fase satisfactoriamente', 'success').catch(swal.noop);
@@ -85,24 +104,35 @@ export class EditPhaseComponent implements OnInit {
       if (this.phase.name === undefined || this.phase.name === "") {
         this.name_tooltip = [];
         this.name_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "El nombre es requerido.<br/>";
         isValid = false;
       }
 
       if (this.phase.startDate === undefined || this.phase.startDate.toString() === "") {
         this.startDate_tooltip = [];
         this.startDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de inicio es requerida.<br/>";
         isValid = false;
       }
 
-      if (this.phase.finishDate === undefined || this.phase.finishDate.toString() === "") {
-        this.finishDate_tooltip = [];
-        this.finishDate_tooltip['error'] = "Este campo es obligatorio";
+      if (this.phase.endDate === undefined || this.phase.endDate.toString() === "") {
+        this.endDate_tooltip = [];
+        this.endDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de fin es requerida.<br/>";
         isValid = false;
       }
 
-      if (this.phase.startApprovalPostulation === undefined || this.phase.startApprovalPostulation.toString() === "") {
-        this.startApprovalPostulation_tooltip = [];
-        this.startApprovalPostulation_tooltip['error'] = "Este campo es obligatorio";
+      if (this.phase.startApprovalDate === undefined || this.phase.startApprovalDate.toString() === "") {
+        this.startApprovalDate_tooltip = [];
+        this.startApprovalDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de inicio de aprobación es requerida.<br/>";
+        isValid = false;
+      }
+
+      if (this.phase.endApprovalDate === undefined || this.phase.endApprovalDate.toString() === "") {
+        this.endApprovalDate_tooltip = [];
+        this.endApprovalDate_tooltip['error'] = "Este campo es obligatorio";
+        this.summary += "La fecha de fin de aprobación es requerida.<br/>";
         isValid = false;
       }
 
@@ -127,38 +157,45 @@ export class EditPhaseComponent implements OnInit {
   private ValidateDates(): boolean {
     var isValid = true;
     var today = new Date();
-    var startDate = new Date(this.phase.startDate);
-
+    var startDate =  this.helperService.dmyToDate(this.phase.startDate);  
+    
     if (startDate < today) {
       this.startDate_tooltip = [];
       this.startDate_tooltip['error'] = "Fecha de inicio no puede ser menor a hoy.";
+      this.summary += "La fecha de inicio no puede ser menor a hoy.<br/>";
       isValid = false;
     }
 
-    var finishDate = new Date(this.phase.finishDate);
-    if (finishDate < today) {
-      this.finishDate_tooltip = [];
-      this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
+    var endDate =  this.helperService.dmyToDate(this.phase.endDate);   
+    if (endDate < today) {
+      this.endDate_tooltip = [];
+      this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
+      this.summary += "La fecha de fin no puede ser menor a hoy.<br/>";
       isValid = false;
-    } else if (finishDate < startDate) {
-      this.finishDate_tooltip = [];
-      this.finishDate_tooltip['error'] = "Fecha de fin no puede ser menor a la fecha de inicio.";
+    } else if (endDate < startDate) {
+      this.endDate_tooltip = [];
+      this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a la fecha de inicio.";
       isValid = false;
     }
 
-    var startApprovalPostulation = new Date(this.phase.startApprovalPostulation);
-    if (startApprovalPostulation < startDate) {
-      this.startApprovalPostulation_tooltip = [];
-      this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de inicio.";
-      isValid = false;
-    } else if (startApprovalPostulation > finishDate) {
-      this.startApprovalPostulation_tooltip = [];
-      this.startApprovalPostulation_tooltip['error'] = "Fecha de inicio de aprobación no puede ser mayor a la fecha fin.";
+    var startApprovalDate =  this.helperService.dmyToDate(this.phase.startApprovalDate);        
+    if (startApprovalDate < endDate) {
+      this.startApprovalDate_tooltip = [];
+      this.startApprovalDate_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.";
+      this.summary += "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.<br/>";
       isValid = false;
     }
+
+    var endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);        
+    if (endApprovalDate < startApprovalDate) {
+      this.endApprovalDate_tooltip = [];
+      this.endApprovalDate_tooltip['error'] = "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.";
+      this.summary += "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.<br/>";
+      isValid = false;
+    } 
 
     /* var resultDate = new Date(this.phase.resultDate);
-     if (resultDate < finishDate) {
+     if (resultDate < endDate) {
       this.resultDate_tooltip = [];
       this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a la fecha de fin.";
       isValid = false;
@@ -188,14 +225,23 @@ export class EditPhaseComponent implements OnInit {
             this.startDate_tooltip['error'] = errors[variable];
             break;
           }
-          case "finishDate": {
-            this.finishDate_tooltip = [];
-            this.finishDate_tooltip['error'] = errors[variable];
+          case "endDate": {
+            this.endDate_tooltip = [];
+            this.endDate_tooltip['error'] = errors[variable];
             break;
           }
-          case "startApprovalPostulation": {
-            this.startApprovalPostulation_tooltip = [];
-            this.startApprovalPostulation_tooltip['error'] = errors[variable];
+          case "startApprovalDate": {
+            this.startApprovalDate_tooltip = [];
+            this.startApprovalDate_tooltip['error'] = errors[variable];
+            break;
+          }
+          case "endApprovalDate": {
+            this.endApprovalDate_tooltip = [];
+            this.endApprovalDate_tooltip['error'] = errors[variable];
+            break;
+          }
+          case "summary": {
+            this.summary += errors[variable];
             break;
           }
           /*case "resultDate": {
@@ -220,8 +266,9 @@ export class EditPhaseComponent implements OnInit {
     this.phase.name = this.originalName;
     this.phase.description = this.originalDescription;
     this.phase.startDate = this.originalStartDate;
-    this.phase.finishDate = this.originalFinishDate;
-    this.phase.startApprovalPostulation = this.originalStartApprovalPostulation;
+    this.phase.endDate = this.originalendDate;
+    this.phase.startApprovalDate = this.originalStartApprovalDate;
+    this.phase.endApprovalDate = this.originalEndApprovalDate;
 
     this.cleanSummay(); 
     this.cancelation.emit();
@@ -229,5 +276,18 @@ export class EditPhaseComponent implements OnInit {
 
   cleanSummay() {
     this.summary = "";
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Change - ');
+    console.log(changes);
+    const phase: SimpleChange = changes.phase;
+    /*console.log('prev value: ', name.previousValue);
+    console.log('got name: ', name.currentValue);*/
+    console.log('current');
+    console.log(phase.currentValue);
+    console.log('previous');
+    console.log(phase.previousValue);
+    this.phase = phase.currentValue;
   }
 }

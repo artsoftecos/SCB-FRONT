@@ -22,23 +22,17 @@ export class DetailedPhaseComponent implements OnInit {
   // fields = [];
   phase: Phase;
   
-
   constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) {
     this.fields = [];
-    this.phase = new Phase();
-    this.phase.name="aaaa";
-    this.phase.startDate = "122222";
-    this.phase.finishDate = "131231";
-    this.phase.startApprovalPostulation = "1112251";
-    this.phase.id = 1;
-    this.phase.description ="Descrrrrr";
+    this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+    .subscribe(phase => {
+      console.log(phase);
+      this.phase = phase;
+    });
   }
 
   ngOnInit() {
-    //TODO: UnComment this part
-    /*this.route.paramMap
-    .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(phase => this.phase = phase);*/
   }
 
   onCreatedField(arg){
