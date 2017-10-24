@@ -7,6 +7,7 @@ import { PhaseService } from '../../../services/phase-service';
 import { Location } from '@angular/common';
 import { AddFieldComponent } from '../../../input-fields/add-field/add-field.component';
 import { FieldModel } from '../../../models/field.model';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-detailed-phase',
@@ -23,7 +24,7 @@ export class DetailedPhaseComponent implements OnInit {
   phase: Phase;
   
 
-  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) {
+  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService) {
     this.fields = [];
     this.phase = new Phase();
     this.phase.name="aaaa";
@@ -32,6 +33,15 @@ export class DetailedPhaseComponent implements OnInit {
     this.phase.startApprovalPostulation = "1112251";
     this.phase.id = 1;
     this.phase.description ="Descrrrrr";
+    dragulaService.drop.subscribe((value) => {
+      this.onDrop(value.slice(1));
+    });
+  }
+
+  private onDrop(args) {
+    let [e, el] = args;
+    console.log(args)
+    // this.removeClass(e, 'grabbable_active');
   }
 
   ngOnInit() {

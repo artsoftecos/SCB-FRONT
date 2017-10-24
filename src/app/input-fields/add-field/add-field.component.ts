@@ -35,8 +35,6 @@ export class AddFieldComponent implements OnInit {
 
   // fullImagePath: string;
  // @ViewChild('name') nameElement:ElementRef; 
-  
- iconSelected = "";
  
  options: DatepickerOptions = {
     minYear: 1970,
@@ -58,14 +56,14 @@ export class AddFieldComponent implements OnInit {
   ngOnInit() {
   }
 
-  numberValidationTypeChange(value) {
-    if(value != "0"){
-      this.iconSelected = this.fieldInstance.selectOptions[parseInt(value)-1].icon;
+  numberValidationTypeChange() {
+    if(this.fieldInstance.type != "0"){
+      this.fieldInstance.iconSelected = this.fieldInstance.selectOptions[parseInt(this.fieldInstance.type)-1].icon;
+      console.log("ICONO "+this.fieldInstance.iconSelected)
     }
   }
 
   deleteField(){
-    console.log("BORRAR")
     this.deleted.emit(this.fieldInstance);
   }
 

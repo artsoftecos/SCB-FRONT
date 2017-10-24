@@ -12,6 +12,7 @@ export class FieldModel {
   // name = "";
   nameTooltip = undefined;
   orden = 0;
+  iconSelected = "";
 
 
   // Tipos de validaciones
