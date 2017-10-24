@@ -7,6 +7,7 @@ import { PhaseService } from '../../../services/phase-service';
 import { Location } from '@angular/common';
 import { AddFieldComponent } from '../../../input-fields/add-field/add-field.component';
 import { FieldModel } from '../../../models/field.model';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-detailed-phase',
@@ -22,7 +23,7 @@ export class DetailedPhaseComponent implements OnInit {
   // fields = [];
   phase: Phase;
   
-  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService) {
+  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService) {
     this.fields = [];
     this.route.paramMap
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
@@ -30,6 +31,16 @@ export class DetailedPhaseComponent implements OnInit {
       console.log(phase);
       this.phase = phase;
     });
+
+    dragulaService.drop.subscribe((value) => {
+      this.onDrop(value.slice(1));
+    });
+  }
+
+  private onDrop(args) {
+    let [e, el] = args;
+    console.log(args)
+    // this.removeClass(e, 'grabbable_active');
   }
 
   ngOnInit() {

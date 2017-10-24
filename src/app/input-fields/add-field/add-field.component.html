@@ -19,7 +19,7 @@
       </div>
       
       <div class="input-field col s12">
-        <select [(ngModel)]="fieldInstance.type" name="fieldInstance.type" materialize="material_select" [materializeSelectOptions]="fieldInstance.selectOptions" [disabled]="null">
+        <select [(ngModel)]="fieldInstance.type" name="fieldInstance.type" materialize="material_select" [materializeSelectOptions]="fieldInstance.selectOptions" [disabled]="null" (change)="numberValidationTypeChange()">
           <!-- <option *ngFor="let option of selectOptions" [value]="option.value" data-icon="option.icon">{{option.name}}</option> -->
           <option [value]="0">Seleccione una opcion</option>
           <option [value]="1" data-icon="fa fa-minus">Texto corto</option>
@@ -36,7 +36,7 @@
       <div *ngIf="fieldInstance.type !== '0'">
         <!-- <div class="col s12" style="margin-top: 20px;"> -->
         <div class="col s12">
-          <h5><i class="{{iconSelected}}"></i> Informacion del campo</h5>
+          <h5><i class="{{fieldInstance.iconSelected}}"></i> Informacion del campo</h5>
         </div>
         <div class="input-field col s12">
           <input *ngIf="fieldInstance.nameTooltip !== undefined" [(ngModel)]="fieldInstance.name" name="fieldInstance.name" id="fieldInstance.name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.nameTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.nameTooltip['error']">
