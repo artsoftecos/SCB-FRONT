@@ -2,8 +2,15 @@
   <ul class="collapsible col m8 s12 offset-m2 z-depth-4" style="padding: 0px !important;" data-collapsible="accordion">
     <li *ngFor="let phase of phases">
       <div class="collapsible-header active">
+            
         <i class="material-icons"></i><h5 class="text-xs-center col s12">{{ phase.name }}</h5>
-        <a (click)="goToPhase(phase.id)" class="waves-effect waves-light btn green"><i class="small material-icons center">visibility</i></a>
+        
+        <div class="col m4 s3">
+        <a *ngIf="isAbleToEdit(phase)" (click)="removePhase(phase.id)" class="waves-effect waves-light btn red"><i class="small material-icons center">remove_circle</i></a>
+        </div>
+        <div class="col m4 s3">
+        <a (click)="goToPhase(phase.id)" class="waves-effect waves-light btn green right-align"><i class="small material-icons center right-align">visibility</i></a>
+        </div>
       </div>
       <div class="collapsible-body">
           <div class="row">

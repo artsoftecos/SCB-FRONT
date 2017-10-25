@@ -4,7 +4,7 @@ import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
 import { Router } from '@angular/router';
 import { PhaseService } from '../../../services/phase-service';
 import { Phase } from '../../../models/phase';
-
+import swal from 'sweetalert2';
 declare var jQuery: any;
 declare var $: any;
 
@@ -96,5 +96,26 @@ export class ListPhasesComponent implements OnChanges, OnInit {
       console.log('previous');
       console.log(conv.previousValue);
       this.convocatoryId = conv.currentValue;
+    }
+
+    removePhase(phaseId: number) {
+      this.phaseService.delete(phaseId)
+      .subscribe(phases => {
+        swal('Exito!', 'Se ha eliminado la fase satisfactoriamente', 'success').catch(swal.noop);
+        this.loadPhases();
+      });
+    }
+
+    isAbleToEdit(phase: Phase) : boolean{
+      return true;
+
+      //TODO: como esta en pendiente publicar la conv. si la pueden editar y demas.
+      /*let now = new Date();
+      let dateStartPhase = new Date(phase.startDate);
+
+      if(dateStartPhase <= now){
+        return false;
+      }
+      return true;*/
     }
 }
