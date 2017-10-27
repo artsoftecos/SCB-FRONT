@@ -30,14 +30,14 @@ export class FieldModel {
 
   // Tipos de opciones
   selectOptions = [
-    {id:"1",value:1,name:"Texto corto",icon:"fa fa-minus"},
+/*     {id:"1",value:1,name:"Texto corto",icon:"fa fa-minus"},
     {id:"2",value:2,name:"Texto largo",icon:"fa fa-bars"},
     {id:"3",value:3,name:"Unica opcion",icon:"fa fa-check-circle-o"},
     {id:"4",value:4,name:"Multiples opciones",icon:"fa fa-check-square-o"},
     {id:"5",value:5,name:"Archivo",icon:"fa fa-file"},
     {id:"6",value:6,name:"Fecha",icon:"fa fa-calendar"},
     {id:"7",value:7,name:"Numerico",icon:"fa fa-hashtag"},
-    {id:"8",value:8,name:"Email",icon:"fa fa-at"},
+    {id:"8",value:8,name:"Email",icon:"fa fa-at"}, */
   ];
   selectedOptionName = "";
 
@@ -49,6 +49,9 @@ export class FieldModel {
   validateMaxLen = 15;
   validateMinLenTooltip = undefined;
   validateMaxLenTooltip = undefined;
+
+  errorMessage = "";
+  errorMessageTooltip = [];
 
   // Opciones para campos (radio y checkbox)
   optionValue = "";

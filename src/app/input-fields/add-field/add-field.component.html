@@ -20,8 +20,8 @@
       
       <div class="input-field col s12">
         <select [(ngModel)]="fieldInstance.type" name="fieldInstance.type" materialize="material_select" [materializeSelectOptions]="fieldInstance.selectOptions" [disabled]="null" (change)="numberValidationTypeChange()">
-          <!-- <option *ngFor="let option of selectOptions" [value]="option.value" data-icon="option.icon">{{option.name}}</option> -->
-          <option [value]="0">Seleccione una opcion</option>
+          <option *ngFor="let option of fieldInstance.selectOptions" [value]="option.value" data-icon="option.icon">{{option.name}}</option>
+          <!-- <option [value]="0">Seleccione una opcion</option>
           <option [value]="1" data-icon="fa fa-minus">Texto corto</option>
           <option [value]="2" data-icon="fa fa-bars">Texto largo</option>
           <option [value]="3" data-icon="fa fa-check-circle-o">Unica opcion</option>
@@ -29,7 +29,15 @@
           <option [value]="5" data-icon="fa fa-file">Archivo</option>
           <option [value]="6" data-icon="fa fa-calendar">Fecha</option>
           <option [value]="7" data-icon="fa fa-hashtag">Numerico</option>
-          <option [value]="8" data-icon="fa fa-at">Email</option>
+          <option [value]="8" data-icon="fa fa-at">Email</option> -->
+          <option [value]="0">Seleccione una opcion</option>
+          <option [value]="1" data-icon="fa fa-minus">Texto corto</option>
+          <option [value]="2" data-icon="fa fa-bars">Texto largo</option>
+          <option [value]="3" data-icon="fa fa-file">Archivo</option>
+          <option [value]="4" data-icon="fa fa-calendar">Fecha</option>
+          <option [value]="5" data-icon="fa fa-hashtag">Numerico</option>
+          <option [value]="6" data-icon="fa fa-at">Email</option>
+          <option [value]="7" data-icon="fa fa-at">Url</option>
         </select>
         <label>Tipo de campo</label>
       </div>
@@ -199,6 +207,13 @@
             </div>
           </div>
         </div>
+
+        <div class="input-field col s12">
+          <input *ngIf="fieldInstance.errorMessageTooltip !== undefined" [(ngModel)]="fieldInstance.errorMessage" name="fieldInstance.errorMessage" id="fieldInstance.errorMessage" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.errorMessageTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.errorMessageTooltip['error']">
+          <input *ngIf="fieldInstance.errorMessageTooltip === undefined" [(ngModel)]="fieldInstance.errorMessage" name="fieldInstance.errorMessage" id="fieldInstance.errorMessage" type="text" class="validate">
+          <label>Mensaje de error</label>
+        </div>
+
       </div>
     </div>
 

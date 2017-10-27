@@ -4,17 +4,17 @@ import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as es from 'date-fns/locale/es/index';
 import swal from 'sweetalert2';
-// import * as moment from 'moment';
 import { FieldModel } from '../../models/field.model';
 import { InputFieldsService } from '../../services/input-fields.service';
-// import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';
+import { FieldTypeService } from '../../services/field-type.service'
+import { FieldType } from '../../models/field-type.model'
 
 @Component({
   selector: 'add-field',
   templateUrl: './add-field.component.html',
   styleUrls: ['./add-field.component.css'],
-  providers: [InputFieldsService]
+  providers: [InputFieldsService, FieldTypeService]
 })
 export class AddFieldComponent implements OnInit {
   modalActions = new EventEmitter<string|MaterializeAction>();
@@ -26,15 +26,23 @@ export class AddFieldComponent implements OnInit {
 
   @Input() fieldInstance: FieldModel;
  
-  // modalActions = new EventEmitter<string|MaterializeAction>();
   @Output() created: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
   @Output() deleted: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
+
+  
+  loadFieldTypes() {
+    this.fieldTypeService.get().subscribe(fieldTypes => {
+      this.fieldInstance.selectOptions = fieldTypes;
+    },
+    err => {
+      console.log(err);
+      console.log(err.json());
+      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+    });
+  }
   
   // Dict resultado
   fieldStructure = {};
-
-  // fullImagePath: string;
- // @ViewChild('name') nameElement:ElementRef; 
  
  options: DatepickerOptions = {
     minYear: 1970,
@@ -45,12 +53,14 @@ export class AddFieldComponent implements OnInit {
     //locale: 'es',
   };
 
-  constructor(private inputFieldService: InputFieldsService,private http: Http) { 
+  constructor(private inputFieldService: InputFieldsService,
+    private http: Http, private fieldTypeService: FieldTypeService) { 
     this.idPhase = "";
     this.create = true;
     this.edit = false;
     this.fieldInstance = new FieldModel(this.idPhase);
-    // this.fullImagePath = environment.ClientUrl + '/assets/img/img1.jpg';
+
+    this.loadFieldTypes();
   }
 
   ngOnInit() {
@@ -86,6 +96,7 @@ export class AddFieldComponent implements OnInit {
 
   addField(){
     let fieldStructure = this.createFieldStructure();
+    console.log(this.fieldStructure)
     if('error' in fieldStructure){
       if(typeof(fieldStructure['error']) == "string"){
         swal('Oops...', fieldStructure['error'], 'error').catch(swal.noop);
@@ -145,8 +156,8 @@ export class AddFieldComponent implements OnInit {
     }
 
     this.fieldStructure['field_type_id'] = this.fieldInstance.type;
-    this.fieldStructure['field_name'] = this.fieldInstance.name;
-    this.fieldStructure['is_required'] = this.fieldInstance.obligatory;
+    this.fieldStructure['name'] = this.fieldInstance.name;
+    this.fieldStructure['obligatory'] = this.fieldInstance.obligatory;
 
     if(this.fieldInstance.type == "1" || this.fieldInstance.type == "2"){
       if(this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen){
