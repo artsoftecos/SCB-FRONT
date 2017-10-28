@@ -13,7 +13,7 @@ export class FieldModel {
   nameTooltip = undefined;
   orden = 0;
   iconSelected = "";
-
+  fieldStructure = {};
 
   // Tipos de validaciones
   validationOptions = [
@@ -26,7 +26,7 @@ export class FieldModel {
     {value:7,name:"Numerico",icon:"fa fa-hashtag"},
     {value:8,name:"Email",icon:"fa fa-at"}, */
   ];
-  selectedValidationName = "Test validacion";
+  selectedValidation = {};
 
   // Tipos de opciones
   selectOptions = [
@@ -51,7 +51,7 @@ export class FieldModel {
   validateMaxLenTooltip = undefined;
 
   errorMessage = "";
-  errorMessageTooltip = [];
+  errorMessageTooltip = undefined;
 
   // Opciones para campos (radio y checkbox)
   optionValue = "";
@@ -59,12 +59,12 @@ export class FieldModel {
 
   // Opciones para tipos de archivos
   fileTypes = [
-    {name:"JPG", checked:"JPGisChecked", value:false},
+    /* {name:"JPG", checked:"JPGisChecked", value:false},
     {name:"PDF", checked:"PDFisChecked", value:false},
     {name:"PNG", checked:"PNGisChecked", value:false},
     {name:"word", checked:"wordisChecked", value:false},
     {name:"excel", checked:"excelisChecked", value:false},
-    {name:"powerpoint", checked:"powerpointisChecked", value:false},
+    {name:"powerpoint", checked:"powerpointisChecked", value:false}, */
   ];
 
   // Opciones para validacion de dfechas
@@ -81,6 +81,10 @@ export class FieldModel {
   maxDate: Date;
   minDateTooltip = undefined;
   maxDateTooltip = undefined;
+  // numberLessThan = ""
+  // typenumberMoreThan = ""
+  // typenumberMoreThanTooltip= undefined;
+  // numberLessThanTooltip= undefined;
 
   // Opciones para validacion de numeros
   numberValidationTypeOptions = [
@@ -95,6 +99,12 @@ export class FieldModel {
   numberMoreThan = 0;
   numberLessThanTooltip = undefined;
   numberMoreThanTooltip = undefined;
+
+  emailRegularExpression = "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
+  urlRegularExpression = "[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)";
+
+  emailRegularExpressionTooltip = undefined;
+  urlRegularExpressionTooltip = undefined;
 
   constructor(idPhase) { 
     this.idPhase = idPhase || "";

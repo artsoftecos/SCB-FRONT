@@ -72,7 +72,7 @@
               </div>
               <!-- <ng-template input-field-host></ng-template> -->
               <div class="space-margin-top">
-                <add-field (created)="onCreatedField($event)"></add-field>
+                <add-field (created)="onCreatedField($event)" [idPhase]="phase.id" [order]="order"></add-field>
               </div>
             </div>
           </div>

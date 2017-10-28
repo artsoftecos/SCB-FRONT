@@ -22,6 +22,7 @@ export class DetailedPhaseComponent implements OnInit {
   fields: FieldModel[];
   // fields = [];
   phase: Phase;
+  order = 0;
   
   constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService) {
     this.fields = [];
@@ -32,6 +33,7 @@ export class DetailedPhaseComponent implements OnInit {
       this.phase = phase;
     });
 
+    this.order = this.fields.length;
     dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
@@ -47,7 +49,6 @@ export class DetailedPhaseComponent implements OnInit {
   }
 
   onDeletedField(arg){
-    console.log("ENTRA BORRAR")
     let auxField = JSON.parse(JSON.stringify(arg));
     for(var i = 0; i < this.fields.length; i++){
       if(this.fields[i].orden > auxField.orden){
