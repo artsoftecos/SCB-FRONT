@@ -6,16 +6,9 @@
 export const environment = {
   production: false,
   // SERVER_URL: 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/SCB-Back/',
-<<<<<<< HEAD
-  SERVER_URL: 'http://localhost:8080/',
-  //SERVER_LOCAL: 'http://localhost:8080/',
-  //SERVER_URL : 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/SCB-Back/',
-  //ClientUrl : 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/scb/'
-=======
   SERVER_URL: 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/SCB-Back/',
   SERVER_LOCAL: 'https://scb-back-balanceador-820761814.us-east-1.elb.amazonaws.com/SCB-Back/',
   // SERVER_URL: 'http://localhost:8080/',
   // SERVER_LOCAL: 'http://localhost:8080/',
->>>>>>> integracion_fields
   ClientUrl: 'http://localhost:4200/'
 };
