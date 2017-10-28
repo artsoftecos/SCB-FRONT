@@ -8,6 +8,9 @@ import { UploadDocumentsComponent } from './applicant/upload-documents/upload-do
 //Form
 import { FormComponent } from './applicant/form/form.component';
 
+//routing offerer
+import { OffererRoutingModule } from './offerer/offerer-routing.module';
+
 const routes: Routes = [  
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home',  component: HomeComponent },
@@ -15,9 +18,12 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'form', component: FormComponent },
   { path: 'upload_document', component: UploadDocumentsComponent },
-  { path: 'administrator',  component: AdministratorComponent, children:[
+  { path: 'HomeAdministrator',  component: AdministratorComponent, children:[
 
   ]}
+  /*{ path: 'HomeOfferer',  component: AdministratorComponent, children:[
+    
+  ]}*/
 ];
 
 @NgModule({

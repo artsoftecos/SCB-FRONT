@@ -7,7 +7,10 @@ import { MaterializeModule } from 'angular2-materialize';
 //Modules
 import { ApplicantModule } from './applicant/applicant.module';
 import { AdministratorModule } from './administrator/administrator.module';
+import { OffererModule } from './offerer/offerer.module';
 import { SecurityModule } from './security/security.module';
+import { ConvocatoryModule } from './convocatory/convocatory.module';
+
 //Routes
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Provider } from '@angular/core';
@@ -26,7 +29,7 @@ import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
     // HomeComponent,
     // FileUploadComponent,
   ],
@@ -37,9 +40,12 @@ import { UserService } from './services/user.service';
     ApplicantModule,
     AdministratorModule,
     SecurityModule,
+    OffererModule,
     HttpModule,
     AppRoutingModule,
-    InputFieldsModule
+    InputFieldsModule,
+    ConvocatoryModule,
+    ConvocatoryModule
   ],
   providers: [UserService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
