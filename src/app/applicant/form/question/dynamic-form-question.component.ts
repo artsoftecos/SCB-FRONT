@@ -11,7 +11,7 @@ export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
   get isValid() {
-    console.log(this.form.controls[this.question.key].errors);
+  //  console.log(this.form.controls[this.question.key].errors);
     return this.form.controls[this.question.key].valid;
   }
   get isRequired() {

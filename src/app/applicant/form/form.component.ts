@@ -24,8 +24,8 @@ export class FormComponent implements OnInit {
 
   public fields: any = [];
 
-  constructor(private service: QuestionService) {
-    //, private fieldService: FieldService
+  constructor(private service: QuestionService, private fieldService: FieldService) {
+    //
     this.loadFields();
   }
 
@@ -34,9 +34,9 @@ export class FormComponent implements OnInit {
   }
 
   loadFields() {
-    /*this.offererService.getApproved().subscribe(oferrers => {
-      this.oferrers = oferrers;
-    });*/
+    /*  this.fieldService.getFields().subscribe(oferrers => {
+        console.log(oferrers);
+      });*/
     var questions = this.service.getQuestions();
     this.fields = this.buildFields(questions);
   }
