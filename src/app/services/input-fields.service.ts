@@ -16,7 +16,7 @@ export class InputFieldsService extends BaseService {
 
   post(field: FieldModel) {
     let entity = this.entity;
-    return this.basePost(entity+"/create", field);
+    return this.basePost(entity+"/create", field.fieldStructure);
   }
 
 //   getPublished(emailOfferer: string) {
