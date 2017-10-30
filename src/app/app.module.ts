@@ -44,7 +44,6 @@ import { UserService } from './services/user.service';
     HttpModule,
     AppRoutingModule,
     InputFieldsModule,
-    ConvocatoryModule,
     ConvocatoryModule
   ],
   providers: [UserService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
