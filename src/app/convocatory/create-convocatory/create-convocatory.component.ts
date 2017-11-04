@@ -50,8 +50,6 @@ export class CreateConvocatoryComponent implements OnInit {
       this.convocatoryTypes.unshift(conv);
     },
       err => {
-        console.log(err);
-        console.log(err.json());
         swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
       });
   }
@@ -88,10 +86,6 @@ export class CreateConvocatoryComponent implements OnInit {
       this.cancelRegisterConvocatory();
     },
       err => {
-        console.log("error:");
-        console.log(err);
-        console.log(err.status);
-        console.log(err.json());
         if (err.status == 400) {
           swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
         } else {

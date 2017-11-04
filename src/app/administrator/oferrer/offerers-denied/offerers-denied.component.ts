@@ -23,7 +23,6 @@ export class OfferersDeniedComponent implements OnInit {
       this.loadDeniedOfferers();
       swal('Exito!', 'Se ha aprobado el oferente satisfactoriamente', 'success').catch(swal.noop);
     });
-    console.log("Aprobar a " + nit);
   }
 
   loadDeniedOfferers() {

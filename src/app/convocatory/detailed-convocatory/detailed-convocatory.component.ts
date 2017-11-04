@@ -25,7 +25,6 @@ export class DetailedConvocatoryComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
       .subscribe(convocatory => {
-        console.log(convocatory);
         this.convocatory = convocatory;
         if (this.convocatory.convocatoryState.name === 'Publicada'){
           this.isAbleEdit= false;

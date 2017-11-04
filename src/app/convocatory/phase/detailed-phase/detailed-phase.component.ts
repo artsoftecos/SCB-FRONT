@@ -29,9 +29,31 @@ export class DetailedPhaseComponent implements OnInit {
     this.route.paramMap
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(phase => {
-      console.log(phase);
       this.phase = phase;
     });
+
+    this.phaseService.getFieldsByPhase(13).map((res: Response) => res).subscribe(
+      (res) => {
+        console.log("RESPUESTA")
+        console.log(res)
+      },
+      (err) => {
+        console.log(err)
+    });
+
+
+/*     this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.getFieldsByPhase(+params.get('id')))
+    .map((res: Response) => res.json())
+    .subscribe(
+      (res) => {
+        console.log("RESPUESTA")
+        console.log(res)
+      },
+      (err) => {
+        console.log(err)
+    }); */
+    
 
     this.order = this.fields.length;
     dragulaService.drop.subscribe((value) => {
@@ -41,7 +63,6 @@ export class DetailedPhaseComponent implements OnInit {
 
   private onDrop(args) {
     let [e, el] = args;
-    console.log(args)
     // this.removeClass(e, 'grabbable_active');
   }
 
@@ -55,8 +76,6 @@ export class DetailedPhaseComponent implements OnInit {
         this.fields[i].orden -= 1;
       }
     }
-    console.log(this.fields)
-    console.log(auxField.orden)
     this.fields.splice(auxField.orden-1, 1);
   }
 

@@ -16,7 +16,6 @@ export class DetailBasicConvocatoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.convocatory);
   }
 
 }

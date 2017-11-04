@@ -20,14 +20,11 @@ export class AdministratorComponent implements OnInit {
   goToDenied() {
 
     this.action = 'denied';
-    console.log(this.action);
   }
   goToApproved() {
     this.action = 'approved';
-    console.log(this.action);
   }
   goToPending() {
     this.action = 'pending';
-    console.log(this.action);
   }
 }

@@ -119,8 +119,6 @@ export class CreateComponent implements OnInit {
           swal('Exito!', 'Se ha registrado tu usuario, se iniciara el proceso de validacion', 'success').catch(swal.noop);
         },
         (err) => {
-          console.log(err.json());
-          console.log(err);
           let errores = err.json();
           if(err['status'] == 400){
             swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
@@ -180,14 +178,12 @@ export class CreateComponent implements OnInit {
           }
         },
         () => {
-          console.log("COMPLETADO: ");
         }
       );
     }
   }
   
   resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 
 }

@@ -22,7 +22,6 @@ export class PendingPublishListConvocatoryComponent implements OnInit {
  loadPendingPublishConvocatories() {
   let user = this.authService.getCurrentUser();
     this.convocatoryService.getPendingPublish(user.email).subscribe(convocatories => {
-      console.log(convocatories);
       this.convocatories = convocatories;
     });
   }

@@ -21,7 +21,6 @@ export class ConvocatoryPendingApprovePhasesComponent implements OnInit {
 
   constructor(private location: Location, 
     private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
-    console.log("1");
     this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;
@@ -29,12 +28,10 @@ export class ConvocatoryPendingApprovePhasesComponent implements OnInit {
     this.convocatory.convocatoryType.name = "pepito";
     this.convocatory.resultDate = "2017-01-01";
     this.convocatory.convocatoryState = new ConvocatoryState();
-    this.convocatory.convocatoryState.name = "Pusblicada"; 
-    console.log(this.convocatory);  
+    this.convocatory.convocatoryState.name = "Pusblicada";
   }
 
   ngOnInit() {
-    console.log("2");
     /*this.convocatory = new Convocatory();
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;*/

@@ -19,7 +19,6 @@ export class OfferersApprovedComponent implements OnInit {
   }
 
   edit(nit) {
-    console.log("Editar a " + nit);
   }
 
   reject(nit) {

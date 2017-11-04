@@ -34,9 +34,6 @@ export class FormComponent implements OnInit {
   }
 
   loadFields() {
-    /*  this.fieldService.getFields().subscribe(oferrers => {
-        console.log(oferrers);
-      });*/
     var questions = this.service.getQuestions();
     this.fields = this.buildFields(questions);
   }

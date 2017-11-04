@@ -279,15 +279,7 @@ export class EditPhaseComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Change - ');
-    console.log(changes);
     const phase: SimpleChange = changes.phase;
-    /*console.log('prev value: ', name.previousValue);
-    console.log('got name: ', name.currentValue);*/
-    console.log('current');
-    console.log(phase.currentValue);
-    console.log('previous');
-    console.log(phase.previousValue);
     this.phase = phase.currentValue;
   }
 }

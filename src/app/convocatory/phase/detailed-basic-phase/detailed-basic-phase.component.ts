@@ -15,7 +15,6 @@ export class DetailedBasicPhaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.phase);
   }
 
 }

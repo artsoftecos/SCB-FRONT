@@ -11,7 +11,6 @@ import swal from 'sweetalert2';
 })
 export class CreateComponent implements OnInit {
   resolved(captchaResponse: string) {
-      console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
   
   selectedOption = "";
@@ -153,8 +152,6 @@ export class CreateComponent implements OnInit {
           swal('Exito!', 'Se ha registrado tu usuario, revisa tu bandeja de correo electronico para completar la validacion', 'success').catch(swal.noop);
         },
         (err) => {
-          console.log(err.json());
-          console.log(err);
           let errores = err.json();
           if(err['status'] == 400){
             swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
@@ -232,11 +229,9 @@ export class CreateComponent implements OnInit {
             }
           }
           // [materializeParams]="tooltip"
-          console.log("ERROR: "+err);
         },
         () => {
           /* this function is executed when the observable ends (completes) its stream */
-          console.log("COMPLETED");
         }
       );
     }

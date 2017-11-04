@@ -249,15 +249,7 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Change - ');
-    console.log(changes.convocatory);
     const conv: SimpleChange = changes.convocatory;
-    /*console.log('prev value: ', name.previousValue);
-    console.log('got name: ', name.currentValue);*/
-    console.log('current');
-    console.log(conv.currentValue);
-    console.log('previous');
-    console.log(conv.previousValue);
     this.convocatory = conv.currentValue;
   }
 

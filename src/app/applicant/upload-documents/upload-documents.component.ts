@@ -49,7 +49,6 @@ export class UploadDocumentsComponent implements OnInit {
           swal('Oops...', err.json()['Response'], 'error').catch(swal.noop);
         },
         () => {
-          console.log("COMPLETED");
         }
       );
     }

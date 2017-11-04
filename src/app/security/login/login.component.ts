@@ -45,21 +45,17 @@ export class LoginComponent implements OnInit {
           break;
       }
     }, err => {
-      console.log(err);
       swal('Oops...', 'Hay un error con tu correo y/o contraseña', 'error').catch(swal.noop);
     });
   }
 
   goToApplicant() {
-    console.log("Go To Applicant");
     this.router.navigate(['/home']);
   }
   goToAdministrator() {
-    console.log("Go To Administrator");
     this.router.navigate(['/HomeAdministrator']);
   }
   goToOfferer() {
-    console.log("Go To Offerer");
     this.router.navigate(['/HomeOfferer']);
   }
 }

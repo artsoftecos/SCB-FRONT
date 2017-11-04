@@ -86,7 +86,6 @@ export class ListPhasesComponent implements OnChanges, OnInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-      console.log('Change - ');
       console.log(changes);
       const conv: SimpleChange = changes.convocatoryId;
       /*console.log('prev value: ', name.previousValue);
