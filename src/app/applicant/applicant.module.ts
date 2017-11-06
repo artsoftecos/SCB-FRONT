@@ -8,6 +8,7 @@ import { CreateComponent } from './create/create.component';
 import { RecaptchaModule } from 'ng2-recaptcha';
 import { UploadDocumentsComponent } from './upload-documents/upload-documents.component';
 //Forms
+import { PlaceService } from '../services/place-service';
 import { ApplicantConvocatoryService } from '../services/applicant-convocatory.service'
 import { ApplicantRoutingModule } from './applicant-routing.module';
 import { FormComponent } from './form/form.component';
@@ -17,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { PublishedListConvocatoryComponent } from './published-list-convocatory/published-list-convocatory.component';
 import { InscribedListConvocatoryComponent } from './inscribed-list-convocatory/inscribed-list-convocatory.component';
 import { PlacesListConvocatoryComponent } from './places-list-convocatory/places-list-convocatory.component';
+import { RejectPlaceComponent } from './reject-place/reject-place.component';
 
 
 @NgModule({
@@ -32,13 +34,14 @@ import { PlacesListConvocatoryComponent } from './places-list-convocatory/places
     ValidateComponent,
     CreateComponent, UploadDocumentsComponent,
     //Forms
-    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent
+    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent, RejectPlaceComponent
   ],
   exports: [
     CreateComponent
   ],
   providers: [
-    ApplicantConvocatoryService
+    ApplicantConvocatoryService,
+    PlaceService
   ]
 })
 export class ApplicantModule { }
