@@ -40,10 +40,6 @@ export class PlacesListConvocatoryComponent implements OnInit {
     });
   }
 
-  goToConvocatory(convocatoryId: number) {
-    this.router.navigate(['/approveApplicants/'+ convocatoryId]);
-  }
-
   approvePlace(idPlaza: number) {
     this.placeService.approve(idPlaza).subscribe(response => {
       swal('Exito!', 'Se ha aprobado la plaza', 'success').catch(swal.noop);
