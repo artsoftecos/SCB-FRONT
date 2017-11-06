@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
   }
 
   goToApplicant() {
-    this.router.navigate(['/home']);
+    console.log("Go To Applicant");
+    this.router.navigate(['/HomeApplicant']);
   }
   goToAdministrator() {
     this.router.navigate(['/HomeAdministrator']);
