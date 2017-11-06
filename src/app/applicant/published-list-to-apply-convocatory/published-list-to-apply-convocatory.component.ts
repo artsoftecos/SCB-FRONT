@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-published-list-convocatory',
-  templateUrl: './published-list-convocatory.component.html',
-  styleUrls: ['./published-list-convocatory.component.css']
+  selector: 'app-published-list-to-apply-convocatory',
+  templateUrl: './published-list-to-apply-convocatory.component.html',
+  styleUrls: ['./published-list-to-apply-convocatory.component.css']
 })
-export class PublishedListConvocatoryComponent implements OnInit {
+export class PublishedToApplyListConvocatoryComponent implements OnInit {
 
    public convocatories: any = [];
   
@@ -27,7 +27,8 @@ export class PublishedListConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-    this.router.navigate(['/approveApplicants/'+ convocatoryId]);
+    console.log("va a ir "+convocatoryId);
+    this.router.navigate(['/DetailPublishedConvocatory/'+ convocatoryId]);
   }
 
 }

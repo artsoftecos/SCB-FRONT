@@ -44,7 +44,8 @@ import { InputFielDirective } from './phase/detailed-phase/detailed-phase-field.
     CreateConvocatoryComponent, 
     PendingPublishListConvocatoryComponent,
     PublishedListConvocatoryComponent, 
-    PendingListApprovePhasesConvocatoryComponent
+    PendingListApprovePhasesConvocatoryComponent,
+    DetailBasicConvocatoryComponent
   ],
   declarations: [
     // AddFieldComponent,

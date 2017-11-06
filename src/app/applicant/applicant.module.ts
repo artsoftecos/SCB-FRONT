@@ -15,11 +15,12 @@ import { FormComponent } from './form/form.component';
 import { DynamicFormComponent } from './form/question/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './form/question/dynamic-form-question.component';
 import { HomeComponent } from './home/home.component';
-import { PublishedListConvocatoryComponent } from './published-list-convocatory/published-list-convocatory.component';
+import { PublishedToApplyListConvocatoryComponent } from './published-list-to-apply-convocatory/published-list-to-apply-convocatory.component';
 import { InscribedListConvocatoryComponent } from './inscribed-list-convocatory/inscribed-list-convocatory.component';
 import { PlacesListConvocatoryComponent } from './places-list-convocatory/places-list-convocatory.component';
 import { RejectPlaceComponent } from './reject-place/reject-place.component';
-
+import { PublishedDetailConvocatoryComponent } from './published-detail-convocatory/published-detail-convocatory.component';
+import { ConvocatoryModule } from '../convocatory/convocatory.module';
 
 @NgModule({
   imports: [
@@ -28,13 +29,14 @@ import { RejectPlaceComponent } from './reject-place/reject-place.component';
     FormsModule,
     ReactiveFormsModule,
     ApplicantRoutingModule,
+    ConvocatoryModule,
     RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
   ],
   declarations: [
     ValidateComponent,
     CreateComponent, UploadDocumentsComponent,
     //Forms
-    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent, RejectPlaceComponent
+    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedToApplyListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent, RejectPlaceComponent, PublishedDetailConvocatoryComponent
   ],
   exports: [
     CreateComponent
