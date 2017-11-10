@@ -28,7 +28,7 @@ export class PublishedToApplyListConvocatoryComponent implements OnInit {
 
   goToConvocatory(convocatoryId: number) {
     console.log("va a ir "+convocatoryId);
-    this.router.navigate(['/DetailPublishedConvocatory/'+ convocatoryId]);
+    this.router.navigate(['/PhaseToApply/'+ convocatoryId]);
   }
 
 }

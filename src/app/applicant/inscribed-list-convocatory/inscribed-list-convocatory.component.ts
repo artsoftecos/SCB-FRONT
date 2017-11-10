@@ -27,7 +27,7 @@ export class InscribedListConvocatoryComponent implements OnInit {
   }
 
   goToConvocatory(convocatoryId: number) {
-    this.router.navigate(['/approveApplicants/'+ convocatoryId]);
+    this.router.navigate(['/PhaseToApply/'+ convocatoryId]);
   }
 
 }
