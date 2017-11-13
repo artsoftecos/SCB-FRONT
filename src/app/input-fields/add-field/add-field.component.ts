@@ -112,7 +112,13 @@ export class AddFieldComponent implements OnInit {
   }
 
   deleteField(){
-    this.deleted.emit(this.fieldInstance);
+    
+    this.inputFieldService.delete(this.fieldInstance.idField).subscribe(response => {
+      this.deleted.emit(this.fieldInstance);
+    },
+    err => {
+      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+    });
   }
 
   openModal() {
@@ -183,13 +189,14 @@ export class AddFieldComponent implements OnInit {
     this.fieldStructure['value'] = "";
     this.fieldStructure['fieldType'] = {'id':this.fieldInstance.type};
     
-    // this.fieldStructure['validation'] = {};
+    this.fieldStructure['validation'] = {};
 
-    if(typeof(this.fieldInstance.selectedValidation) == "object")
-      // this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation['id'];
+    // if(typeof(this.fieldInstance.selectedValidation) == "object")
+    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation['id'];
     // else
-      // this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation;
-    // this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
+    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation;
+    this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
+    this.fieldStructure['validation']['fieldTypeValidation'] = {'id':this.fieldInstance.selectedValidation};
 
     if(this.fieldInstance.selectedValidation == "3" || this.fieldInstance.selectedValidation == "1"){
       if(this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen){
@@ -201,21 +208,21 @@ export class AddFieldComponent implements OnInit {
           'error': true
         }
       }
-      // this.fieldStructure['validation']['value'] = this.fieldInstance.validateMinLen+"|"+this.fieldInstance.validateMaxLen;
+      this.fieldStructure['validation']['value'] = this.fieldInstance.validateMinLen+"|"+this.fieldInstance.validateMaxLen;
     }else{
       if(this.fieldInstance.type == "4"){
-        // this.fieldStructure['validation']['value'] = "";
+        this.fieldStructure['validation']['value'] = "";
         for(var i = 0; i < this.fieldInstance.fileTypes.length; i++){
           if(this.fieldInstance.fileTypes[i]['value']){
-            // this.fieldStructure['validation']['value'] = this.fieldInstance.fileTypes[i]+",";
+            this.fieldStructure['validation']['value'] = this.fieldInstance.fileTypes[i]+",";
           }
         }
       }else{
         if(this.fieldInstance.type == "5"){
-          // this.fieldStructure['validation']['value'] = this.fieldInstance.minDate;
+          this.fieldStructure['validation']['value'] = this.fieldInstance.minDate;
         }else{
           if(this.fieldInstance.type == "6"){
-            // this.fieldStructure['validation']['value'] = this.fieldInstance.maxDate;
+            this.fieldStructure['validation']['value'] = this.fieldInstance.maxDate;
           }else{
             if(this.fieldInstance.type == "7"){
               
@@ -228,13 +235,13 @@ export class AddFieldComponent implements OnInit {
                   'error': 'La fecha inicial debe ser menor a la fecha final!'
                 }
               }
-              // this.fieldStructure['validation']['value'] = this.fieldInstance.minDate+"|"+this.fieldInstance.maxDate;
+              this.fieldStructure['validation']['value'] = this.fieldInstance.minDate+"|"+this.fieldInstance.maxDate;
             }else{
               if(this.fieldInstance.type == "8"){
-                // this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
+                this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
               }else{
                 if(this.fieldInstance.type == "9"){
-                  // this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
+                  this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
                 }else{
                   if(this.fieldInstance.type == "10"){
                     if(this.fieldInstance.numberLessThan > this.fieldInstance.numberMoreThan){
@@ -246,13 +253,13 @@ export class AddFieldComponent implements OnInit {
                         'error': true
                       }
                     }
-                    // this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan+"|"+this.fieldInstance.numberMoreThan;
+                    this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan+"|"+this.fieldInstance.numberMoreThan;
                   }else{
                     if(this.fieldInstance.type == "11"){
-                      // this.fieldStructure['validation']['value'] = this.fieldInstance.emailRegularExpression;
+                      this.fieldStructure['validation']['value'] = this.fieldInstance.emailRegularExpression;
                     }else{
                       if(this.fieldInstance.type == "12"){
-                        // this.fieldStructure['validation']['value'] = this.fieldInstance.urlRegularExpressionTooltip;
+                        this.fieldStructure['validation']['value'] = this.fieldInstance.urlRegularExpressionTooltip;
                       }
                     }
                   }

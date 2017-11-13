@@ -6,6 +6,7 @@ export class FieldModel {
   type = "";
   name = "";
   idPhase = "";
+  idField = "";
   // @Input() nameTooltip: any;
   // @Input() orden: number;
   // type = "0";
@@ -108,6 +109,7 @@ export class FieldModel {
 
   constructor(idPhase) { 
     this.idPhase = idPhase || "";
+    this.idField = "";
     this.obligatory = false;
     this.type = "0";
     this.name = "";

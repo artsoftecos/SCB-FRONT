@@ -18,6 +18,11 @@ export class InputFieldsService extends BaseService {
     let entity = this.entity;
     return this.basePost(entity+"/create", field.fieldStructure);
   }
+  
+  delete(id: string) {
+    let entity = this.entity;
+    return this.basePost(entity+"/delete/"+id);
+  }
 
 //   getPublished(emailOfferer: string) {
 //     return this.baseGet(this.entity + "/getByOffererState/" + emailOfferer+"/"+this.statePublished);

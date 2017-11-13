@@ -30,16 +30,25 @@ export class DetailedPhaseComponent implements OnInit {
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(phase => {
       this.phase = phase;
+      this.phaseService.getFieldsByPhase(this.phase.id).subscribe(
+        (response) => {
+          console.log("RESPUESTA")
+          for (var i = 0; i < response.length; i++) {
+            console.log(response[i])
+            let aux_field = new FieldModel(response[i]);
+            aux_field.name = response[i].name;
+            aux_field.selectedOptionName = response[i].fieldType.nombre;
+            aux_field.type = response[i].fieldType.id;
+            aux_field.obligatory = response[i].obligatory;
+            aux_field.idField = response[i].id;
+            this.fields.push(aux_field)
+          }
+        },
+        (err) => {
+          console.log(err)
+      });
     });
 
-    this.phaseService.getFieldsByPhase(13).map((res: Response) => res).subscribe(
-      (res) => {
-        console.log("RESPUESTA")
-        console.log(res)
-      },
-      (err) => {
-        console.log(err)
-    });
 
 
 /*     this.route.paramMap
