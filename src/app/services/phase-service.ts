@@ -35,4 +35,8 @@ export class PhaseService extends BaseService {
   getApplicantsToApprove(idPhase: number) {
     return this.baseGet(this.entity + "/byId/" + idPhase);
   }
+
+  getCurrentPhaseToApply(idConvocatory: number, mail: String) {
+   return this.baseGet(this.entity + "/getCurrentPhase/" + idConvocatory+"/"+mail);
+  }
 }
