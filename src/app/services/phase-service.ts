@@ -36,8 +36,15 @@ export class PhaseService extends BaseService {
     return this.baseGet(this.entity + "/byId/" + idPhase);
   }
 
+
   getFieldsByPhase(idPhase: number) {
     // console.log(this.baseGet("field/getByPhase/" + idPhase))
     return this.baseGet("field/getByPhase/" + idPhase);
   }
+
+
+  getCurrentPhaseToApply(idConvocatory: number, mail: String) {
+   return this.baseGet(this.entity + "/getCurrentPhase/" + idConvocatory+"/"+mail);
+  }
 }
+

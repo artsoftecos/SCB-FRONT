@@ -19,7 +19,7 @@ import { PublishedToApplyListConvocatoryComponent } from './published-list-to-ap
 import { InscribedListConvocatoryComponent } from './inscribed-list-convocatory/inscribed-list-convocatory.component';
 import { PlacesListConvocatoryComponent } from './places-list-convocatory/places-list-convocatory.component';
 import { RejectPlaceComponent } from './reject-place/reject-place.component';
-import { PublishedDetailConvocatoryComponent } from './published-detail-convocatory/published-detail-convocatory.component';
+import { PhaseToApplyConvocatoryComponent } from './phase-to-apply-convocatory/phase-to-apply-convocatory.component';
 import { ConvocatoryModule } from '../convocatory/convocatory.module';
 
 @NgModule({
@@ -36,7 +36,7 @@ import { ConvocatoryModule } from '../convocatory/convocatory.module';
     ValidateComponent,
     CreateComponent, UploadDocumentsComponent,
     //Forms
-    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedToApplyListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent, RejectPlaceComponent, PublishedDetailConvocatoryComponent
+    FormComponent, DynamicFormComponent, DynamicFormQuestionComponent, HomeComponent, PublishedToApplyListConvocatoryComponent, InscribedListConvocatoryComponent, PlacesListConvocatoryComponent, RejectPlaceComponent, PhaseToApplyConvocatoryComponent
   ],
   exports: [
     CreateComponent
