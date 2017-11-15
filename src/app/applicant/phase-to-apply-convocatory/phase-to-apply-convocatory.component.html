@@ -21,6 +21,7 @@
           </div>
         </div>
       </div>
+
       <div *ngIf="!isEnabledPhase">                
           <h5 class="text-xs-center" >La convocatoria ya ha cerrado.</h5>
           <br/><br/>
@@ -29,7 +30,6 @@
           <h5 class="text-xs-center" >Usted a sido rechazado de la convocatoria.</h5>
           <br/><br/>                       
       </div>
-      {{ currentState }}
       <div [hidden]="!isEnabledPhase || currentState === stateRejectedOtherPhase">
         <div class="row space-padding-top no-space-margin-bottom white-background">
           <h5 class="text-xs-center" style="margin: 0px;"> Fases </h5>
@@ -64,10 +64,10 @@
                       <strong>Descripción:</strong>
                       <span>{{ phase.description }} </span>
                     </div>
-                    <div class="input-field inline col s12">
+                    <!--<div class="input-field inline col s12">
                       <strong>Estado:</strong>
                       <span>{{ currentState }} </span>
-                    </div>                    
+                    </div>                    -->
                     <div class="input-field col s12 center-align">
                       <div *ngIf="currentState === statePendingData">
                         <a class="waves-effect waves-light btn green" id="aplicar" type="button" value="Aplicar" (click)="goToApply()">Aplicar</a>

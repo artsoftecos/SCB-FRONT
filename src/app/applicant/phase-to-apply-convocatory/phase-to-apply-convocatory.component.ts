@@ -1,8 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
-import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
+import { MaterializeDirective, MaterializeAction } from "angular2-materialize";
 import { EventEmitter } from '@angular/core';
 import { Convocatory } from '../../models/convocatory';
+import { StatePhaseAndAplicant } from '../../models/state-phase-and-aplicant';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ConvocatoryService } from '../../services/convocatory.service';
 import { PhaseService } from '../../services/phase-service';
@@ -13,6 +14,7 @@ import { Phase } from '../../models/phase';
 import { Router } from '@angular/router';
 declare var jQuery: any;
 declare var $: any;
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-phase-to-apply-convocatory',
@@ -30,21 +32,12 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
   stateRejected: String = 'Rechazado';
   stateRejectedOtherPhase: String = 'RechazadoFaseAnterior';
   isEnabledPhase: boolean = false;
+  statePhaseAndAplicant: StatePhaseAndAplicant;
 
   constructor(private location: Location, 
+    private authService: AuthService,
     private route: ActivatedRoute, private convocatoryService: ConvocatoryService,
       private phaseService: PhaseService, private router: Router) { 
-        console.log("llego");
-
-        //se obtiene la fase actual, si:
-        // es nula = la fase ya termino, no hay disponible por lo que se muestra mensaje de que ya fue cerrada.
-        // si <> null: muestra datos de la fase y:
-        //  si es PendienteRegistroDatos: mostrar el boton de aplicar.
-        //  si es Pendiente:  muestra mensaje de que su aplicacion esta pendiente de ser respondida.
-        //  si es Aprobado: Se muestra mensaje de que fue aprobado, que pronto se habilitara la siguiente fase.
-        //  si es Rechazado: Se muestra que fue rehazado en esa fase.
-        //  si es RechazadoFaseAnterior: indica que el ya habia aplicado en otra fase anterior, pero no paso a esta fase, por lo cual se debe indicar que el no esta en esta fase por su rechazo.
-
     this.route.paramMap
       .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
       .subscribe(convocatory => {
@@ -64,26 +57,17 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
 
   loadCurrentPhase(){
 
-    //TODO: descomentarear y cambiar la parte de onbtener fase para que se comporte de acuerdo al estado que envie el back.
-  /*
-    this.phaseService.getByConvocatory(this.convocatory.id)
-    .subscribe(phases => {
-      console.log(phases);   
-      console.log(phases[0]);      
-      this.phase = phases[0];
-    });*/
-   
+let user = this.authService.getCurrentUser();
+ this.phaseService.getCurrentPhaseToApply(this.convocatory.id, user.email)
+    .subscribe(statePhaseAndAplicant => {
+      this.statePhaseAndAplicant = statePhaseAndAplicant;
+      console.log(statePhaseAndAplicant);    
+      this.currentState = statePhaseAndAplicant.state;
+      this.phase = statePhaseAndAplicant.phase;
 
-//   this.habilitarCerradoConvocatoria();
-this.habilitarAplicar();
-/*this.habilitarPendiente();
-this.habilitarAprobado();
-this.habilitarRechazado();
-this.habilitarRechazadoDeFaseAnterior();*/
-
-    this.habilitarFase();
-    this.habilitarAcordeon();
-
+      this.habilitarFase();
+      this.habilitarAcordeon();
+    });
   }
 
   goToApply() {
@@ -96,6 +80,29 @@ this.habilitarRechazadoDeFaseAnterior();*/
   ngAfterViewInit() {    
    this.habilitarAcordeon();
   }
+
+
+
+  habilitarAcordeon() {
+   $('.collapsible').collapsible({
+      accordion : true
+    });
+  }
+
+  habilitarFase() {
+   this.isEnabledPhase = false;
+    if (this.phase !== null && this.phase !== undefined) {
+      this.isEnabledPhase = true;
+    }
+  }
+
+
+
+
+
+
+
+
 
   //Tests:
   habilitarCerradoConvocatoria(){
@@ -141,16 +148,13 @@ habilitarRechazado() {
     this.phase.convocatory = this.convocatory;
   }
 
-  habilitarAcordeon() {
-   $('.collapsible').collapsible({
-      accordion : true
-    });
-  }
 
-  habilitarFase() {
-   this.isEnabledPhase = false;
-    if (this.phase !== null && this.phase !== undefined) {
-      this.isEnabledPhase = true;
-    }
-  }
+/*   this.habilitarCerradoConvocatoria();
+this.habilitarAplicar();
+this.habilitarPendiente();
+this.habilitarAprobado();
+this.habilitarRechazado();
+this.habilitarRechazadoDeFaseAnterior();    
+  */
+
 }
