@@ -43,6 +43,7 @@ export class PlacesListConvocatoryComponent implements OnInit {
   approvePlace(idPlaza: number) {
     this.placeService.approve(idPlaza).subscribe(response => {
       swal('Exito!', 'Se ha aprobado la plaza', 'success').catch(swal.noop);
+      this.loadPlaces();
     },
     err => {
       console.log(err);

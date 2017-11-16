@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges,
 import { FormsModule } from '@angular/forms';
 import swal from 'sweetalert2';
 import { PlaceService } from '../../services/place-service';
+import { RejectPlace } from '../../models/reject-place';
 
 @Component({
   selector: 'app-reject-place',
@@ -33,7 +34,10 @@ export class RejectPlaceComponent implements OnChanges, OnInit {
     if(!this.validate()){
       return;
     }
-    this.placeService.reject(this.idPlace, this.message).subscribe(response => {
+    var rejectPlace = new RejectPlace();
+    rejectPlace.idPlace = this.idPlace;
+    rejectPlace.rejectCause = this.message;
+    this.placeService.reject(rejectPlace).subscribe(response => {
       swal('Exito!', 'Se ha rechazado la plaza', 'success').catch(swal.noop);
       this.cancel();
     },
