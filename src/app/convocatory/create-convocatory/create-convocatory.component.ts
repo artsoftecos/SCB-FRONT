@@ -45,8 +45,8 @@ export class CreateConvocatoryComponent implements OnInit {
     this.convocatoryTypeService.get().subscribe(convocatoryTypes => {
       let conv = new ConvocatoryType();
       conv.id = -1;
-      conv.name = "Seleccione tipo de convocatoria";      
-      this.convocatoryTypes=convocatoryTypes;
+      conv.name = "Seleccione tipo de convocatoria";
+      this.convocatoryTypes = convocatoryTypes;
       this.convocatoryTypes.unshift(conv);
     },
       err => {
@@ -54,13 +54,13 @@ export class CreateConvocatoryComponent implements OnInit {
       });
   }
 
- /* options: DatepickerOptions = {
-    minYear: 1970,
-    maxYear: 2030,
-    displayFormat: 'MMM D[,] YYYY',
-    barTitleFormat: 'MMMM YYYY',
-    firstCalendarDay: 0 // 0 - Sunday, 1 - Monday
-  };*/
+  /* options: DatepickerOptions = {
+     minYear: 1970,
+     maxYear: 2030,
+     displayFormat: 'MMM D[,] YYYY',
+     barTitleFormat: 'MMMM YYYY',
+     firstCalendarDay: 0 // 0 - Sunday, 1 - Monday
+   };*/
 
   registerConvocatory() {
     this.cleanSummay();
@@ -68,7 +68,7 @@ export class CreateConvocatoryComponent implements OnInit {
     type.id = this.selectedType;
     this.convocatory.convocatoryType = type;
     let user = this.authService.getCurrentUser();
-    let oferrer= new Oferrer();
+    let oferrer = new Oferrer();
     oferrer.email = user.email;
     this.convocatory.offerer = oferrer;
     if (!this.isValidConvocatory()) {
@@ -98,9 +98,9 @@ export class CreateConvocatoryComponent implements OnInit {
   isValidConvocatory(): boolean {
     let isValid = true;
     var today = new Date();
-    
+
     try {
-      if (this.convocatory.name === undefined ||this.convocatory.name === "") {
+      if (this.convocatory.name === undefined || this.convocatory.name === "") {
         this.name_tooltip = [];
         this.name_tooltip['error'] = "Este campo es obligatorio";
         this.summary += "El nombre es requerido.<br/>";
@@ -135,32 +135,35 @@ export class CreateConvocatoryComponent implements OnInit {
         isValid = false;
       }
 
-      var idsConvocatoryTypes = this.convocatoryTypes.map(function(a) {return a.id;});
-      if (this.convocatory.convocatoryType !== undefined && this.convocatory.convocatoryType.id !== undefined 
-          && idsConvocatoryTypes.indexOf(parseInt(this.convocatory.convocatoryType.id.toString())) == -1) {
+      var idsConvocatoryTypes = this.convocatoryTypes.map(function (a) { return a.id; });
+      if (this.convocatory.convocatoryType !== undefined && this.convocatory.convocatoryType.id !== undefined
+        && idsConvocatoryTypes.indexOf(parseInt(this.convocatory.convocatoryType.id.toString())) == -1) {
         this.type_tooltip = [];
         this.type_tooltip['error'] = "El tipo de convocatoria no existe.";
         this.summary += "El tipo de convocatoria no existe.<br/>";
         isValid = false;
-      }  
-      
+      }
+
+      console.log(this.convocatory);
+      console.log((this.convocatory.resultDate === undefined || this.convocatory.resultDate.toString() === ""));
       if (this.convocatory.resultDate === undefined || this.convocatory.resultDate.toString() === "") {
         this.resultDate_tooltip = [];
         this.resultDate_tooltip['error'] = "Este campo es obligatorio";
         this.summary += "La fecha de resultados es obligatoria.<br/>";
         isValid = false;
       }
-      
+
       if (this.convocatory.resultDate !== undefined && this.convocatory.resultDate !== null) {
-        var resultDate =  this.helperService.dmyToDate(this.convocatory.resultDate);          
-          //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
-          //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
-          if (resultDate < today) {
+        var resultDate = this.helperService.dmyToDate(this.convocatory.resultDate);
+        console.log(resultDate, today, (resultDate < today));
+        //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
+        //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
+        if (resultDate < today) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a hoy.";
           this.summary += "Fecha de resultados no puede ser menor a hoy.<br/>";
           isValid = false;
-          }
+        }
       }
     }
     catch (e) {
@@ -170,8 +173,8 @@ export class CreateConvocatoryComponent implements OnInit {
     return isValid;
   };
 
-  handleUiErrors(err: any) {  
-    this.cleanSummay();  
+  handleUiErrors(err: any) {
+    this.cleanSummay();
     let errors = err.json();
     for (var variable in errors) {
       if (errors.hasOwnProperty(variable)) {
@@ -209,8 +212,7 @@ export class CreateConvocatoryComponent implements OnInit {
         var att = document.createAttribute("data-tooltip");
         att.value = errors[variable];
         var elementToMap = document.getElementById(variable);
-        if (elementToMap !== undefined)
-        {
+        if (elementToMap !== undefined) {
           document.getElementById(variable).setAttributeNode(att);
           document.getElementById(variable).classList.add("invalid");
         }

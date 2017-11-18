@@ -22,10 +22,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./phase-to-apply-convocatory.component.css']
 })
 export class PhaseToApplyConvocatoryComponent implements OnInit {
-  actions1 = new EventEmitter<string|MaterializeAction>();
+  actions1 = new EventEmitter<string | MaterializeAction>();
   convocatory: Convocatory;
   phase: Phase;
-  currentState : String;
+  currentState: String;
   statePendingData: String = 'PendienteRegistroDatos';
   statePending: String = 'Pendiente';
   stateApproved: String = 'Aprobado';
@@ -34,16 +34,16 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
   isEnabledPhase: boolean = false;
   statePhaseAndAplicant: StatePhaseAndAplicant;
 
-  constructor(private location: Location, 
+  constructor(private location: Location,
     private authService: AuthService,
     private route: ActivatedRoute, private convocatoryService: ConvocatoryService,
-      private phaseService: PhaseService, private router: Router) { 
+    private phaseService: PhaseService, private router: Router) {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
       .subscribe(convocatory => {
         console.log(convocatory);
         this.convocatory = convocatory;
-        this.loadCurrentPhase();       
+        this.loadCurrentPhase();
       });
   }
 
@@ -55,42 +55,42 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
     this.location.back();
   }
 
-  loadCurrentPhase(){
+  loadCurrentPhase() {
 
-let user = this.authService.getCurrentUser();
- this.phaseService.getCurrentPhaseToApply(this.convocatory.id, user.email)
-    .subscribe(statePhaseAndAplicant => {
-      this.statePhaseAndAplicant = statePhaseAndAplicant;
-      console.log(statePhaseAndAplicant);    
-      this.currentState = statePhaseAndAplicant.state;
-      this.phase = statePhaseAndAplicant.phase;
+    let user = this.authService.getCurrentUser();
+    this.phaseService.getCurrentPhaseToApply(this.convocatory.id, user.email)
+      .subscribe(statePhaseAndAplicant => {
+        this.statePhaseAndAplicant = statePhaseAndAplicant;
+        console.log(statePhaseAndAplicant);
+        this.currentState = statePhaseAndAplicant.state;
+        this.phase = statePhaseAndAplicant.phase;
 
-      this.habilitarFase();
-      this.habilitarAcordeon();
-    });
+        this.habilitarFase();
+        this.habilitarAcordeon();
+      });
   }
 
   goToApply() {
     //TODO: Sebastian aca pone la navegacion para ir a sus campos.
     //O solo se quitaria y se llamaria un metodo para aplicar a esta convocatoria.
     //El parametro q quiera.. convocatoria o fase
-    this.router.navigate(['/ruta.../'+ this.convocatory.id]);
+    this.router.navigate(['/ruta.../' + this.convocatory.id]);
   }
 
-  ngAfterViewInit() {    
-   this.habilitarAcordeon();
+  ngAfterViewInit() {
+    this.habilitarAcordeon();
   }
 
 
 
   habilitarAcordeon() {
-   $('.collapsible').collapsible({
-      accordion : true
+    $('.collapsible').collapsible({
+      accordion: true
     });
   }
 
   habilitarFase() {
-   this.isEnabledPhase = false;
+    this.isEnabledPhase = false;
     if (this.phase !== null && this.phase !== undefined) {
       this.isEnabledPhase = true;
     }
@@ -105,9 +105,9 @@ let user = this.authService.getCurrentUser();
 
 
   //Tests:
-  habilitarCerradoConvocatoria(){
+  habilitarCerradoConvocatoria() {
     this.currentState = null;
-    this.phase=null;
+    this.phase = null;
   }
 
   habilitarAplicar() {
@@ -125,7 +125,7 @@ let user = this.authService.getCurrentUser();
     this.currentState = 'Aprobado';
   }
 
-habilitarRechazado() {
+  habilitarRechazado() {
     this.crearFaseDummy();
     this.currentState = 'Rechazado';
   }
@@ -137,8 +137,8 @@ habilitarRechazado() {
 
 
   crearFaseDummy() {
-   this.phase = new Phase();
-    this.phase.id = 1;    
+    this.phase = new Phase();
+    this.phase.id = 1;
     this.phase.name = "fase inscripcion";
     this.phase.description = "desc";
     this.phase.startDate = "2017 - 5 -2";
@@ -149,12 +149,12 @@ habilitarRechazado() {
   }
 
 
-/*   this.habilitarCerradoConvocatoria();
-this.habilitarAplicar();
-this.habilitarPendiente();
-this.habilitarAprobado();
-this.habilitarRechazado();
-this.habilitarRechazadoDeFaseAnterior();    
-  */
+  /*   this.habilitarCerradoConvocatoria();
+  this.habilitarAplicar();
+  this.habilitarPendiente();
+  this.habilitarAprobado();
+  this.habilitarRechazado();
+  this.habilitarRechazadoDeFaseAnterior();    
+    */
 
 }

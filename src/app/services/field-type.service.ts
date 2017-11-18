@@ -5,12 +5,12 @@ import { BaseService } from './base.service';
 import 'rxjs/Rx';
 
 @Injectable()
-export class FieldTypeService  extends BaseService {
-  
-      public entity: String = 'fieldType';
-  
-      get() {
-          return this.baseGet(this.entity);
-      }
+export class FieldTypeService extends BaseService {
+
+    public entity: String = 'fieldType';
+
+    get() {
+        return this.baseGet(this.entity);
+    }
 }
-  
+

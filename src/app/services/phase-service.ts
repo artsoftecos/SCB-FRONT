@@ -3,32 +3,32 @@ import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { BaseService } from './base.service';
 import 'rxjs/Rx';
-import { Phase  } from '../models/phase'
+import { Phase } from '../models/phase'
 
 @Injectable()
 export class PhaseService extends BaseService {
-  
+
   public entity: String = 'phase';
- 
+
   post(phase: Phase) {
     return this.basePost(this.entity, phase);
   }
 
-  get(idPhase : number) {
+  get(idPhase: number) {
     return this.baseGet(this.entity + "/getPhases/" + idPhase);
   }
-  
+
   put(phase: Phase) {
-    return this.basePost(this.entity+"/edit", phase);
+    return this.basePost(this.entity + "/edit", phase);
   }
 
-  delete(idPhase : number) {
-    return this.basePost(this.entity+"/delete/"+idPhase);
+  delete(idPhase: number) {
+    return this.basePost(this.entity + "/delete/" + idPhase);
   }
 
   //TODO: ajustar el metodo para que le apunte a la controladora que si traiga todas las fases de 
   //una convocatoria
-  getByConvocatory(idConvocatory: number) {    
+  getByConvocatory(idConvocatory: number) {
     return this.baseGet(this.entity + "/getPhasesOfConvocatory/" + idConvocatory);
   }
 
@@ -44,7 +44,7 @@ export class PhaseService extends BaseService {
 
 
   getCurrentPhaseToApply(idConvocatory: number, mail: String) {
-   return this.baseGet(this.entity + "/getCurrentPhase/" + idConvocatory+"/"+mail);
+    return this.baseGet(this.entity + "/getCurrentPhase/" + idConvocatory + "/" + mail);
   }
 }
 

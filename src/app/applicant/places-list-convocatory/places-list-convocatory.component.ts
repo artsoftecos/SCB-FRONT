@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { PlaceService } from '../../services/place-service';
 import swal from 'sweetalert2';
-import {MaterializeAction } from 'angular2-materialize';
+import { MaterializeAction } from 'angular2-materialize';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -16,12 +16,11 @@ export class PlacesListConvocatoryComponent implements OnInit {
 
   public places: any = [];
   public currentIdPlace: number;
-  modalActionsRejectPlace = new EventEmitter<string|MaterializeAction>();
+  modalActionsRejectPlace = new EventEmitter<string | MaterializeAction>();
 
   constructor(private authService: AuthService,
-    private router: Router, private applicantConvocatoryService : ApplicantConvocatoryService,
-    private placeService : PlaceService) 
-    { }
+    private router: Router, private applicantConvocatoryService: ApplicantConvocatoryService,
+    private placeService: PlaceService) { }
 
   ngOnInit() {
     this.loadPlaces();
@@ -33,11 +32,11 @@ export class PlacesListConvocatoryComponent implements OnInit {
       console.log(places);
       this.places = places;
     },
-    err => {
-      console.log(err);
-      console.log(err.json());
-      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
-    });
+      err => {
+        console.log(err);
+        console.log(err.json());
+        swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+      });
   }
 
   approvePlace(idPlaza: number) {
@@ -45,11 +44,11 @@ export class PlacesListConvocatoryComponent implements OnInit {
       swal('Exito!', 'Se ha aprobado la plaza', 'success').catch(swal.noop);
       this.loadPlaces();
     },
-    err => {
-      console.log(err);
-      console.log(err.json());
-      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
-    });
+      err => {
+        console.log(err);
+        console.log(err.json());
+        swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+      });
   }
 
   /*rejectPlace(idPlaza: number) {
@@ -60,11 +59,11 @@ export class PlacesListConvocatoryComponent implements OnInit {
 
   openModalRejectPlace(idPlace: number) {
     this.currentIdPlace = idPlace;
-    this.modalActionsRejectPlace.emit({action:"modal",params:['open']});
+    this.modalActionsRejectPlace.emit({ action: "modal", params: ['open'] });
   }
 
   closeModalRejectPlace() {
-    this.modalActionsRejectPlace.emit({action:"modal",params:['close']});
+    this.modalActionsRejectPlace.emit({ action: "modal", params: ['close'] });
     this.loadPlaces();
   }
 
