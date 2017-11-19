@@ -5,8 +5,7 @@ import { RegisterComponent } from './home/register/register.component'
 import { LoginComponent } from './security/login/login.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { UploadDocumentsComponent } from './applicant/upload-documents/upload-documents.component';
-//Form
-import { FormComponent } from './applicant/form/form.component';
+
 
 //routing offerer
 import { OffererRoutingModule } from './offerer/offerer-routing.module';
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'home',  component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'form', component: FormComponent },
   { path: 'upload_document', component: UploadDocumentsComponent },
   { path: 'HomeAdministrator',  component: AdministratorComponent, children:[
 

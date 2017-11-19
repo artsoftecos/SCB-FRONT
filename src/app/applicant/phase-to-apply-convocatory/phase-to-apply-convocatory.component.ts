@@ -74,7 +74,8 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
     //TODO: Sebastian aca pone la navegacion para ir a sus campos.
     //O solo se quitaria y se llamaria un metodo para aplicar a esta convocatoria.
     //El parametro q quiera.. convocatoria o fase
-    this.router.navigate(['/ruta.../' + this.convocatory.id]);
+    console.log(this.phase.id);
+    this.router.navigate(['/form/' + this.phase.id]);
   }
 
   ngAfterViewInit() {

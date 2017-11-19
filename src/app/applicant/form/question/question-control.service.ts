@@ -14,6 +14,7 @@ export class QuestionControlService {
 
   toFormGroup(questions: QuestionBase<any>[]) {
     questions.forEach(question => {
+      //console.log(question);
       this.fieldValidation[question.key] = question.validation;
       this.group[question.key] = this.setFormControl(question);
     });

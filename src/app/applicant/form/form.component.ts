@@ -14,6 +14,8 @@ import { TimeQuestion } from './question/fields/question-time';
 import { QuestionService } from './question/question.service';
 import { FieldService } from '../../services/field.service';
 
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -23,18 +25,25 @@ import { FieldService } from '../../services/field.service';
 export class FormComponent implements OnInit {
 
   public fields: any = [];
+  public phaseId: number;
 
-  constructor(private service: QuestionService, private fieldService: FieldService) {
+  constructor(private service: QuestionService, private fieldService: FieldService, private activatedRoute: ActivatedRoute) {
     //
-    this.loadFields();
+
   }
 
   ngOnInit() {
-
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.phaseId = +params['id'];
+      this.loadFields();
+    });
   }
 
   loadFields() {
-    var questions = this.service.getQuestions();
+
+    var questions = this.fieldService.getFields(this.phaseId);
+    //console.log(questions);
+    //var questions = this.service.getQuestions(phaseId);
     this.fields = this.buildFields(questions);
   }
 
@@ -48,6 +57,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -56,6 +66,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -64,6 +75,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -72,6 +84,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -80,6 +93,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -88,6 +102,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -96,6 +111,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;
@@ -104,6 +120,7 @@ export class FormComponent implements OnInit {
             key: element.id,
             label: element.name,
             required: element.required,
+            fieldTypeId: element.field_type_id,
             validation: element.validation
           }));
           break;

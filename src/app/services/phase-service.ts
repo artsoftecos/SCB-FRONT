@@ -46,5 +46,13 @@ export class PhaseService extends BaseService {
   getCurrentPhaseToApply(idConvocatory: number, mail: String) {
     return this.baseGet(this.entity + "/getCurrentPhase/" + idConvocatory + "/" + mail);
   }
+
+  applyToPhase(response) {
+    let email = this.authService.getCurrentUser().email;
+    response.applicant.email = email;
+    return this.basePost("AppPerPhase/asociate", response);
+  }
+
+
 }
 
