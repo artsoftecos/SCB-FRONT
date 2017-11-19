@@ -1,0 +1,53 @@
+<div class="space-margin-top">
+  <div class="row no-space-margin-bottom">
+    <div class="col m8 s12 offset-m2 z-depth-4" style="padding:0px;">
+      <nav class="nav-extended" style="background-color: #01579b">
+        <div class="nav-wrapper">
+          <div class="left-align col m4 s4" style="padding-left: 10px;">
+            <a class="waves-effect center-align waves-light btn light-green" href="javascript:void();" (click)="goBack()">
+              <i class="material-icons left" style="line-height: 36px;">navigate_before</i> Volver
+            </a>
+          </div>
+          <div class="col m6 s8">
+            <h3 class="brand-logo center"> Aprobar postulantes </h3>
+          </div>
+        </div>
+      </nav>
+      <div>
+        
+        <table *ngIf="fields.length > 0" class="responsive-table striped">
+          <thead>
+            <tr>
+              <th class="center-align">Nombre</th>
+              <th class="center-align">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let aplicante of aplicantes" class="grabbable">
+              <td class="center-align">{{aplicante.nombre}}</td>
+              <td>
+                <a class="waves-effect center-align waves-light btn light-green" href="javascript:void();" (click)="goBack()">
+                  <i class="material-icons left" style="line-height: 36px;">navigate_before</i> Aprobar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="modal_ver_respuestas" class="modal modal-height" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActionsUpdatePhase">
+  <div class="modal-content">
+    <div class="row">
+      <app-edit-phase [phase]="phase" (cancelation)="closeModalUpdatePhase()"></app-edit-phase>
+    </div>
+  </div>
+  <div class="modal-footer center-align">
+    <a class="waves-effect btn-flat" (click)="closeModal()">Cancelar</a>
+    <a class="red waves-effect waves-blue btn-flat" style="color:white;">Rechazar</a>
+    <a class="green waves-effect waves-blue btn-flat" style="color:white;">Aprobar</a>
+  </div>
+</div>
