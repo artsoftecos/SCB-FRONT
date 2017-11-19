@@ -28,6 +28,7 @@ import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-
 import { ApplicantToApprovePhaseComponent } from './phase/applicant-to-approve-phase/applicant-to-approve-phase.component';
 import { DragulaModule } from 'ng2-dragula';
 import { InputFielDirective } from './phase/detailed-phase/detailed-phase-field.directive';
+import { ApproveApplicantsComponent } from './approve-applicants/approve-applicants.component';
 //import { NgDatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
@@ -66,7 +67,8 @@ import { InputFielDirective } from './phase/detailed-phase/detailed-phase-field.
     EditPhaseComponent,
     PendingListApprovePhasesConvocatoryComponent,
     ApplicantToApprovePhaseComponent,
-    InputFielDirective
+    InputFielDirective,
+    ApproveApplicantsComponent
   ],
   providers: [
     ConvocatoryTypeService,

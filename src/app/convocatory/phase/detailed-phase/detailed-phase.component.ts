@@ -32,17 +32,21 @@ export class DetailedPhaseComponent implements OnInit {
       this.phase = phase;
       this.phaseService.getFieldsByPhase(this.phase.id).subscribe(
         (response) => {
-          console.log("RESPUESTA")
           for (var i = 0; i < response.length; i++) {
             console.log(response[i])
-            let aux_field = new FieldModel(response[i]);
+            let aux_field = new FieldModel(response[i].idPhase, response[i].order);
             aux_field.name = response[i].name;
             aux_field.selectedOptionName = response[i].fieldType.nombre;
             aux_field.type = response[i].fieldType.id;
             aux_field.obligatory = response[i].obligatory;
             aux_field.idField = response[i].id;
+            aux_field.order = parseInt(response[i].order);
             this.fields.push(aux_field)
           }
+          this.fields.sort(function(a, b) {
+            return a.order - b.order;
+          });
+          console.log(this.fields)
         },
         (err) => {
           console.log(err)
@@ -66,8 +70,13 @@ export class DetailedPhaseComponent implements OnInit {
 
     this.order = this.fields.length;
     dragulaService.drop.subscribe((value) => {
+      this.onDropModel(value.slice(1));
       this.onDrop(value.slice(1));
     });
+  }
+  private onDropModel(args) {
+    let [el, target, source] = args;
+    // do something else
   }
 
   private onDrop(args) {
@@ -80,17 +89,18 @@ export class DetailedPhaseComponent implements OnInit {
 
   onDeletedField(arg){
     let auxField = JSON.parse(JSON.stringify(arg));
+    
+    this.fields.splice(auxField.order, 1);
     for(var i = 0; i < this.fields.length; i++){
-      if(this.fields[i].orden > auxField.orden){
-        this.fields[i].orden -= 1;
+      if(this.fields[i].order > auxField.order){
+        this.fields[i].order -= 1;
       }
     }
-    this.fields.splice(auxField.orden-1, 1);
   }
 
   onCreatedField(arg){
     let auxField = JSON.parse(JSON.stringify(arg))
-    auxField.orden = this.fields.length+1;
+    auxField.order = this.fields.length+1;
     this.fields.push(auxField);
   }
 

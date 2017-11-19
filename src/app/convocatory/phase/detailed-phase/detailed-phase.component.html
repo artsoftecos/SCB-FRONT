@@ -67,12 +67,12 @@
               </table>
 
 
-              <div *ngFor="let field of field">
+              <!-- <div *ngFor="let field of field">
                 {{field.name}}
-              </div>
+              </div> -->
               <!-- <ng-template input-field-host></ng-template> -->
               <div class="space-margin-top">
-                <add-field (created)="onCreatedField($event)" [idPhase]="phase.id" [order]="order"></add-field>
+                <add-field (created)="onCreatedField($event)" [idPhase]="phase.id" [order]="fields.length"></add-field>
               </div>
             </div>
           </div>
