@@ -12,7 +12,7 @@ export class FieldModel {
   // type = "0";
   // name = "";
   nameTooltip = undefined;
-  orden = 0;
+  order = 0;
   iconSelected = "";
   fieldStructure = {};
 
@@ -107,9 +107,10 @@ export class FieldModel {
   emailRegularExpressionTooltip = undefined;
   urlRegularExpressionTooltip = undefined;
 
-  constructor(idPhase) {
+  constructor(idPhase, order) {
     this.idPhase = idPhase || "";
     this.idField = "";
+    this.order = idPhase || 0;
     this.obligatory = false;
     this.type = "0";
     this.name = "";

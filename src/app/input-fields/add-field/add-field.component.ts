@@ -64,8 +64,8 @@ export class AddFieldComponent implements OnInit {
     this.idPhase = "";
     this.create = true;
     this.edit = false;
-    this.fieldInstance = new FieldModel(this.idPhase);
-
+    this.order = 0;
+    this.fieldInstance = new FieldModel(this.idPhase, this.order);
     this.loadFieldTypes();
   }
 
@@ -112,13 +112,12 @@ export class AddFieldComponent implements OnInit {
   }
 
   deleteField() {
-
     this.inputFieldService.delete(this.fieldInstance.idField).subscribe(response => {
       this.deleted.emit(this.fieldInstance);
     },
-      err => {
-        swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
-      });
+    err => {
+      swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+    });
   }
 
   openModal() {
@@ -147,6 +146,7 @@ export class AddFieldComponent implements OnInit {
     } else {
       this.inputFieldService.post(this.fieldInstance).subscribe(response => {
         this.closeModal();
+        this.fieldInstance.idField = response["field_id"];
         this.created.emit(this.fieldInstance);
         return this.fieldInstance;
       },
@@ -158,10 +158,11 @@ export class AddFieldComponent implements OnInit {
   }
 
   getTypeName() {
-    let typeId = this.fieldInstance.type;
+    let typeId = parseInt(this.fieldInstance.type);
     for (var i = 0; i < this.fieldInstance.selectOptions.length; i++) {
-      if (typeId == this.fieldInstance.selectOptions[i]['id']) {
-        this.fieldInstance.selectedOptionName = this.fieldInstance.selectOptions[i].name;
+      if (typeId == parseInt(this.fieldInstance.selectOptions[i]['id'])){
+        this.fieldInstance.selectedOptionName = this.fieldInstance.selectOptions[i].nombre;
+        break;
       }
     }
   }
