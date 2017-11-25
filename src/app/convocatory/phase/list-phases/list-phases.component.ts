@@ -22,6 +22,9 @@ export class ListPhasesComponent implements OnChanges, OnInit {
   @Input() 
   includeApproveApplicants: boolean;
 
+  @Input()
+  refresh: boolean;
+
   constructor(private router: Router, private phaseService: PhaseService) { }
 
   ngOnInit() {
@@ -86,8 +89,16 @@ export class ListPhasesComponent implements OnChanges, OnInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
+      console.log(changes);
       const conv: SimpleChange = changes.convocatoryId;
-      this.convocatoryId = conv.currentValue;
+      const refresh: SimpleChange = changes.refresh;
+      if (conv !== undefined){
+        this.convocatoryId = conv.currentValue;
+      }
+      if (refresh !== undefined){
+        this.refresh = refresh.currentValue;
+        this.loadPhases();
+      }
     }
 
     removePhase(phaseId: number) {

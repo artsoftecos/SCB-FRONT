@@ -45,7 +45,7 @@
                     <i class="material-icons left">add</i>Crear</a>
           </ul>
         </div> --> 
-          <app-list-phases [convocatoryId]="convocatory.id"></app-list-phases>
+          <app-list-phases [convocatoryId]="convocatory.id" [refresh]="refreshListPhases" ></app-list-phases>
         </div>
 
       </div>
@@ -58,7 +58,7 @@
     [materializeActions]="modalActionsCreatePhase">
     <div class="modal-content">
       <div class="row">
-        <app-create-phase [convocatory]="convocatory" (cancelation)="closeModalCreatePhase()"></app-create-phase>
+        <app-create-phase [convocatory]="convocatory" (cancelation)="closeModalCreatePhase($event)"></app-create-phase>
       </div>
     </div>
   </div>

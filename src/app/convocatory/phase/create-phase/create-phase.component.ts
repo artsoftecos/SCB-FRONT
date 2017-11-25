@@ -30,7 +30,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
 
   
   @Output()
-  cancelation = new EventEmitter();
+  cancelation = new EventEmitter<any>();
 
   constructor(private phaseService: PhaseService, 
     private helperService: HelperService) { }
@@ -68,7 +68,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
     this.phaseService.post(this.phase).subscribe(response => {
       this.phase = new Phase();      
       swal('Exito!', 'Se ha creado la fase satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelRegisterPhase();
+      this.cancelRegisterPhase(true);
     },
       err => {
         console.log("error:");
@@ -253,10 +253,10 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
     }
   }
 
-  cancelRegisterPhase() {
+  cancelRegisterPhase(sucess: boolean) {
     this.phase = new Phase();
     this.cleanSummay();
-    this.cancelation.emit();
+    this.cancelation.emit(sucess);
   }
   
   cleanSummay() {

@@ -19,6 +19,7 @@ export class DetailedConvocatoryComponent implements OnInit {
   modalActionsUpdateConvocatory = new EventEmitter<string|MaterializeAction>();
   isAbleEdit: boolean = true;
   convocatory: Convocatory;
+  refreshListPhases : boolean;
 
   constructor(private location: Location, 
     private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
@@ -38,8 +39,13 @@ export class DetailedConvocatoryComponent implements OnInit {
   openModalCreatePhase() {
     this.modalActionsCreatePhase.emit({action:"modal",params:['open']});
   }
-  closeModalCreatePhase() {
+
+  closeModalCreatePhase(sucess: any) {        
     this.modalActionsCreatePhase.emit({action:"modal",params:['close']});
+    if (sucess)
+    {
+      this.refreshListPhases = !this.refreshListPhases;
+    }
   }
 
   openModalUpdateConvocatory() {
