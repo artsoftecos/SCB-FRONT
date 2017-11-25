@@ -30,7 +30,7 @@ export class CreateConvocatoryComponent implements OnInit {
   resultDate_tooltip = undefined;
 
   @Output()
-  cancelation = new EventEmitter();
+  cancelation = new EventEmitter<any>();
 
   constructor(private convocatoryTypeService: ConvocatoryTypeService,
     private convocatoryService: ConvocatoryService,
@@ -83,7 +83,7 @@ export class CreateConvocatoryComponent implements OnInit {
       this.convocatory = new Convocatory();
       this.selectedType = -1;
       swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelRegisterConvocatory();
+      this.cancelRegisterConvocatory(true);
     },
       err => {
         if (err.status == 400) {
@@ -220,10 +220,10 @@ export class CreateConvocatoryComponent implements OnInit {
     }
   }
 
-  cancelRegisterConvocatory() {
+  cancelRegisterConvocatory(success: boolean) {
     this.convocatory = new Convocatory();
     this.cleanSummay();
-    this.cancelation.emit();
+    this.cancelation.emit(success);
   }
 
   cleanSummay() {

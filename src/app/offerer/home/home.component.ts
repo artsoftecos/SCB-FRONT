@@ -33,7 +33,11 @@ goToPublished() {
   openModalCreateConvocatory() {
       this.modalActionsCreateConvocatory.emit({action:"modal",params:['open']});
   }
-  closeModalCreateConvocatory() {
+  closeModalCreateConvocatory(sucess: any) {        
     this.modalActionsCreateConvocatory.emit({action:"modal",params:['close']});
+    if (sucess) {
+      this.action = "";
+      this.goToPendingPublish();    
+    }
   }
 }
