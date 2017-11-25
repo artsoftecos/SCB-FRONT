@@ -17,7 +17,7 @@ export class DetailedConvocatoryComponent implements OnInit {
 
   modalActionsCreatePhase = new EventEmitter<string|MaterializeAction>();
   modalActionsUpdateConvocatory = new EventEmitter<string|MaterializeAction>();
-  isAbleEdit: boolean = true;
+  isAbleEdit: boolean;
   convocatory: Convocatory;
   refreshListPhases : boolean;
 
@@ -27,6 +27,7 @@ export class DetailedConvocatoryComponent implements OnInit {
       .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
       .subscribe(convocatory => {
         this.convocatory = convocatory;
+        this.isAbleEdit = true;
         if (this.convocatory.convocatoryState.name === 'Publicada'){
           this.isAbleEdit= false;
         }

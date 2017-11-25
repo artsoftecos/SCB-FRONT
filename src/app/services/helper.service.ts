@@ -29,4 +29,20 @@ export class HelperService {
   
     return null; 
   }
+
+  ymdToDate = function(dmy) {
+    var d = dmy.split(/[\/\-\.]/, 3);
+  
+    if (d.length != 3) return null;
+  
+    // Check if date is valid
+    var year = parseInt(d[0]), 
+        mon = parseInt(d[1]),
+        day= parseInt(d[2]);
+    if (d[0].length == 2) year += 2000;
+    if (day <= 31 && mon <= 12 && year >= 2015)
+      return new Date(year, mon - 1, day);
+  
+    return null; 
+  }
 }
