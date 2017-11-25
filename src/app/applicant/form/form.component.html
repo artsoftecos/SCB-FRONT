@@ -1,5 +1,7 @@
 <div class="container">
   <div class="col-xs-1"></div>
   <div class="col-xs-10">
-    <dynamic-form [questions]="fields" [phaseId]="phaseId"></dynamic-form>
+    <div *ngIf="fields">
+      <dynamic-form [questions]="fields" [phaseId]="phaseId"></dynamic-form>
+    </div>
   </div>
