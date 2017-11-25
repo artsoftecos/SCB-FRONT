@@ -24,6 +24,8 @@ export class ListPhasesComponent implements OnChanges, OnInit {
 
   @Input()
   refresh: boolean;
+  @Input()
+  isAbleEdit: boolean;
 
   constructor(private router: Router, private phaseService: PhaseService) { }
 
@@ -110,7 +112,7 @@ export class ListPhasesComponent implements OnChanges, OnInit {
     }
 
     isAbleToEdit(phase: Phase) : boolean{
-      return true;
+      return this.isAbleEdit;
 
       //TODO: como esta en pendiente publicar la conv. si la pueden editar y demas.
       /*let now = new Date();
