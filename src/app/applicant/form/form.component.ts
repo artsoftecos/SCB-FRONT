@@ -31,21 +31,25 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.activatedRoute.params.subscribe((params: Params) => {
+    this.activatedRoute.params.subscribe((params: Params) => {
+
       this.phaseId = +params['id'];
-      this.loadFields();
-    });*/
-    this.loadFields();
+      if (isNaN(this.phaseId))
+        this.phaseId = 30;
+
+        this.loadFields();
+    });
+    //this.loadFields();
   }
 
   loadFields() {
-    this.phaseId = 31;
+    //this.phaseId = 31;
     var questions = this.fieldService.getFields(this.phaseId).subscribe(questions => {
       this.fields = this.buildFields(questions);
     });
-    
+
     //var questions = this.service.getQuestions(phaseId);
-    
+
   }
 
   buildFields(fields) {

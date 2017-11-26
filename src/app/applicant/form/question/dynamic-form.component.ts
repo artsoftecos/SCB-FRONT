@@ -61,6 +61,7 @@ export class DynamicFormComponent implements OnInit {
     var values = this.form.value;
     for (var i in values) {
       for (var j in this.questions) {
+        console.log(this.questions[j], "Pregunta");
         if (this.questions[j].key == i) {
           values[i] = { "value": values[i], "fieldTypeId": this.questions[j].fieldTypeId }
         }
@@ -68,4 +69,6 @@ export class DynamicFormComponent implements OnInit {
     }
     return values;
   }
+
+  
 }
