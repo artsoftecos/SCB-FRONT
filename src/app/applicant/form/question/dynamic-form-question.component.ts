@@ -10,8 +10,9 @@ import { QuestionBase } from './fields/question-base';
 export class DynamicFormQuestionComponent {
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
+  images: Array<{ id: number, name: string, file: object }> = [];
+
   get isValid() {
-    console.log(this.question);
     return this.form.controls[this.question.key].valid;
   }
   get isRequired() {
@@ -92,6 +93,33 @@ export class DynamicFormQuestionComponent {
       if (errors.pattern)
         return errors.pattern;
     return false;
+  }
+
+  onChange(question, event) {
+
+    let file = event.target.files[0];
+    var ext = file.name.split('.').pop();
+    var name = question.key + '_' + new Date().getTime() + '.' + ext;
+    this.addImage(question, name, file);
+  }
+
+  private addImage(question, name, file) {
+    let exists = false;
+    let image = { id: question.key, name: name, file: file };
+    for (var i = 0; i < this.images.length; i++) {
+      if (this.images[i].id == question.key) {
+        this.images[i] = image;
+        exists = true;
+        break;
+      }
+    }
+    if (!exists) {
+      this.images.push(image);
+    }
+    question.file = image;
+    question.value = image.name;
+    console.log(question);
+    console.log(this.images);
   }
 
 }
