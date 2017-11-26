@@ -18,6 +18,7 @@ export class AppComponent {
   isApplicant : boolean = false;
   isAdmin : boolean = false;
   isOfferer : boolean = false;
+  hideWelcome: boolean = false;//TODO: implementada por que en el HTML se hace referencia, debe estar?
 
   sidenavActions = new EventEmitter<any>();
   sidenavParams = [];
