@@ -21,7 +21,7 @@ export class HelperService {
       var monthNames = [
         "Ene", "Feb", "Mar",
         "Abr", "May", "Jun", "Jul",
-        "Ago", "Sep", "Octber",
+        "Ago", "Sep", "Oct",
         "Nov", "Dic"
       ];
     

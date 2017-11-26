@@ -35,6 +35,10 @@ export class DetailedPhaseComponent implements OnInit {
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(phase => {
       this.isAbleEdit = false;
+        phase.startDate = this.helperService.ymdToDate(phase.startDate);
+        phase.endDate = this.helperService.ymdToDate(phase.endDate);
+        phase.startApprovalDate = this.helperService.ymdToDate(phase.startApprovalDate);
+        phase.endApprovalDate = this.helperService.ymdToDate(phase.endApprovalDate);
       this.phase = phase;
       this.phaseService.getFieldsByPhase(this.phase.id).subscribe(
         (response) => {
@@ -130,9 +134,9 @@ export class DetailedPhaseComponent implements OnInit {
 
   getIsAbleToEdit() {
     var today = new Date();
-    console.log(this.phase.startDate);
-    var startDate =  this.helperService.ymdToDate(this.phase.startDate);  
-    console.log(startDate);
+    today.setHours(0,0,0);
+    var startDate = this.phase.startDate;
+    startDate.setHours(0,0,0);
     
     this.isAbleEdit = true;
     if (startDate < today) {

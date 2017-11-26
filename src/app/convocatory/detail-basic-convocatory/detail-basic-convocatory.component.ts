@@ -15,8 +15,7 @@ export class DetailBasicConvocatoryComponent implements OnInit {
   constructor(private helperService: HelperService) { 
   }
 
-  ngOnInit() {
-    return this.getFormatDate();
+  ngOnInit() {    
   }
 
   getFormatDate() {

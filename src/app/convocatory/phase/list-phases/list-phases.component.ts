@@ -7,6 +7,7 @@ import { Phase } from '../../../models/phase';
 import swal from 'sweetalert2';
 declare var jQuery: any;
 declare var $: any;
+import { HelperService } from '../../../services/helper.service';
 
 @Component({
   selector: 'app-list-phases',
@@ -27,7 +28,8 @@ export class ListPhasesComponent implements OnChanges, OnInit {
   @Input()
   isAbleEdit: boolean;
 
-  constructor(private router: Router, private phaseService: PhaseService) { }
+  constructor(private router: Router, private phaseService: PhaseService,
+    private helperService: HelperService) { }
 
   ngOnInit() {
     /*let phaseOne = new Phase();
@@ -82,6 +84,12 @@ export class ListPhasesComponent implements OnChanges, OnInit {
       this.phaseService.getByConvocatory(this.convocatoryId)
       .subscribe(phases => {
         console.log(phases);
+        for (var i in phases) {
+          phases[i].startDate = this.helperService.ymdToDate(phases[i].startDate);
+          phases[i].endDate = this.helperService.ymdToDate(phases[i].endDate);
+          phases[i].startApprovalDate = this.helperService.ymdToDate(phases[i].startApprovalDate);
+          phases[i].endApprovalDate = this.helperService.ymdToDate(phases[i].endApprovalDate);
+        }
         this.phases = phases;
       });
     }
@@ -122,5 +130,9 @@ export class ListPhasesComponent implements OnChanges, OnInit {
         return false;
       }
       return true;*/
+    }
+
+    getFormatDate(date : Date) {
+      return this.helperService.getDateFormatNameMonthMonthDay(date);
     }
 }
