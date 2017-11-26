@@ -7,6 +7,7 @@ import { ConvocatoryService } from '../../services/convocatory.service';
 import { ConvocatoryType } from '../../models/convocatory-type';
 import { Location } from '@angular/common';
 import { ConvocatoryState } from '../../models/convocatory-state';
+import { HelperService } from '../../services/helper.service';
 
 @Component({
   selector: 'app-detailed-convocatory',
@@ -22,11 +23,15 @@ export class DetailedConvocatoryComponent implements OnInit {
   refreshListPhases : boolean;
 
   constructor(private location: Location, 
-    private route: ActivatedRoute, private convocatoryService: ConvocatoryService) { 
+    private route: ActivatedRoute, private convocatoryService: ConvocatoryService,
+    private helperService: HelperService) { 
     this.route.paramMap
       .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
       .subscribe(convocatory => {
+        
         this.convocatory = convocatory;
+        this.convocatory.resultDate = helperService.ymdToDate(convocatory.resultDate);
+        
         this.isAbleEdit = true;
         if (this.convocatory.convocatoryState.name === 'Publicada'){
           this.isAbleEdit= false;

@@ -14,6 +14,24 @@ export class HelperService {
     return dateResult;
   }
 
+  getDateFormatNameMonthMonthDay(date: Date) : string {
+    if (date === null){
+      return "";
+    }
+      var monthNames = [
+        "Ene", "Feb", "Mar",
+        "Abr", "May", "Jun", "Jul",
+        "Ago", "Sep", "Octber",
+        "Nov", "Dic"
+      ];
+    
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+    
+      return monthNames[monthIndex] +" "+ day + ',' + ' ' + year;    
+  }
+
   dmyToDate = function(dmy) {
     var d = dmy.split(/[\/\-\.]/, 3);
   
