@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
   }
 
   loadFields() {
-    this.phaseId = 28;
+    this.phaseId = 31;
     var questions = this.fieldService.getFields(this.phaseId).subscribe(questions => {
       this.fields = this.buildFields(questions);
     });
@@ -80,7 +80,7 @@ export class FormComponent implements OnInit {
             validation: element.validation
           }));
           break;
-        case 4:
+        case 2:
           questions.push(new TextareaQuestion({
             key: element.id,
             label: element.name,
@@ -89,7 +89,7 @@ export class FormComponent implements OnInit {
             validation: element.validation
           }));
           break;
-        case 5:
+        case 3:
           questions.push(new FileQuestion({
             key: element.id,
             label: element.name,

@@ -65,23 +65,23 @@ export class QuestionControlService {
     if (required)
       validators = [Validators.required];
     if (validation) {
-      var validationType = validation.fieldTypeValidation.fieldType;
+      var validationType = validation.fieldTypeValidation;
       switch (validationType.id) {
-        case 1:
+        case 9:
           //Mayor
           validators.push(Validators.min(validation.value));
           break;
-        case 2:
+        case 10:
           //Menor
           validators.push(Validators.max(validation.value));
           break;
-        case 3:
+        case 11:
           //Entre
           let values = validation.value.split("|");
           validators.push(Validators.max(values[1]));
           validators.push(Validators.min(values[0]));
           break;
-        case 5:
+        case 12:
           //Celular
           validators.push(Validators.max(3509999999));
           validators.push(Validators.min(3002000000));
@@ -97,16 +97,25 @@ export class QuestionControlService {
     if (required)
       validators = [Validators.required];
     if (validation) {
-      var validationType = validation.fieldTypeValidation.fieldType;
+      var validationType = validation.fieldTypeValidation;
       switch (validationType.id) {
         case 1:
-          //Mayor
-          validators.push(Validators.maxLength(validation.value));
-          break;
-        case 2:
           //Menor
           validators.push(Validators.minLength(validation.value));
           break;
+        case 2:
+          //Mayor
+          validators.push(Validators.maxLength(validation.value));
+          break;
+        case 3:
+          //Menor
+          validators.push(Validators.minLength(validation.value));
+          break;
+        case 4:
+          //Mayor
+          validators.push(Validators.maxLength(validation.value));
+          break;
+
       }
     }
     return Validators.compose(validators);

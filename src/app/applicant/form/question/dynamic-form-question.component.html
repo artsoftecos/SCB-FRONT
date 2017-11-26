@@ -47,53 +47,59 @@
       {{question.label}} es requerido
     </span>
     <div *ngIf="IsEmail">
-      Campo debe contener un email válido
+      <b>Campo debe contener un email válido </b>
+      <span>
+        {{question.validation.errorMessage}}
+      </span>
     </div>
     <div *ngIf="IsPattern">
-      Campo debe contener una url válida.
+      <b>Campo debe contener una url válida.</b>
+      <span>
+        {{question.validation.errorMessage}}
+      </span>
     </div>
     <div *ngIf="isNotBetween">
       <b>Fecha no esta en un rango válido: </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
 
     <div *ngIf="isDateLesser">
       <b>Fecha debe ser mayor: </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
 
     <div *ngIf="isDateGreater">
       <b>Fecha debe ser menor: </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
     <div *ngIf="isMin">
       <b>Número debe ser mayor </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
     <div *ngIf="isMax">
       <b>Número debe ser menor </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
     <div *ngIf="IsMinLength">
       <b>Texto debe ser mas largo </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
     <div *ngIf="IsMaxLength">
       <b>Texto debe ser mas corto </b>
       <span>
-        {{question.validation.error_msg}}
+        {{question.validation.errorMessage}}
       </span>
     </div>
 
