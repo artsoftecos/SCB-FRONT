@@ -32,7 +32,7 @@
         <div class="input-field col s12">
           <input *ngIf="fieldInstance.nameTooltip !== undefined" [(ngModel)]="fieldInstance.name" name="fieldInstance.name" id="fieldInstance.name" type="text" class="validate invalid" materialize="tooltip" [materializeParams]="fieldInstance.nameTooltip" data-position="top" data-delay="10" [attr.data-tooltip]="fieldInstance.nameTooltip['error']">
           <input *ngIf="fieldInstance.nameTooltip === undefined" [(ngModel)]="fieldInstance.name" name="fieldInstance.name" id="fieldInstance.name" type="text" class="validate">
-          <label>Nombre</label>
+          <label class="active">Nombre</label>
         </div>
         <div class="col s12 switch">
           <p>
@@ -42,7 +42,7 @@
         </div>
         <div class="col s12">
           <h5>Agregar validacion</h5>
-          <select [(ngModel)]="fieldInstance.selectedValidation" name="fieldInstance.selectedValidation" materialize="material_select" [materializeSelectOptions]="fieldInstance.validationOptions" [disabled]="null">
+          <select [(ngModel)]="fieldInstance.selectedValidation" name="fieldInstance.selectedValidation" materialize="material_select" [materializeSelectOptions]="fieldInstance.validationOptions" [disabled]="null" (change)="updateValidationName(option)">
             <option *ngFor="let option of fieldInstance.validationOptions" [value]="option.id">{{option.validationType.name}}</option>
           </select>
           <label>Tipo de validacion</label>
@@ -151,7 +151,7 @@
         
         <div class="input-field col s12" *ngIf="fieldInstance.selectedValidation.id === 11 || fieldInstance.selectedValidation === '11'">
           <input *ngIf="fieldInstance.emailRegularExpressionTooltip === undefined" [(ngModel)]="fieldInstance.emailRegularExpression" name="fieldInstance.emailRegularExpression" id="fieldInstance.emailRegularExpression" type="text" class="validate">
-          <label>Expresion regular para Email</label>
+          <label class="active">Expresion regular para Email</label>
         </div>
 
         <div class="input-field col s12" *ngIf="fieldInstance.selectedValidation.id === 12 || fieldInstance.selectedValidation === '12'">
@@ -171,6 +171,8 @@
   </div>
   <div class="modal-footer center-align">
     <a class="waves-effect btn-flat" (click)="closeModal()">Cancelar</a>
-    <a class="blue waves-effect waves-blue btn-flat" style="color:white;" (click)="addField()">Agregar</a>
+    
+    <a *ngIf="create" class="blue waves-effect waves-blue btn-flat" style="color:white;" (click)="addField()">Agregar</a>
+    <a *ngIf="edit" class="blue waves-effect waves-blue btn-flat" style="color:white;" (click)="updateField()">Editar</a>
   </div>
 </div>

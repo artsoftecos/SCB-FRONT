@@ -32,11 +32,6 @@ export class PhaseService extends BaseService {
     return this.baseGet(this.entity + "/getPhasesOfConvocatory/" + idConvocatory);
   }
 
-  getApplicantsToApprove(idPhase: number) {
-    return this.baseGet(this.entity + "/byId/" + idPhase);
-  }
-
-
   getFieldsByPhase(idPhase: number) {
     // console.log(this.baseGet("field/getByPhase/" + idPhase))
     return this.baseGet("field/getByPhase/" + idPhase);
@@ -54,5 +49,8 @@ export class PhaseService extends BaseService {
   }
 
 
+  getApplicantsToApprove(idPhase: number) {
+    return this.baseGet( "AppPerPhase/applicantsPerPhase/" + idPhase);
+  }
 }
 

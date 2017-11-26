@@ -58,7 +58,7 @@
                     <td class="center-align"><i class="material-icons">wrap_text</i>  </td>
                     <td class="center-align"><i class="{{field.iconSelected}}"></i> {{field.selectedOptionName}}</td>
                     <td class="center-align">{{field.name}}</td>
-                    <td class="center-align">{{field.type}}</td>
+                    <td class="center-align">{{field.selectedValidationName}}</td>
                     <td>
                      <add-field [edit]="true" [create]="false" [idPhase]="phase.id" [fieldInstance]="field" (deleted)="onDeletedField($event)"></add-field>
                     </td>

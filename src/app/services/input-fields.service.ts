@@ -18,6 +18,11 @@ export class InputFieldsService extends BaseService {
     let entity = this.entity;
     return this.basePost(entity + "/create", field.fieldStructure);
   }
+  
+  update(field: FieldModel) {
+    let entity = this.entity;
+    return this.basePost(entity + "/edit", field.fieldStructure);
+  }
 
   delete(id: string) {
     let entity = this.entity;

@@ -8,11 +8,13 @@ import { Location } from '@angular/common';
 import { AddFieldComponent } from '../../../input-fields/add-field/add-field.component';
 import { FieldModel } from '../../../models/field.model';
 import { DragulaService } from 'ng2-dragula';
+import { FieldTypeValidationService } from '../../../services/field-type-validation.service'
 
 @Component({
   selector: 'app-detailed-phase',
   templateUrl: './detailed-phase.component.html',
-  styleUrls: ['./detailed-phase.component.css']
+  styleUrls: ['./detailed-phase.component.css'],
+  providers: [FieldTypeValidationService]
 })
 export class DetailedPhaseComponent implements OnInit {
 
@@ -23,9 +25,11 @@ export class DetailedPhaseComponent implements OnInit {
   // fields = [];
   phase: Phase;
   order = 0;
+  fieldTypes = {};
   
-  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService) {
+  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService, private fieldTypeValidationService: FieldTypeValidationService) {
     this.fields = [];
+
     this.route.paramMap
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(phase => {
@@ -33,7 +37,6 @@ export class DetailedPhaseComponent implements OnInit {
       this.phaseService.getFieldsByPhase(this.phase.id).subscribe(
         (response) => {
           for (var i = 0; i < response.length; i++) {
-            console.log(response[i])
             let aux_field = new FieldModel(response[i].idPhase, response[i].order);
             aux_field.name = response[i].name;
             aux_field.selectedOptionName = response[i].fieldType.nombre;
@@ -41,12 +44,24 @@ export class DetailedPhaseComponent implements OnInit {
             aux_field.obligatory = response[i].obligatory;
             aux_field.idField = response[i].id;
             aux_field.order = parseInt(response[i].order);
+            if('validation' in  response[i] && response[i].validation != null){
+              aux_field.selectedValidation = response[i].validation.fieldTypeValidation.fieldType.id;
+              aux_field.selectedValidationName = response[i].validation.fieldTypeValidation.fieldType.nombre;
+            }else{
+              aux_field.selectedValidationName = "N/A";
+            }
+            
+            this.fieldTypeValidationService.get(aux_field.type).subscribe(fieldTypesValidations => {
+              aux_field.validationOptions = fieldTypesValidations;
+            },
+            err => {
+            });
+
             this.fields.push(aux_field)
           }
           this.fields.sort(function(a, b) {
             return a.order - b.order;
           });
-          console.log(this.fields)
         },
         (err) => {
           console.log(err)

@@ -26,11 +26,13 @@ export class AddFieldComponent implements OnInit {
   @Input() edit: boolean;
   @Input() idPhase: string;
   @Input() order: number;
+  @Input() id: number;
 
   @Input() fieldInstance: FieldModel;
 
   @Output() created: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
   @Output() deleted: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
+  @Output() updated: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
 
 
   loadFieldTypes() {
@@ -72,10 +74,15 @@ export class AddFieldComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateValidationName(nombre){
+    console.log(nombre)
+    this.fieldInstance.selectedValidationName = nombre;
+  }
+
   numberValidationTypeChange() {
     if (this.fieldInstance.type != "0") {
       this.fieldTypeValidationService.get(this.fieldInstance.type).subscribe(fieldTypesValidations => {
-        this.fieldInstance.selectedValidation = {}
+        this.fieldInstance.selectedValidation = "";
         if (this.fieldInstance.type == "3") {
           this.fieldInstance.validationOptions = fieldTypesValidations;
           this.fieldInstance.selectedValidation = fieldTypesValidations[0];
@@ -157,6 +164,27 @@ export class AddFieldComponent implements OnInit {
     }
   }
 
+  updateField() {
+    let fieldStructure = this.createFieldStructure();
+    if ('error' in fieldStructure) {
+      if (typeof (fieldStructure['error']) == "string") {
+        swal('Oops...', fieldStructure['error'], 'error').catch(swal.noop);
+      }
+    } else {
+      this.fieldInstance.fieldStructure['id'] = this.fieldInstance.idField;
+      this.inputFieldService.update(this.fieldInstance).subscribe(response => {
+        this.closeModal();
+        // this.fieldInstance.idField = response["field_id"];
+        this.updated.emit(this.fieldInstance);
+        return this.fieldInstance;
+      },
+        err => {
+          swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+        });
+
+    }
+  }
+
   getTypeName() {
     let typeId = parseInt(this.fieldInstance.type);
     for (var i = 0; i < this.fieldInstance.selectOptions.length; i++) {
@@ -190,77 +218,79 @@ export class AddFieldComponent implements OnInit {
     this.fieldStructure['value'] = "";
     this.fieldStructure['fieldType'] = { 'id': this.fieldInstance.type };
 
-    this.fieldStructure['validation'] = {};
-
-    // if(typeof(this.fieldInstance.selectedValidation) == "object")
-    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation['id'];
-    // else
-    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation;
-    this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
-    this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
-
-    if (this.fieldInstance.selectedValidation == "3" || this.fieldInstance.selectedValidation == "1") {
-      if (this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen) {
-        this.fieldInstance.validateMinLenTooltip = [];
-        this.fieldInstance.validateMinLenTooltip['error'] = "Este campo debe ser menor al maximo";
-        this.fieldInstance.validateMaxLenTooltip = [];
-        this.fieldInstance.validateMaxLenTooltip['error'] = "Este campo debe ser mayor al minimo";
-        return {
-          'error': true
+    if(this.fieldInstance.selectedValidation !== ""){
+      this.fieldInstance.validationOptions.forEach(element => {
+        if(element.id == this.fieldInstance.selectedValidation){
+          this.fieldInstance.selectedValidationName = element.validationType.name;
         }
-      }
-      this.fieldStructure['validation']['value'] = this.fieldInstance.validateMinLen + "|" + this.fieldInstance.validateMaxLen;
-    } else {
-      if (this.fieldInstance.type == "4") {
-        this.fieldStructure['validation']['value'] = "";
-        for (var i = 0; i < this.fieldInstance.fileTypes.length; i++) {
-          if (this.fieldInstance.fileTypes[i]['value']) {
-            this.fieldStructure['validation']['value'] = this.fieldInstance.fileTypes[i] + ",";
+      });
+      this.fieldStructure['validation'] = {};
+      this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
+      this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
+  
+      if (this.fieldInstance.selectedValidation == "3" || this.fieldInstance.selectedValidation == "1") {
+        if (this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen) {
+          this.fieldInstance.validateMinLenTooltip = [];
+          this.fieldInstance.validateMinLenTooltip['error'] = "Este campo debe ser menor al maximo";
+          this.fieldInstance.validateMaxLenTooltip = [];
+          this.fieldInstance.validateMaxLenTooltip['error'] = "Este campo debe ser mayor al minimo";
+          return {
+            'error': true
           }
         }
+        this.fieldStructure['validation']['value'] = this.fieldInstance.validateMinLen + "|" + this.fieldInstance.validateMaxLen;
       } else {
-        if (this.fieldInstance.type == "5") {
-          this.fieldStructure['validation']['value'] = this.fieldInstance.minDate;
+        if (this.fieldInstance.type == "4") {
+          this.fieldStructure['validation']['value'] = "";
+          for (var i = 0; i < this.fieldInstance.fileTypes.length; i++) {
+            if (this.fieldInstance.fileTypes[i]['value']) {
+              this.fieldStructure['validation']['value'] = this.fieldInstance.fileTypes[i] + ",";
+            }
+          }
         } else {
-          if (this.fieldInstance.type == "6") {
-            this.fieldStructure['validation']['value'] = this.fieldInstance.maxDate;
+          if (this.fieldInstance.type == "5") {
+            this.fieldStructure['validation']['value'] = this.fieldInstance.minDate;
           } else {
-            if (this.fieldInstance.type == "7") {
-
-              if (this.fieldInstance.maxDate < this.fieldInstance.minDate) {
-                this.fieldInstance.minDateTooltip = [];
-                this.fieldInstance.minDateTooltip['error'] = "Esta fecha debe ser menor a la maxima";
-                this.fieldInstance.maxDateTooltip = [];
-                this.fieldInstance.maxDateTooltip['error'] = "Esta fecha debe ser mayor a la minima";
-                return {
-                  'error': 'La fecha inicial debe ser menor a la fecha final!'
-                }
-              }
-              this.fieldStructure['validation']['value'] = this.fieldInstance.minDate + "|" + this.fieldInstance.maxDate;
+            if (this.fieldInstance.type == "6") {
+              this.fieldStructure['validation']['value'] = this.fieldInstance.maxDate;
             } else {
-              if (this.fieldInstance.type == "8") {
-                this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
+              if (this.fieldInstance.type == "7") {
+  
+                if (this.fieldInstance.maxDate < this.fieldInstance.minDate) {
+                  this.fieldInstance.minDateTooltip = [];
+                  this.fieldInstance.minDateTooltip['error'] = "Esta fecha debe ser menor a la maxima";
+                  this.fieldInstance.maxDateTooltip = [];
+                  this.fieldInstance.maxDateTooltip['error'] = "Esta fecha debe ser mayor a la minima";
+                  return {
+                    'error': 'La fecha inicial debe ser menor a la fecha final!'
+                  }
+                }
+                this.fieldStructure['validation']['value'] = this.fieldInstance.minDate + "|" + this.fieldInstance.maxDate;
               } else {
-                if (this.fieldInstance.type == "9") {
-                  this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
+                if (this.fieldInstance.type == "8") {
+                  this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
                 } else {
-                  if (this.fieldInstance.type == "10") {
-                    if (this.fieldInstance.numberLessThan > this.fieldInstance.numberMoreThan) {
-                      this.fieldInstance.numberLessThanTooltip = [];
-                      this.fieldInstance.numberLessThanTooltip['error'] = "Este campo debe ser menor al maximo";
-                      this.fieldInstance.numberMoreThanTooltip = [];
-                      this.fieldInstance.numberMoreThanTooltip['error'] = "Este campo debe ser mayor al minimo";
-                      return {
-                        'error': true
-                      }
-                    }
-                    this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan + "|" + this.fieldInstance.numberMoreThan;
+                  if (this.fieldInstance.type == "9") {
+                    this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
                   } else {
-                    if (this.fieldInstance.type == "11") {
-                      this.fieldStructure['validation']['value'] = this.fieldInstance.emailRegularExpression;
+                    if (this.fieldInstance.type == "10") {
+                      if (this.fieldInstance.numberLessThan > this.fieldInstance.numberMoreThan) {
+                        this.fieldInstance.numberLessThanTooltip = [];
+                        this.fieldInstance.numberLessThanTooltip['error'] = "Este campo debe ser menor al maximo";
+                        this.fieldInstance.numberMoreThanTooltip = [];
+                        this.fieldInstance.numberMoreThanTooltip['error'] = "Este campo debe ser mayor al minimo";
+                        return {
+                          'error': true
+                        }
+                      }
+                      this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan + "|" + this.fieldInstance.numberMoreThan;
                     } else {
-                      if (this.fieldInstance.type == "12") {
-                        this.fieldStructure['validation']['value'] = this.fieldInstance.urlRegularExpressionTooltip;
+                      if (this.fieldInstance.type == "11") {
+                        this.fieldStructure['validation']['value'] = this.fieldInstance.emailRegularExpression;
+                      } else {
+                        if (this.fieldInstance.type == "12") {
+                          this.fieldStructure['validation']['value'] = this.fieldInstance.urlRegularExpressionTooltip;
+                        }
                       }
                     }
                   }
@@ -269,9 +299,9 @@ export class AddFieldComponent implements OnInit {
             }
           }
         }
-      }
+      } 
     }
-
+    
     this.fieldInstance.fieldStructure = this.fieldStructure;
     return this.fieldStructure;
   }

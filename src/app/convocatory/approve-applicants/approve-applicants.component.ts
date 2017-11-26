@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, Input } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
+import { PhaseService } from '../../services/phase-service';
+import { Applicant } from '../../models/applicant';
+import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Phase } from '../../models/phase';
 
 @Component({
   selector: 'app-approve-applicants',
@@ -7,9 +14,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApproveApplicantsComponent implements OnInit {
 
-  constructor() { }
+  public aplicants: any = [];
+  
+  @Input()
+  phaseId: number;
+  phase: Phase;
+
+  modalActions = new EventEmitter<string | MaterializeAction>();
+  aplicantes = []
+  constructor(private route: ActivatedRoute, private router: Router, private phaseService : PhaseService) {
+    // this.phaseId = +params.get('id')
+
+    this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+    .subscribe(phase => {
+      this.phase = phase;
+    });
+
+    this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.getApplicantsToApprove(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+    .subscribe(aplicants => {
+      console.log(aplicants)
+      this.aplicants = aplicants;
+    });
+
+  }
 
   ngOnInit() {
   }
 
+  openModal() {
+    this.modalActions.emit({ action: "modal", params: ['open'] });
+  }
+  closeModal() {
+    this.modalActions.emit({ action: "modal", params: ['close'] });
+  }
 }
