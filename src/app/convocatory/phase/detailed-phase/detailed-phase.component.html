@@ -19,9 +19,11 @@
             <app-detailed-basic-phase *ngIf="phase" [phase]="phase"></app-detailed-basic-phase>
             <div class="row">
               <div class="col s12">
+                <div *ngIf="getIsAbleToEdit()">
                 <a class="waves-effect center-align waves-light btn amber modal-trigger" href="#modal_update_Phase" (click)="openModalUpdatePhase()">
                   <i class="fa fa-edit"></i>Editar
               </a>
+            </div>
               </div>
             </div>
             <hr>

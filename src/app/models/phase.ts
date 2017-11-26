@@ -5,9 +5,9 @@ export class Phase {
     id: number;
     name: string;
     description: string;    
-    startDate: string;
-    endDate: string;
-    startApprovalDate: string;    
-    endApprovalDate: string;
+    startDate: Date;
+    endDate: Date;
+    startApprovalDate: Date;    
+    endApprovalDate: Date;
     convocatory: Convocatory;
 }

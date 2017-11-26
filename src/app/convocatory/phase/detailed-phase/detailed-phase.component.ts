@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { AddFieldComponent } from '../../../input-fields/add-field/add-field.component';
 import { FieldModel } from '../../../models/field.model';
 import { DragulaService } from 'ng2-dragula';
+import { HelperService } from '../../../services/helper.service';
 
 @Component({
   selector: 'app-detailed-phase',
@@ -23,12 +24,21 @@ export class DetailedPhaseComponent implements OnInit {
   // fields = [];
   phase: Phase;
   order = 0;
+
+  @Input()
+  isAbleEdit: boolean;
   
-  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService) {
+  constructor(private location: Location, private route: ActivatedRoute, private phaseService: PhaseService, private dragulaService: DragulaService,
+    private helperService: HelperService) {
     this.fields = [];
     this.route.paramMap
     .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
     .subscribe(phase => {
+      this.isAbleEdit = false;
+        phase.startDate = this.helperService.ymdToDate(phase.startDate);
+        phase.endDate = this.helperService.ymdToDate(phase.endDate);
+        phase.startApprovalDate = this.helperService.ymdToDate(phase.startApprovalDate);
+        phase.endApprovalDate = this.helperService.ymdToDate(phase.endApprovalDate);
       this.phase = phase;
       this.phaseService.getFieldsByPhase(this.phase.id).subscribe(
         (response) => {
@@ -120,5 +130,18 @@ export class DetailedPhaseComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  getIsAbleToEdit() {
+    var today = new Date();
+    today.setHours(0,0,0);
+    var startDate = this.phase.startDate;
+    startDate.setHours(0,0,0);
+    
+    this.isAbleEdit = true;
+    if (startDate < today) {
+      this.isAbleEdit = false;      
+    }
+    return this.isAbleEdit;
   }
 }

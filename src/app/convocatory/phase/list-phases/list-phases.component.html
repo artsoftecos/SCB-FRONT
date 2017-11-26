@@ -6,30 +6,30 @@
         <i class="material-icons"></i><h5 class="text-xs-center col s12">{{ phase.name }}</h5>
         
         <div class="col m4 s3">
-          <a (click)="goToPhase(phase.id)" class="waves-effect waves-light btn green right-align"><i class="small material-icons center right-align" style="margin: 0;">visibility</i></a>
-        </div>
-        <div class="col m4 s3">
           <a *ngIf="isAbleToEdit(phase)" (click)="removePhase(phase.id)" class="waves-effect waves-light btn red">
             <i class="fa fa-times" style="margin: 0;"></i></a>
         </div>
+        <div class="col m4 s3">
+          <a (click)="goToPhase(phase.id)" class="waves-effect waves-light btn green right-align"><i class="small material-icons center right-align" style="margin: 0;">visibility</i></a>
+       </div>       
       </div>
-      <div class="collapsible-body">
+      <div class="collapsible-body"> 
           <div class="row">
             <div class="input-field inline col s12">
                 <strong>Fecha Inicio:</strong>
-                <span>{{ phase.startDate }} </span>
+                <span>{{ getFormatDate(phase.startDate) }} </span>
             </div>
             <div class="input-field inline col s12">
                 <strong>Fecha Finalización:</strong>
-                <span>{{ phase.endDate }} </span>
+                <span>{{ getFormatDate(phase.endDate) }} </span>
             </div>
             <div class="input-field inline col s12">
                 <strong>Fecha Inicio aprobación postulación:</strong>
-                <span>{{ phase.startApprovalDate }} </span>
+                <span>{{ getFormatDate(phase.startApprovalDate) }} </span>
             </div>
             <div class="input-field inline col s12">
                 <strong>Fecha Fin aprobación postulación:</strong>
-                <span>{{ phase.endApprovalDate }} </span>
+                <span>{{ getFormatDate(phase.endApprovalDate) }} </span>
             </div>
             <div class="input-field inline col s12">
                 <strong>Descripción:</strong>
