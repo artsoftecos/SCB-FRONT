@@ -10,12 +10,12 @@ export class Validation {
     field_type_id?: number,
     field_type_validation_id?: number,
     value?: string,
-    error_msg?: string
+    errorMessage?: string
   } = {}) {
     this.id = validation.id;
     this.field_type_id = validation.field_type_id;
     this.field_type_validation_id = validation.field_type_validation_id;
     this.value = validation.value || ''
-    this.error_msg = validation.error_msg || '';
+    this.error_msg = validation.errorMessage || '';
   }
 }

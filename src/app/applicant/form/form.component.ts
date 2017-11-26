@@ -24,76 +24,77 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class FormComponent implements OnInit {
 
-  public fields: any = [];
+  public fields: any = null;
   public phaseId: number;
 
   constructor(private service: QuestionService, private fieldService: FieldService, private activatedRoute: ActivatedRoute) {
-    //
-
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    /*this.activatedRoute.params.subscribe((params: Params) => {
       this.phaseId = +params['id'];
       this.loadFields();
-    });
+    });*/
+    this.loadFields();
   }
 
   loadFields() {
-
-    var questions = this.fieldService.getFields(this.phaseId);
-    //console.log(questions);
+    this.phaseId = 31;
+    var questions = this.fieldService.getFields(this.phaseId).subscribe(questions => {
+      this.fields = this.buildFields(questions);
+    });
+    
     //var questions = this.service.getQuestions(phaseId);
-    this.fields = this.buildFields(questions);
+    
   }
 
   buildFields(fields) {
     let questions: QuestionBase<any>[] = [];
 
     fields.forEach(element => {
-      switch (element.field_type_id) {
-        case 1:
+      switch (element.fieldType.id) {
+        case 6:
           questions.push(new EmailQuestion({
             key: element.id,
             label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
-            validation: element.validation
-          }));
-          break;
-        case 2:
-          questions.push(new NumberQuestion({
-            key: element.id,
-            label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
-            validation: element.validation
-          }));
-          break;
-        case 3:
-          questions.push(new TextboxQuestion({
-            key: element.id,
-            label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
-            validation: element.validation
-          }));
-          break;
-        case 4:
-          questions.push(new TextareaQuestion({
-            key: element.id,
-            label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
             validation: element.validation
           }));
           break;
         case 5:
+          questions.push(new NumberQuestion({
+            key: element.id,
+            label: element.name,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
+            validation: element.validation
+          }));
+          break;
+        case 1:
+          questions.push(new TextboxQuestion({
+            key: element.id,
+            label: element.name,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
+            validation: element.validation
+          }));
+          break;
+        case 2:
+          questions.push(new TextareaQuestion({
+            key: element.id,
+            label: element.name,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
+            validation: element.validation
+          }));
+          break;
+        case 3:
           questions.push(new FileQuestion({
             key: element.id,
             label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
             validation: element.validation
           }));
           break;
@@ -101,8 +102,8 @@ export class FormComponent implements OnInit {
           questions.push(new DateQuestion({
             key: element.id,
             label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
             validation: element.validation
           }));
           break;
@@ -110,8 +111,8 @@ export class FormComponent implements OnInit {
           questions.push(new UrlQuestion({
             key: element.id,
             label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
             validation: element.validation
           }));
           break;
@@ -119,14 +120,15 @@ export class FormComponent implements OnInit {
           questions.push(new TimeQuestion({
             key: element.id,
             label: element.name,
-            required: element.required,
-            fieldTypeId: element.field_type_id,
+            obligatory: element.obligatory,
+            fieldTypeId: element.fieldType.id,
             validation: element.validation
           }));
           break;
 
       }
     });
+    //console.log(questions);
     return questions;
   }
 }

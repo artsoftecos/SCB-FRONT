@@ -22,6 +22,6 @@ export class QuestionBase<T>{
     this.fieldTypeId = options.fieldTypeId;
     this.required = !!options.required;
     this.controlType = options.controlType || '';
-    this.validation = options.validation
+    this.validation = options.validation;
   }
 }
