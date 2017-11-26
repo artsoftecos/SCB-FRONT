@@ -50,7 +50,7 @@
 <div id="modal_create_convocatory" class="modal modal-height"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActionsCreateConvocatory">
   <!-- <div class="modal-content"> -->
     <!-- <div class="row"> -->
-      <app-create-convocatory (cancelation)="closeModalCreateConvocatory()" ></app-create-convocatory>
+      <app-create-convocatory (cancelation)="closeModalCreateConvocatory($event)" ></app-create-convocatory>
     <!-- </div> -->
   <!-- </div> -->
 </div>

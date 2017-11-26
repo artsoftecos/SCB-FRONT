@@ -9,7 +9,8 @@ import { User } from '../../models/user';
 import { Oferrer } from '../../models/oferrer';
 import { HelperService } from '../../services/helper.service';
 import swal from 'sweetalert2';
-//import { DatepickerOptions } from 'ng2-datepicker';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as frLocale from 'date-fns/locale/fr';
 
 @Component({
   selector: 'app-create-convocatory',
@@ -21,6 +22,7 @@ export class CreateConvocatoryComponent implements OnInit {
   convocatoryTypes: ConvocatoryType[];
   selectedType: number;
   summary: string = "";
+  date: Date;
 
   //Tooltips
   name_tooltip = undefined;
@@ -30,14 +32,28 @@ export class CreateConvocatoryComponent implements OnInit {
   resultDate_tooltip = undefined;
 
   @Output()
-  cancelation = new EventEmitter();
+  cancelation = new EventEmitter<any>();
 
   constructor(private convocatoryTypeService: ConvocatoryTypeService,
     private convocatoryService: ConvocatoryService,
     private authService: AuthService,
-    private helperService: HelperService) { }
+    private helperService: HelperService) { 
+      //this.date = new Date();
+      this.convocatory.resultDate = new Date();
 
-  ngOnInit() {
+    }
+
+    options: DatepickerOptions = {
+      minYear: 1970,
+      maxYear: 2030,
+      displayFormat: 'MMM D[,] YYYY',
+      barTitleFormat: 'MMMM YYYY',
+      firstCalendarDay: 1 // 0 - Sunday, 1 - Monday
+      //locale: frLocale
+    };
+  
+
+  ngOnInit() {    
     this.loadConvocatoryTypes();
   }
 
@@ -71,19 +87,21 @@ export class CreateConvocatoryComponent implements OnInit {
     let oferrer = new Oferrer();
     oferrer.email = user.email;
     this.convocatory.offerer = oferrer;
+    this.convocatory.resultDate.setHours(0, 0, 0, 0);
     if (!this.isValidConvocatory()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-    let date = this.helperService.dmyToDate(this.convocatory.resultDate);
+    //let date = this.helperService.dmyToDate(this.convocatory.resultDate);
     //"17/9/2014".toDate("dd/MM/yyyy", "/")
     //let date = new Date(this.convocatory.resultDate);
-    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);
+    //this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);
     this.convocatoryService.post(this.convocatory).subscribe(response => {
       this.convocatory = new Convocatory();
+      this.convocatory.resultDate = new Date();
       this.selectedType = -1;
       swal('Exito!', 'Se ha creado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelRegisterConvocatory();
+      this.cancelRegisterConvocatory(true);
     },
       err => {
         if (err.status == 400) {
@@ -98,6 +116,7 @@ export class CreateConvocatoryComponent implements OnInit {
   isValidConvocatory(): boolean {
     let isValid = true;
     var today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     try {
       if (this.convocatory.name === undefined || this.convocatory.name === "") {
@@ -154,7 +173,8 @@ export class CreateConvocatoryComponent implements OnInit {
       }
 
       if (this.convocatory.resultDate !== undefined && this.convocatory.resultDate !== null) {
-        var resultDate = this.helperService.dmyToDate(this.convocatory.resultDate);
+        //var resultDate = this.helperService.dmyToDate(this.convocatory.resultDate);        
+        var resultDate = this.convocatory.resultDate;
         console.log(resultDate, today, (resultDate < today));
         //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
         //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);
@@ -220,10 +240,10 @@ export class CreateConvocatoryComponent implements OnInit {
     }
   }
 
-  cancelRegisterConvocatory() {
+  cancelRegisterConvocatory(success: boolean) {
     this.convocatory = new Convocatory();
     this.cleanSummay();
-    this.cancelation.emit();
+    this.cancelation.emit(success);
   }
 
   cleanSummay() {

@@ -7,6 +7,8 @@ import { HelperService } from '../../../services/helper.service';
 import { PhaseService } from '../../../services/phase-service';
 import swal from 'sweetalert2';
 declare var $: any;
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as frLocale from 'date-fns/locale/fr';
 
 @Component({
   selector: 'app-create-phase',
@@ -17,7 +19,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
   phase: Phase = new Phase();
   summary: string = "";
   @Input()
-  convocatory: Convocatory;
+  convocatory: Convocatory; 
 
   //Tooltips
   name_tooltip = undefined;
@@ -30,10 +32,24 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
 
   
   @Output()
-  cancelation = new EventEmitter();
+  cancelation = new EventEmitter<any>();
 
   constructor(private phaseService: PhaseService, 
-    private helperService: HelperService) { }
+    private helperService: HelperService) { 
+      this.phase.startDate = new Date();
+      this.phase.endDate = new Date();
+      this.phase.startApprovalDate = new Date();
+      this.phase.endApprovalDate = new Date();
+    }
+
+    options: DatepickerOptions = {
+      minYear: 1970,
+      maxYear: 2030,
+      displayFormat: 'MMM D[,] YYYY',
+      barTitleFormat: 'MMMM YYYY',
+      firstCalendarDay: 1 // 0 - Sunday, 1 - Monday
+      //locale: frLocale
+    };
 
   ngOnInit() {    
   }
@@ -55,20 +71,11 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-    this.phase.convocatory = this.convocatory;
-    let startDate = this.helperService.dmyToDate(this.phase.startDate);
-    let endDate = this.helperService.dmyToDate(this.phase.endDate);
-    let startApprovalDate = this.helperService.dmyToDate(this.phase.startApprovalDate);
-    let endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);
-
-    this.phase.startDate = this.helperService.getDateFormatYYYYMMddDash(startDate);
-    this.phase.endDate = this.helperService.getDateFormatYYYYMMddDash(endDate);
-    this.phase.startApprovalDate = this.helperService.getDateFormatYYYYMMddDash(startApprovalDate);
-    this.phase.endApprovalDate = this.helperService.getDateFormatYYYYMMddDash(endApprovalDate);
+    this.phase.convocatory = this.convocatory; 
     this.phaseService.post(this.phase).subscribe(response => {
       this.phase = new Phase();      
       swal('Exito!', 'Se ha creado la fase satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelRegisterPhase();
+      this.cancelRegisterPhase(true);
     },
       err => {
         console.log("error:");
@@ -142,8 +149,10 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
 
   private ValidateDates(): boolean {
       var isValid = true;
-        var today = new Date();
-        var startDate =  this.helperService.dmyToDate(this.phase.startDate);  
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+        var startDate =  this.phase.startDate;  
         
         if (startDate < today) {
           this.startDate_tooltip = [];
@@ -152,7 +161,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
           isValid = false;
         }
 
-        var endDate =  this.helperService.dmyToDate(this.phase.endDate);          
+        var endDate =  this.phase.endDate;          
         if (endDate < today) {
           this.endDate_tooltip = [];
           this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
@@ -165,7 +174,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
           isValid = false;
         }
 
-        var startApprovalDate =  this.helperService.dmyToDate(this.phase.startApprovalDate);        
+        var startApprovalDate =  this.phase.startApprovalDate;
         if (startApprovalDate < endDate) {
           this.startApprovalDate_tooltip = [];
           this.startApprovalDate_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.";
@@ -178,7 +187,7 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
           isValid = false;
         }*/
 
-        var endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);        
+        var endApprovalDate = this.phase.endApprovalDate;
         if (endApprovalDate < startApprovalDate) {
           this.endApprovalDate_tooltip = [];
           this.endApprovalDate_tooltip['error'] = "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.";
@@ -253,10 +262,10 @@ export class CreatePhaseComponent implements OnChanges, OnInit {
     }
   }
 
-  cancelRegisterPhase() {
+  cancelRegisterPhase(sucess: boolean) {
     this.phase = new Phase();
     this.cleanSummay();
-    this.cancelation.emit();
+    this.cancelation.emit(sucess);
   }
   
   cleanSummay() {

@@ -13,8 +13,8 @@ export class QuestionControlService {
   }
 
   toFormGroup(questions: QuestionBase<any>[]) {
+    //console.log("QCS",questions);
     questions.forEach(question => {
-      //console.log(question);
       this.fieldValidation[question.key] = question.validation;
       this.group[question.key] = this.setFormControl(question);
     });
@@ -64,55 +64,60 @@ export class QuestionControlService {
     let validators = [];
     if (required)
       validators = [Validators.required];
-    if (validation)
-      switch (validation.id) {
-        case 1:
+    if (validation) {
+      var validationType = validation.fieldTypeValidation;
+      switch (validationType.id) {
+        case 9:
           //Mayor
           validators.push(Validators.min(validation.value));
           break;
-        case 2:
+        case 10:
           //Menor
           validators.push(Validators.max(validation.value));
           break;
-        case 3:
+        case 11:
           //Entre
           let values = validation.value.split("|");
           validators.push(Validators.max(values[1]));
           validators.push(Validators.min(values[0]));
           break;
-        case 5:
+        case 12:
           //Celular
           validators.push(Validators.max(3509999999));
           validators.push(Validators.min(3002000000));
           break;
       }
-
+    }
     return Validators.compose(validators);
   }
 
   private textValidation(validation, required) {
+    //console.log(validation);
     let validators = [];
     if (required)
       validators = [Validators.required];
-    if (validation)
-      switch (validation.id) {
-        case 6:
-          //Mayor
-          validators.push(Validators.maxLength(validation.value));
-          break;
-        case 7:
+    if (validation) {
+      var validationType = validation.fieldTypeValidation;
+      switch (validationType.id) {
+        case 1:
           //Menor
           validators.push(Validators.minLength(validation.value));
           break;
-        case 8:
+        case 2:
           //Mayor
           validators.push(Validators.maxLength(validation.value));
           break;
-        case 9:
+        case 3:
           //Menor
           validators.push(Validators.minLength(validation.value));
           break;
+        case 4:
+          //Mayor
+          validators.push(Validators.maxLength(validation.value));
+          break;
+
       }
+    }
     return Validators.compose(validators);
   }
 

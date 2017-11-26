@@ -11,6 +11,8 @@ import { Oferrer } from '../../models/oferrer';
 import { HelperService } from '../../services/helper.service';
 import swal from 'sweetalert2';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as frLocale from 'date-fns/locale/fr';
 
 @Component({
   selector: 'app-edit-convocatory',
@@ -26,7 +28,7 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
   originalConvocatoryType: ConvocatoryType;
   originalNumberBeneficiaries: number;
   originalDescription: string;
-  originalResultDate: string;
+  originalResultDate: Date;
 
   convocatoryTypes: ConvocatoryType[];
   selectedType: number;
@@ -49,9 +51,20 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
     private helperService: HelperService,
     private route: ActivatedRoute) { }
 
+    options: DatepickerOptions = {
+      minYear: 1970,
+      maxYear: 2030,
+      displayFormat: 'MMM D[,] YYYY',
+      barTitleFormat: 'MMMM YYYY',
+      firstCalendarDay: 1 // 0 - Sunday, 1 - Monday
+      //locale: frLocale
+    };
+
   ngOnInit() {
     this.originalName = this.convocatory.name;
-    this.originalConvocatoryType = this.convocatory.convocatoryType;
+    this.originalConvocatoryType = new ConvocatoryType();
+    this.originalConvocatoryType.id = this.convocatory.convocatoryType.id;
+    this.originalConvocatoryType.name = this.convocatory.convocatoryType.name;
     this.originalNumberBeneficiaries = this.convocatory.numberBeneficiaries;
     this.originalDescription = this.convocatory.description;
     this.originalResultDate = this.convocatory.resultDate;
@@ -65,6 +78,7 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
       conv.name = "Seleccione tipo de convocatoria";      
       this.convocatoryTypes=convocatoryTypes;
       this.convocatoryTypes.unshift(conv);
+      this.selectedType = this.convocatory.convocatoryType.id;
     },
       err => {
         console.log(err);
@@ -77,22 +91,22 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
     this.cleanSummay();
     let type = new ConvocatoryType();
     type.id = this.selectedType;
+    type.name = this.convocatoryTypes.filter(function(arr){return arr.id == type.id})[0].name;   
     this.convocatory.convocatoryType = type;
     let user = this.authService.getCurrentUser();
     let oferrer= new Oferrer();
     oferrer.email = user.email;
     this.convocatory.offerer = oferrer;
+    this.convocatory.resultDate.setHours(0, 0, 0, 0);
     if (!this.isValidConvocatory()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-    let date = this.helperService.dmyToDate(this.convocatory.resultDate);
-    this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);    
-    this.convocatoryService.put(this.convocatory).subscribe(response => {
-      this.convocatory = new Convocatory();
-      this.selectedType = -1;
+    //let date = this.helperService.dmyToDate(this.convocatory.resultDate);
+    //this.convocatory.resultDate = this.helperService.getDateFormatYYYYMMddDash(date);    
+    this.convocatoryService.put(this.convocatory).subscribe(response => {      
       swal('Exito!', 'Se ha actualizado la convocatoria satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelUpdateConvocatory();
+      this.cancelUpdateConvocatory(true);
     },
       err => {
         console.log("error:");
@@ -111,7 +125,8 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
   isValidConvocatory(): boolean {
     let isValid = true;
     var today = new Date();
-    
+    today.setHours(0, 0, 0, 0);
+
     try {
       if (this.convocatory.name === undefined ||this.convocatory.name === "") {
         this.name_tooltip = [];
@@ -165,13 +180,13 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
       }
       
       if (this.convocatory.resultDate !== undefined && this.convocatory.resultDate !== null) {
-        var resultDate =  this.helperService.dmyToDate(this.convocatory.resultDate);          
+        //var resultDate =  this.helperService.dmyToDate(this.convocatory.resultDate);          
         //var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
         //var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);  
         /*var resultDateWithGMT = new Date(this.convocatory.resultDate);
           var userTimezoneOffset = resultDateWithGMT.getTimezoneOffset() * 60000;
           var resultDate = new Date(resultDateWithGMT.getTime() + userTimezoneOffset);*/
-          if (resultDate < today) {
+          if (this.convocatory.resultDate < today) {
           this.resultDate_tooltip = [];
           this.resultDate_tooltip['error'] = "Fecha de resultados no puede ser menor a hoy.";
           this.summary += "Fecha de resultados no puede ser menor a hoy.<br/>";
@@ -234,12 +249,15 @@ export class EditConvocatoryComponent implements OnChanges, OnInit {
     }
   }
 
-  cancelUpdateConvocatory() {
-    this.convocatory.name = this.originalName;
-    this.convocatory.convocatoryType = this.originalConvocatoryType;
-    this.convocatory.numberBeneficiaries = this.originalNumberBeneficiaries;
-    this.convocatory.description = this.originalDescription;
-    this.convocatory.resultDate = this.originalResultDate;
+  cancelUpdateConvocatory(success: boolean) {
+    if (!success){
+      this.convocatory.name = this.originalName;
+      this.convocatory.convocatoryType = this.originalConvocatoryType;
+      this.selectedType = this.originalConvocatoryType.id;
+      this.convocatory.numberBeneficiaries = this.originalNumberBeneficiaries;
+      this.convocatory.description = this.originalDescription;
+      this.convocatory.resultDate = this.originalResultDate;    
+    }
     this.cleanSummay();
     this.cancelation.emit();
   }

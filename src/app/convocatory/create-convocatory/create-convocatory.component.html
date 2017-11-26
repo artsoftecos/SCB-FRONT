@@ -34,10 +34,13 @@
           <ng2-datepicker [(ngModel)]="convocatory.resultDate" ></ng2-datepicker>
           <label>Fecha resultados</label>
         </div>-->
-        <div class="input-field col s12 m6">
-            <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="validate invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
-            <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
-            <label>Fecha resultados</label>
+        <div class="col s12 m6">
+            <!--<input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="validate invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
+            <input *ngIf="resultDate_tooltip === undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="date" class="validate" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />-->
+            <label>Fecha resultados</label>  
+            <i class="fa fa-calendar-minus-o prefix"></i>          
+            <ng-datepicker *ngIf="resultDate_tooltip !== undefined" class="date_picker_icono validate invalid" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate"  materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="4" [attr.data-tooltip]="resultDate_tooltip['error']" [options]="options"></ng-datepicker>
+            <ng-datepicker *ngIf="resultDate_tooltip === undefined" class="date_picker_icono validate" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate"  [options]="options"></ng-datepicker>
           </div>
         <!--<div class="input-field col s12 m6">
           <input *ngIf="resultDate_tooltip !== undefined" [(ngModel)]="convocatory.resultDate" name="resultDate" id="resultDate" type="text" class="datepicker validate invalid" materialize="tooltip" [materializeParams]="resultDate_tooltip" data-position="top" data-delay="10" [attr.data-tooltip]="resultDate_tooltip['error']" />
@@ -54,7 +57,7 @@
       </div> 
 
       <div class="modal-footer">
-        <a class="waves-effect btn-flat" id="convocatoryCancel" type="button" value="Cancelar" (click)="cancelRegisterConvocatory()" >Cancelar</a>
+        <a class="waves-effect btn-flat" id="convocatoryCancel" type="button" value="Cancelar" (click)="cancelRegisterConvocatory(false)" >Cancelar</a>
         <a class="blue waves-effect waves-blue btn-flat" id="convocatory" type="button" value="enviar" (click)="registerConvocatory()" style="color:white;">Enviar</a>
       </div>
     </form>

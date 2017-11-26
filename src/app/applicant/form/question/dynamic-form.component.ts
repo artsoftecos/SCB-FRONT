@@ -20,6 +20,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() phaseId: number;
   form: FormGroup;
   payLoad = '';
+  images: Array<{ id: number, name: string, base64: string }> = [];
 
   constructor(private qcs: QuestionControlService, private router: Router, private phaseService: PhaseService) { }
 
@@ -62,10 +63,24 @@ export class DynamicFormComponent implements OnInit {
     for (var i in values) {
       for (var j in this.questions) {
         if (this.questions[j].key == i) {
+          if (this.questions[j].fieldTypeId == 3) {
+            this.uploadFile(this.questions[j]);
+          }
           values[i] = { "value": values[i], "fieldTypeId": this.questions[j].fieldTypeId }
         }
       }
     }
     return values;
+  }
+
+  uploadFile(question) {
+    console.log(question);
+    this.phaseService.uploadFile(question, this.phaseId)
+      .subscribe(response => {
+        console.log(response);
+      },
+      (err) => {
+        swal('Oops...', 'Algo salio mal, por favor vuelve a intentarlo', 'error').catch(swal.noop);
+      });
   }
 }

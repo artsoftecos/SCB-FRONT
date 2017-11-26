@@ -9,6 +9,6 @@ export class Convocatory {
     numberBeneficiaries: number;
     description: string;
     offerer: Oferrer;
-    resultDate: string;
+    resultDate: Date;
     convocatoryState: ConvocatoryState;
 }

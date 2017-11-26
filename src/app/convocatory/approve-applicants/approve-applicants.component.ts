@@ -6,6 +6,7 @@ import { Applicant } from '../../models/applicant';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Phase } from '../../models/phase';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-approve-applicants',
@@ -22,7 +23,7 @@ export class ApproveApplicantsComponent implements OnInit {
 
   modalActions = new EventEmitter<string | MaterializeAction>();
   aplicantes = []
-  constructor(private route: ActivatedRoute, private router: Router, private phaseService : PhaseService) {
+  constructor(private route: ActivatedRoute, private router: Router, private phaseService : PhaseService, private location: Location) {
     // this.phaseId = +params.get('id')
 
     this.route.paramMap
@@ -49,4 +50,12 @@ export class ApproveApplicantsComponent implements OnInit {
   closeModal() {
     this.modalActions.emit({ action: "modal", params: ['close'] });
   }
+  goBack(): void {
+    this.location.back();
+  }
+
+  closeModalUpdatePhase(){
+    //TODO: implementada por que en el HTML se hace referencia, debe estar?
+  }
+
 }

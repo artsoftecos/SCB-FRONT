@@ -26,7 +26,7 @@ export class ConvocatoryPendingApprovePhasesComponent implements OnInit {
     this.convocatory.numberBeneficiaries = 24;
     this.convocatory.convocatoryType = new ConvocatoryType();
     this.convocatory.convocatoryType.name = "pepito";
-    this.convocatory.resultDate = "2017-01-01";
+    this.convocatory.resultDate = new Date(2017, 1,1);
     this.convocatory.convocatoryState = new ConvocatoryState();
     this.convocatory.convocatoryState.name = "Pusblicada";
   }

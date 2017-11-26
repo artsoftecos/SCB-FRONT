@@ -142,10 +142,10 @@ export class PhaseToApplyConvocatoryComponent implements OnInit {
     this.phase.id = 1;
     this.phase.name = "fase inscripcion";
     this.phase.description = "desc";
-    this.phase.startDate = "2017 - 5 -2";
-    this.phase.endDate = "2017-55-8";
-    this.phase.startApprovalDate = "2015-8-9";
-    this.phase.endApprovalDate = "2016-8-9";
+    this.phase.startDate = new Date(2017, 5, 2);
+    this.phase.endDate = new Date(2017, 5, 8);
+    this.phase.startApprovalDate = new Date(2015, 8, 9);
+    this.phase.endApprovalDate = new Date(2016, 8, 9);
     this.phase.convocatory = this.convocatory;
   }
 

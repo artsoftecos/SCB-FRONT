@@ -7,6 +7,8 @@ import { PhaseService } from '../../../services/phase-service';
 import { HelperService } from '../../../services/helper.service';
 import swal from 'sweetalert2';
 declare var $: any;
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as frLocale from 'date-fns/locale/fr';
 
 @Component({
   selector: 'app-edit-phase',
@@ -20,10 +22,10 @@ export class EditPhaseComponent implements OnChanges, OnInit {
   
   originalName: string;
   originalDescription: string;    
-  originalStartDate: string;
-  originalendDate: string;
-  originalStartApprovalDate: string;    
-  originalEndApprovalDate: string;    
+  originalStartDate: Date;
+  originalendDate: Date;
+  originalStartApprovalDate: Date;    
+  originalEndApprovalDate: Date;    
   originalConvocatory: Convocatory;
   summary: string = "";
 
@@ -42,6 +44,15 @@ export class EditPhaseComponent implements OnChanges, OnInit {
   constructor(private phaseService: PhaseService,
     private helperService: HelperService) { }
 
+    options: DatepickerOptions = {
+      minYear: 1970,
+      maxYear: 2030,
+      displayFormat: 'MMM D[,] YYYY',
+      barTitleFormat: 'MMMM YYYY',
+      firstCalendarDay: 1 // 0 - Sunday, 1 - Monday
+      //locale: frLocale
+    };
+
   ngOnInit() {
     this.originalName = this.phase.name;
     this.originalDescription = this.phase.description;    
@@ -52,37 +63,22 @@ export class EditPhaseComponent implements OnChanges, OnInit {
     this.originalEndApprovalDate = this.phase.endApprovalDate;
   }
 
-  ngAfterViewInit() {
-    $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: false // Close upon selecting a date,
-    });
+  ngAfterViewInit() {   
   }
-
+ 
   updatePhase() {
     this.cleanSummay();
+    this.phase.startDate.setHours(0, 0, 0, 0);
+    this.phase.endDate.setHours(0, 0, 0, 0);
+    this.phase.startApprovalDate.setHours(0, 0, 0, 0);
+    this.phase.endApprovalDate.setHours(0, 0, 0, 0);
     if (!this.isValidPhase()) {
       swal('Oops...', 'Completa la información', 'error').catch(swal.noop);
       return;
     }
-
-    let startDate = this.helperService.dmyToDate(this.phase.startDate);
-    let endDate = this.helperService.dmyToDate(this.phase.endDate);
-    let startApprovalDate = this.helperService.dmyToDate(this.phase.startApprovalDate);
-    let endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);
-
-    this.phase.startDate = this.helperService.getDateFormatYYYYMMddDash(startDate);
-    this.phase.endDate = this.helperService.getDateFormatYYYYMMddDash(endDate);
-    this.phase.startApprovalDate = this.helperService.getDateFormatYYYYMMddDash(startApprovalDate);
-    this.phase.endApprovalDate = this.helperService.getDateFormatYYYYMMddDash(endApprovalDate);
-    this.phaseService.put(this.phase).subscribe(response => {
-      this.phase = new Phase();
+    this.phaseService.put(this.phase).subscribe(response => {      
       swal('Exito!', 'Se ha actualizado la fase satisfactoriamente', 'success').catch(swal.noop);
-      this.cancelUpdatePhase();
+      this.cancelUpdatePhase(true);
     },
       err => {
         console.log("error:");
@@ -157,7 +153,8 @@ export class EditPhaseComponent implements OnChanges, OnInit {
   private ValidateDates(): boolean {
     var isValid = true;
     var today = new Date();
-    var startDate =  this.helperService.dmyToDate(this.phase.startDate);  
+    today.setHours(0, 0, 0, 0);
+    var startDate =  this.phase.startDate;  
     
     if (startDate < today) {
       this.startDate_tooltip = [];
@@ -166,7 +163,7 @@ export class EditPhaseComponent implements OnChanges, OnInit {
       isValid = false;
     }
 
-    var endDate =  this.helperService.dmyToDate(this.phase.endDate);   
+    var endDate =  this.phase.endDate;   
     if (endDate < today) {
       this.endDate_tooltip = [];
       this.endDate_tooltip['error'] = "Fecha de fin no puede ser menor a hoy.";
@@ -178,7 +175,7 @@ export class EditPhaseComponent implements OnChanges, OnInit {
       isValid = false;
     }
 
-    var startApprovalDate =  this.helperService.dmyToDate(this.phase.startApprovalDate);        
+    var startApprovalDate =  this.phase.startApprovalDate;        
     if (startApprovalDate < endDate) {
       this.startApprovalDate_tooltip = [];
       this.startApprovalDate_tooltip['error'] = "Fecha de inicio de aprobación no puede ser menor a la fecha de fin.";
@@ -186,7 +183,7 @@ export class EditPhaseComponent implements OnChanges, OnInit {
       isValid = false;
     }
 
-    var endApprovalDate = this.helperService.dmyToDate(this.phase.endApprovalDate);        
+    var endApprovalDate = this.phase.endApprovalDate;        
     if (endApprovalDate < startApprovalDate) {
       this.endApprovalDate_tooltip = [];
       this.endApprovalDate_tooltip['error'] = "Fecha de fin de aprobación no puede ser menor a la fecha de inicio de aprobación.";
@@ -261,15 +258,15 @@ export class EditPhaseComponent implements OnChanges, OnInit {
     }
   }
 
-  cancelUpdatePhase() {
-
+  cancelUpdatePhase(success: boolean) { 
+    if (!success){
     this.phase.name = this.originalName;
     this.phase.description = this.originalDescription;
     this.phase.startDate = this.originalStartDate;
     this.phase.endDate = this.originalendDate;
     this.phase.startApprovalDate = this.originalStartApprovalDate;
     this.phase.endApprovalDate = this.originalEndApprovalDate;
-
+    }
     this.cleanSummay(); 
     this.cancelation.emit();
   }

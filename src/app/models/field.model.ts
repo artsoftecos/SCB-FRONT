@@ -6,7 +6,7 @@ export class FieldModel {
   type = "";
   name = "";
   idPhase = "";
-  idField : string;
+  idField: string;
   // @Input() nameTooltip: any;
   // @Input() orden: number;
   // type = "0";
@@ -101,6 +101,7 @@ export class FieldModel {
   numberMoreThan = 0;
   numberLessThanTooltip = undefined;
   numberMoreThanTooltip = undefined;
+  fileType = undefined
 
   emailRegularExpression = "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
   urlRegularExpression = "[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)";
@@ -117,5 +118,6 @@ export class FieldModel {
     this.name = "";
     this.minDate = new Date();
     this.maxDate = new Date();
+    this.fileType = undefined
   }
 }
