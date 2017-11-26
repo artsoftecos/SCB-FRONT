@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
 
       this.phaseId = +params['id'];
       if (isNaN(this.phaseId))
-        this.phaseId = 30;
+        this.phaseId = 31;
 
         this.loadFields();
     });

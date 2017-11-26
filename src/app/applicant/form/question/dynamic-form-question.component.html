@@ -21,7 +21,13 @@
       <div class="file-field input-field">
         <div class="btn">
           <span>Archivo</span>
-          <input [formControlName]="question.key" type="file" [multiple]="multiple" #fileInput>
+          <input [formControlName]="question.key" [name]="question.label"  type="file"  [id]="question.key" 
+          (change)="onChange(question, $event)" 
+          [accept]="question.validation.value" 
+          [required]="question.required">
+          
+          <!--<input [formControlName]="question.key" [name]="question.label"
+           [id]="question.key" type="file" [multiple]="multiple" #{{question.key}}>-->
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">

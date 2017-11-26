@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { BaseService } from './base.service';
 import 'rxjs/Rx';
@@ -53,6 +53,36 @@ export class PhaseService extends BaseService {
     return this.basePost("AppPerPhase/asociate", response);
   }
 
+  uploadFile(question, phaseId) {
+    var file = question.file.file;
+    var name = question.file.name;
+    var idConvocatory = "15";
+    var idPhase = phaseId;
 
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+    formData.append('email', this.authService.getCurrentUser().email);
+    formData.append('idConvocatory', idConvocatory);
+    formData.append('idPhase', idPhase);
+
+    return this.sendFile(formData);
+  }
+
+  private sendFile(formData) {
+    let headers = this.buildHeaders();
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(environment.SERVER_URL + "convocatory/upload", formData, options)
+      .map(res => res.json());
+  }
+
+  private buildHeaders() {
+    let headers = new Headers();
+    headers.append('Authorization', 'Basic ' + this.authService.getToken());
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('enctype', 'multipart/form-data');
+    return headers;
+  }
 }
 
