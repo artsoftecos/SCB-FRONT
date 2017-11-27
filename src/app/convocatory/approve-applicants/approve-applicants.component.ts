@@ -16,7 +16,8 @@ import { Location } from '@angular/common';
 export class ApproveApplicantsComponent implements OnInit {
 
   public aplicants: any = [];
-  
+  selected_aplicant = null;
+
   @Input()
   phaseId: number;
   phase: Phase;
@@ -44,7 +45,35 @@ export class ApproveApplicantsComponent implements OnInit {
   ngOnInit() {
   }
 
-  openModal() {
+  approveApplicant() {
+    let id = this.selected_aplicant.id;
+    this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.approveApplicant(id))
+    .subscribe(response => {
+      this.aplicants.forEach(aplicant => {
+        if(aplicant.id == id){
+          aplicant.applicantPerPhaseState.name = "Aprobado";
+        }
+      });
+      this.closeModal()
+    });
+  }
+  rejectApplicant() {
+    let id = this.selected_aplicant.id;
+    this.route.paramMap
+    .switchMap((params: ParamMap) => this.phaseService.rejectApplicant(id))
+    .subscribe(response => {
+      this.aplicants.forEach(aplicant => {
+        if(aplicant.id == id){
+          aplicant.applicantPerPhaseState.name = "Rechazado";
+        }
+      });
+      this.closeModal()
+    });
+  }
+
+  openModal(aplicant) {
+    this.selected_aplicant = aplicant;
     this.modalActions.emit({ action: "modal", params: ['open'] });
   }
   closeModal() {

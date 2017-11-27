@@ -13,7 +13,7 @@
           </div>
         </div>
       </nav>
-      <div>
+      <div class="white-background">
         
         <table *ngIf="aplicants.length > 0" class="responsive-table striped">
           <thead>
@@ -26,8 +26,10 @@
             <tr *ngFor="let aplicant of aplicants" class="grabbable">
               <td class="center-align">{{aplicant.applicant.firstName}} {{aplicant.applicant.secondName}} {{aplicant.applicant.firstLastName}} {{aplicant.applicant.secondLastName}}</td>
               <td class="center-align">
-                <a class="sin_padding waves-effect center-align waves-light btn light-blue" (click)="openModal()">
-                  <i class="material-icons left" style="line-height: 36px;">navigate_before</i> Ver Respuestas
+                <p *ngIf="aplicant.applicantPerPhaseState.name == 'Aprobado'" style="color:#4CAF50 !important"><i class="fa fa-check"></i> Aprobado</p>
+                <p *ngIf="aplicant.applicantPerPhaseState.name == 'Rechazado'" style="color: #F44336 !important"><i class="fa fa-times"></i> Rechazado</p>
+                <a *ngIf="aplicant.applicantPerPhaseState.name == 'Pendiente'" class="sin_padding waves-effect center-align waves-light btn light-blue" (click)="openModal(aplicant)">
+                  <i class="material-icons left" style="line-height: 36px;">check_box</i> Ver Respuestas
                 </a>
                 <!-- <a class="sin_padding waves-effect center-align waves-light btn light-green">
                   <i class="material-icons left" style="line-height: 36px;">navigate_before</i> Aprobar
@@ -44,13 +46,14 @@
           <div class="modal-content">
             <div class="row">
               <h1>Respuestas</h1>
-              <!-- COMPONENTE DE FORMULARIO -->
+              <h2 *ngIf="selected_aplicant" >{{selected_aplicant.id}}</h2> 
+              <h3 *ngIf="selected_aplicant" >{{selected_aplicant.respuestas}}</h3>
             </div>
           </div>
           <div class="modal-footer center-align">
             <a class="waves-effect btn-flat" (click)="closeModal()">Cancelar</a>
-            <a class="red waves-effect waves-blue btn-flat" style="color:white;">Rechazar</a>
-            <a class="green waves-effect waves-blue btn-flat" style="color:white;">Aprobar</a>
+            <a class="red waves-effect waves-blue btn-flat" (click)="rejectApplicant()" style="color:white;">Rechazar</a>
+            <a class="green waves-effect waves-blue btn-flat" (click)="approveApplicant()" style="color:white;">Aprobar</a>
           </div>
         </div>
       </div>

@@ -75,6 +75,14 @@ export class PhaseService extends BaseService {
   getApplicantsToApprove(idPhase: number) {
     return this.baseGet( "AppPerPhase/applicantsPerPhase/" + idPhase);
   }
+  
+  approveApplicant(idAplicantPerPhase: number) {
+    return this.basePost( "offerer/approvePhase/" + idAplicantPerPhase);
+  }
+  
+  rejectApplicant(idAplicantPerPhase: number) {
+    return this.basePost( "offerer/rejectPhase/" + idAplicantPerPhase);
+  }
 
   private buildHeaders() {
     let headers = new Headers();
