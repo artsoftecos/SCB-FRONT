@@ -17,9 +17,13 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
   @Input() phaseId: number;
 
   constructor(private service: ApplicantPhaseService, private activatedRoute: ActivatedRoute) {
+    
   }
 
   ngOnInit() {
+    console.log(this.appPhaseId);
+    console.log(this.convocatoryId);
+    console.log(this.phaseId);
     this.activatedRoute.params.subscribe((params: Params) => {
 
       // this.appPhaseId = +params['id'];
