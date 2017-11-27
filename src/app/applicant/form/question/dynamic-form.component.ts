@@ -65,8 +65,13 @@ export class DynamicFormComponent implements OnInit {
         if (this.questions[j].key == i) {
           if (this.questions[j].fieldTypeId == 3) {
             this.uploadFile(this.questions[j]);
+            values[i] = this.questions[j].value;
           }
-          values[i] = { "value": values[i], "fieldTypeId": this.questions[j].fieldTypeId }
+          values[i] = {
+            "label": this.questions[j].label,
+            "value": values[i],
+            "fieldTypeId": this.questions[j].fieldTypeId
+          }
         }
       }
     }
@@ -74,13 +79,14 @@ export class DynamicFormComponent implements OnInit {
   }
 
   uploadFile(question) {
-    console.log(question);
-    this.phaseService.uploadFile(question, this.phaseId)
-      .subscribe(response => {
-        console.log(response);
-      },
-      (err) => {
-        swal('Oops...', 'Algo salio mal, por favor vuelve a intentarlo', 'error').catch(swal.noop);
-      });
+    if (question.file) {
+      this.phaseService.uploadFile(question, this.phaseId)
+        .subscribe(response => {
+          console.log(response);
+        },
+        (err) => {
+          swal('Oops...', 'Algo salio mal, por favor vuelve a intentarlo', 'error').catch(swal.noop);
+        });
+    }
   }
 }

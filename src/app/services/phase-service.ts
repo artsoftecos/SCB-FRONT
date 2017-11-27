@@ -56,7 +56,7 @@ export class PhaseService extends BaseService {
   uploadFile(question, phaseId) {
     var file = question.file.file;
     var name = question.file.name;
-    var idConvocatory = "15";
+    var idConvocatory = "1";
     var idPhase = phaseId;
 
     let formData = new FormData();

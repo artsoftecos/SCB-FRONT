@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ConvocatoryTypeService } from '../services/convocatory-type.service'
 import { ConvocatoryService } from '../services/convocatory.service'
 import { AuthService } from '../services/auth.service';
-import { PhaseService  } from '../services/phase-service';
+import { PhaseService } from '../services/phase-service';
 import { PublishedListConvocatoryComponent } from './published-list-convocatory/published-list-convocatory.component';
 import { PendingPublishListConvocatoryComponent } from './pending-publish-list-convocatory/pending-publish-list-convocatory.component';
 import { DetailedConvocatoryComponent } from './detailed-convocatory/detailed-convocatory.component';
@@ -14,6 +14,7 @@ import { ListPhasesComponent } from './phase/list-phases/list-phases.component';
 import { CreatePhaseComponent } from './phase/create-phase/create-phase.component';
 import { UpdatePhaseComponent } from './phase/update-phase/update-phase.component';
 import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.component';
+
 import { PostulatedConvocatoryComponent } from './postulation/postulated-convocatory/postulated-convocatory.component';
 import { ConvocatoryRoutingModule } from './convocatory-routing.module';
 import { PublishedConvocatoryComponent } from './published-convocatory/published-convocatory.component';
@@ -30,6 +31,9 @@ import { DragulaModule } from 'ng2-dragula';
 import { InputFielDirective } from './phase/detailed-phase/detailed-phase-field.directive';
 import { ApproveApplicantsComponent } from './approve-applicants/approve-applicants.component';
 import { NgDatepickerModule } from 'ng2-datepicker';
+//Applicant per Phase
+import { DetailApplicantPhaseAnswerComponent } from './detail-applicant-phase-answer/detail-applicant-phase-answer.component';
+import { ApplicantPhaseService } from '../services/applicant-phase.service';
 
 @NgModule({
   imports: [
@@ -43,9 +47,9 @@ import { NgDatepickerModule } from 'ng2-datepicker';
     NgDatepickerModule
   ],
   exports: [
-    CreateConvocatoryComponent, 
+    CreateConvocatoryComponent,
     PendingPublishListConvocatoryComponent,
-    PublishedListConvocatoryComponent, 
+    PublishedListConvocatoryComponent,
     PendingListApprovePhasesConvocatoryComponent,
     DetailBasicConvocatoryComponent
   ],
@@ -60,6 +64,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
     CreatePhaseComponent,
     UpdatePhaseComponent,
     DetailedPhaseComponent,
+    DetailApplicantPhaseAnswerComponent,
     PostulatedConvocatoryComponent,
     PublishedConvocatoryComponent,
     DetailBasicConvocatoryComponent,
@@ -76,7 +81,8 @@ import { NgDatepickerModule } from 'ng2-datepicker';
     ConvocatoryService,
     AuthService,
     PhaseService,
-    HelperService
+    HelperService,
+    ApplicantPhaseService
   ]
 })
 export class ConvocatoryModule { }
