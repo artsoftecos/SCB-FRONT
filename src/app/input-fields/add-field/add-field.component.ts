@@ -26,11 +26,13 @@ export class AddFieldComponent implements OnInit {
   @Input() edit: boolean;
   @Input() idPhase: string;
   @Input() order: number;
+  @Input() id: number;
 
   @Input() fieldInstance: FieldModel;
 
   @Output() created: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
   @Output() deleted: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
+  @Output() updated: EventEmitter<FieldModel> = new EventEmitter<FieldModel>();
 
 
   loadFieldTypes() {
@@ -73,10 +75,15 @@ export class AddFieldComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateValidationName(nombre){
+    console.log(nombre)
+    this.fieldInstance.selectedValidationName = nombre;
+  }
+
   numberValidationTypeChange() {
     if (this.fieldInstance.type != "0") {
       this.fieldTypeValidationService.get(this.fieldInstance.type).subscribe(fieldTypesValidations => {
-        this.fieldInstance.selectedValidation = {}
+        this.fieldInstance.selectedValidation = "";
 
         switch (this.fieldInstance.type) {
           case "3":
@@ -189,6 +196,27 @@ export class AddFieldComponent implements OnInit {
     }
   }
 
+  updateField() {
+    let fieldStructure = this.createFieldStructure();
+    if ('error' in fieldStructure) {
+      if (typeof (fieldStructure['error']) == "string") {
+        swal('Oops...', fieldStructure['error'], 'error').catch(swal.noop);
+      }
+    } else {
+      this.fieldInstance.fieldStructure['id'] = this.fieldInstance.idField;
+      this.inputFieldService.update(this.fieldInstance).subscribe(response => {
+        this.closeModal();
+        // this.fieldInstance.idField = response["field_id"];
+        this.updated.emit(this.fieldInstance);
+        return this.fieldInstance;
+      },
+        err => {
+          swal('Oops...', 'Algo salio mal!', 'error').catch(swal.noop);
+        });
+
+    }
+  }
+
   getTypeName() {
     let typeId = parseInt(this.fieldInstance.type);
     for (var i = 0; i < this.fieldInstance.selectOptions.length; i++) {
@@ -222,12 +250,18 @@ export class AddFieldComponent implements OnInit {
     this.fieldStructure['value'] = "";
     this.fieldStructure['fieldType'] = { 'id': this.fieldInstance.type };
 
+    // if(this.fieldInstance.selectedValidation !== ""){
+      // this.fieldInstance.validationOptions.forEach(element => {
+      //   if(element.id == this.fieldInstance.selectedValidation){
+      //     this.fieldInstance.selectedValidationName = element.validationType.name;
+      //   }
+      // });
+      // this.fieldStructure['validation'] = {};
+      // this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
+      // this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
+  
     this.fieldStructure['validation'] = {};
 
-    // if(typeof(this.fieldInstance.selectedValidation) == "object")
-    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation['id'];
-    // else
-    //   this.fieldStructure['validation']['id'] = this.fieldInstance.selectedValidation;
     this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
     this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
 
