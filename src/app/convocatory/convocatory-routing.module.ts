@@ -6,10 +6,11 @@ import { DetailedPhaseComponent } from './phase/detailed-phase/detailed-phase.co
 import { DetailedConvocatoryComponent } from './detailed-convocatory/detailed-convocatory.component'
 import { ConvocatoryPendingApprovePhasesComponent } from './convocatory-pending-approve-phases/convocatory-pending-approve-phases.component'
 import { DetailApplicantPhaseAnswerComponent } from './detail-applicant-phase-answer/detail-applicant-phase-answer.component'
+import { ApproveApplicantsComponent } from './approve-applicants/approve-applicants.component'
 
 const routes: Routes = [
   { path: 'convocatory/:id', component: DetailedConvocatoryComponent },
-  { path: 'approveApplicants/:id', component: ConvocatoryPendingApprovePhasesComponent },
+  { path: 'approveApplicants/:id', component: ApproveApplicantsComponent },
   { path: 'phase/:id', component: DetailedPhaseComponent },
   { path: 'appPhase/:id', component: DetailApplicantPhaseAnswerComponent }
 ];

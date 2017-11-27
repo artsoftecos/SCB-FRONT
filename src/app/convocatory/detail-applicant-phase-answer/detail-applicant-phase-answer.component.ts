@@ -29,17 +29,19 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
     });
   }
 
+  ngOnChanges() {
+    this.loadAnswers()
+  }
+
   loadAnswers() {
-    this.service.getAppPhase(this.appPhaseId).subscribe(response => {
-      console.log(response);
+    this.service.getAppPhase(this.phaseId).subscribe(response => {
       this.applicant = response.applicant;
-      //this.answers = JSON.parse(response.answers);
-      //console.log(this.answers);
       this.buildAnswers(response.answers);
     });
   }
 
   buildAnswers(answers) {
+    this.answers = []
     var ans = JSON.parse(answers);
     console.log(ans);
 

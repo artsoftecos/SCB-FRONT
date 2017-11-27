@@ -44,10 +44,8 @@
         
         <div id="modal_ver_respuestas" class="modal modal-height" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions">
           <div class="modal-content">
-            <div class="row">
-              <h1>Respuestas</h1>
-              <h2 *ngIf="selected_aplicant" >{{selected_aplicant.id}}</h2> 
-              <h3 *ngIf="selected_aplicant" >{{selected_aplicant.respuestas}}</h3>
+            <div class="row" *ngIf="selected_aplicant">
+              <app-detail-applicant-phase-answer [phaseId]="selected_aplicant.id"></app-detail-applicant-phase-answer>
             </div>
           </div>
           <div class="modal-footer center-align">

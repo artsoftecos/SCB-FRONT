@@ -11,6 +11,7 @@ export class ApplicantPhaseService extends BaseService {
   public entity: String = 'AppPerPhase/getAsociation/';
 
   getAppPhase(id) {
+    console.log(this.entity + id)
     return this.baseGet(this.entity + id);
   }
 

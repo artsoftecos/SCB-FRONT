@@ -250,87 +250,83 @@ export class AddFieldComponent implements OnInit {
     this.fieldStructure['value'] = "";
     this.fieldStructure['fieldType'] = { 'id': this.fieldInstance.type };
 
-    // if(this.fieldInstance.selectedValidation !== ""){
-      // this.fieldInstance.validationOptions.forEach(element => {
-      //   if(element.id == this.fieldInstance.selectedValidation){
-      //     this.fieldInstance.selectedValidationName = element.validationType.name;
-      //   }
-      // });
-      // this.fieldStructure['validation'] = {};
-      // this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
-      // this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
-  
-    this.fieldStructure['validation'] = {};
-
-    this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
-    this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
-
-    switch (this.fieldInstance.selectedValidation) {
-      case "1":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
-        break;
-      case "2":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
-        break;
-      case "3":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
-        break;
-      case "4":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
-        break;
-      case "5":
-
-        this.fieldStructure['validation']['value'] = "";
-        let fieldsCount = 0;
-        for (var i = 0; i < this.fieldInstance.fileTypes.length; i++) {
-          if (this.fieldInstance.fileTypes[i]['value']) {
-            if (fieldsCount != 0)
-              this.fieldStructure['validation']['value'] += "|";
-            this.fieldStructure['validation']['value'] += this.fieldInstance.fileTypes[i].name;
-            fieldsCount++;
-          }
+    if(this.fieldInstance.selectedValidation !== ""){
+      this.fieldInstance.validationOptions.forEach(element => {
+        if(element.id == this.fieldInstance.selectedValidation){
+          this.fieldInstance.selectedValidationName = element.validationType.name;
         }
-        break;
-      case "6":
-        this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.minDate);
-        break;
-      case "7":
-        this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.maxDate);
-        break;
-      case "8":
-        if (this.fieldInstance.minDate > this.fieldInstance.maxDate) {
-          this.fieldInstance.minDateTooltip = [];
-          this.fieldInstance.minDateTooltip['error'] = "Este campo debe ser menor al maximo";
-          this.fieldInstance.maxDateTooltip = [];
-          this.fieldInstance.maxDateTooltip['error'] = "Este campo debe ser mayor al minimo";
-          return {
-            'error': true
+      });
+      this.fieldStructure['validation'] = {};
+      this.fieldStructure['validation']['errorMessage'] = this.fieldInstance.errorMessage;
+      this.fieldStructure['validation']['fieldTypeValidation'] = { 'id': this.fieldInstance.selectedValidation };
+    
+      switch (this.fieldInstance.selectedValidation) {
+        case "1":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
+          break;
+        case "2":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
+          break;
+        case "3":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
+          break;
+        case "4":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
+          break;
+        case "5":
+
+          this.fieldStructure['validation']['value'] = "";
+          let fieldsCount = 0;
+          for (var i = 0; i < this.fieldInstance.fileTypes.length; i++) {
+            if (this.fieldInstance.fileTypes[i]['value']) {
+              if (fieldsCount != 0)
+                this.fieldStructure['validation']['value'] += "|";
+              this.fieldStructure['validation']['value'] += this.fieldInstance.fileTypes[i].name;
+              fieldsCount++;
+            }
           }
-        }
-        this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.minDate) + "|" + this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.maxDate);
-        break;
-      case "9":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
-        break;
-      case "10":
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
-        break;
-      case "11":
-        if (this.fieldInstance.numberLessThan < this.fieldInstance.numberMoreThan) {
-          this.fieldInstance.numberLessThanTooltip = [];
-          this.fieldInstance.numberLessThanTooltip['error'] = "Este campo debe ser menor al maximo";
-          this.fieldInstance.numberMoreThanTooltip = [];
-          this.fieldInstance.numberMoreThanTooltip['error'] = "Este campo debe ser mayor al minimo";
-          return {
-            'error': true
+          break;
+        case "6":
+          this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.minDate);
+          break;
+        case "7":
+          this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.maxDate);
+          break;
+        case "8":
+          if (this.fieldInstance.minDate > this.fieldInstance.maxDate) {
+            this.fieldInstance.minDateTooltip = [];
+            this.fieldInstance.minDateTooltip['error'] = "Este campo debe ser menor al maximo";
+            this.fieldInstance.maxDateTooltip = [];
+            this.fieldInstance.maxDateTooltip['error'] = "Este campo debe ser mayor al minimo";
+            return {
+              'error': true
+            }
           }
+          this.fieldStructure['validation']['value'] = this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.minDate) + "|" + this.helperService.getDateFormatYYYYMMddDash(this.fieldInstance.maxDate);
+          break;
+        case "9":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan;
+          break;
+        case "10":
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberLessThan;
+          break;
+        case "11":
+          if (this.fieldInstance.numberLessThan < this.fieldInstance.numberMoreThan) {
+            this.fieldInstance.numberLessThanTooltip = [];
+            this.fieldInstance.numberLessThanTooltip['error'] = "Este campo debe ser menor al maximo";
+            this.fieldInstance.numberMoreThanTooltip = [];
+            this.fieldInstance.numberMoreThanTooltip['error'] = "Este campo debe ser mayor al minimo";
+            return {
+              'error': true
+            }
+          }
+          this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan + "|" + this.fieldInstance.numberLessThan;
+          break;
+        default:
+          this.fieldStructure['validation']['value'] = null;
+          break;
         }
-        this.fieldStructure['validation']['value'] = this.fieldInstance.numberMoreThan + "|" + this.fieldInstance.numberLessThan;
-        break;
-      default:
-        this.fieldStructure['validation']['value'] = null;
-        break;
-    }
+      }
     /*
         if (this.fieldInstance.selectedValidation == "3" || this.fieldInstance.selectedValidation == "1") {
           if (this.fieldInstance.validateMinLen > this.fieldInstance.validateMaxLen) {

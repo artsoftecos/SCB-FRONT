@@ -16,13 +16,17 @@
 
       <div class="row no-space-margin-bottom">
         <div class="white-background">
-          <app-detail-basic-convocatory [convocatory]="convocatory"></app-detail-basic-convocatory>         
+          <app-detail-basic-convocatory [convocatory]="convocatory"></app-detail-basic-convocatory>
           <hr>
         </div>
       </div>
       <div class="row space-padding-top no-space-margin-bottom white-background">
         <h5 class="text-xs-center" style="margin: 0px;"> Fases </h5>
-        <app-list-phases [includeApproveApplicants]="true" [convocatoryId]="convocatory.id"></app-list-phases>
+        <p>{{convocatory.id}}</p>
+        <div *ngIf="convocatory.id">
+          <app-list-phases [includeApproveApplicants]="true" [convocatoryId]="convocatory.id"></app-list-phases>
+        
+        </div>
       </div>
 
 
