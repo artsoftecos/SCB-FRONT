@@ -12,7 +12,7 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
 
   public answers: Array<Object> = [];
   public applicant: any = null;
-  public appPhaseId: number;
+  @Input() appPhaseId: number;
   @Input() convocatoryId: number;
   @Input() phaseId: number;
 
@@ -22,9 +22,9 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
 
-      this.appPhaseId = +params['id'];
-      if (isNaN(this.phaseId))
-        this.phaseId = 31;
+      // this.appPhaseId = +params['id'];
+      // if (isNaN(this.phaseId))
+      //   this.phaseId = 31;
 
       this.loadAnswers();
     });
