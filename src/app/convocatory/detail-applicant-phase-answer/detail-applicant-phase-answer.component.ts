@@ -65,9 +65,13 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
     //this.convocatoryId = 15;
     //this.phaseId = 31;
     this.service.downloadFile(this.phaseId, this.applicant.email, name)
-      .subscribe(response => {
+      .subscribe(response  => {        
         console.log(response);
-        var blob = new Blob([response]);
+        var blob = new Blob([response.blob()], {type: 'application/pdf'});
+        //console.log(response['_body']);
+        //console.log(response._body);
+        //var blob = new Blob(response['_body']);
+        //console.log(blob);
         var url = window.URL.createObjectURL(blob);
         window.open(url);
       });

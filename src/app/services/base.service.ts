@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, RequestOptionsArgs, ResponseContentType } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import 'rxjs/Rx';
@@ -19,8 +19,13 @@ export class BaseService {
     }
 
     baseGetDocument(entity: String) {
-        let headers = this.buildHeader();
-        let options = new RequestOptions({ headers: headers });
+        let headers = this.buildHeaderDocument();
+        let requestOptions: RequestOptionsArgs = {
+            headers: headers,
+            responseType: ResponseContentType.Blob
+        };
+        
+        let options = new RequestOptions(requestOptions);
         return this.http.get(environment.SERVER_URL + entity, options)
             .map(res => res);
     }
@@ -71,6 +76,18 @@ export class BaseService {
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Content-Type', 'application/json');
         headers.append('Accept', 'application/json');
+
+        return headers;
+    }
+
+    buildHeaderDocument() {
+        let headers = new Headers();
+        headers.append('Authorization', 'Basic ' + this.authService.getToken());
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'multipart/form-data');
+        headers.append('ResponseType', 'arraybuffer');
+        
 
         return headers;
     }
