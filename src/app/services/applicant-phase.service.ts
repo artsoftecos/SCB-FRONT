@@ -15,7 +15,7 @@ export class ApplicantPhaseService extends BaseService {
     return this.baseGet(this.entity + id);
   }
 
-  downloadFile(convocatoryId, phaseId, email, name) {
-    return this.baseGet("convocatory/downloadDocument/" + convocatoryId + "/" + phaseId + "/"+email+"/"+name);
+  downloadFile(phaseId, email, name) {
+    return this.baseGetDocument("convocatory/downloadDocument/" + phaseId + "/"+email+"/"+name);
   }
 }

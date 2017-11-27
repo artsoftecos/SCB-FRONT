@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApplicantPhaseService } from '../../services/applicant-phase.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import 'rxjs/Rx' ;
 
 @Component({
   selector: 'app-detail-applicant-phase-answer',
@@ -22,8 +23,8 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.appPhaseId = +params['id'];
-      if (isNaN(this.appPhaseId))
-        this.appPhaseId = 31;
+      if (isNaN(this.phaseId))
+        this.phaseId = 31;
 
       this.loadAnswers();
     });
@@ -34,7 +35,7 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
   }
 
   loadAnswers() {
-    this.service.getAppPhase(this.phaseId).subscribe(response => {
+    this.service.getAppPhase(this.appPhaseId).subscribe(response => {
       this.applicant = response.applicant;
       this.buildAnswers(response.answers);
     });
@@ -59,12 +60,12 @@ export class DetailApplicantPhaseAnswerComponent implements OnInit {
   downloadFile(name) {
     //this.convocatoryId = 15;
     //this.phaseId = 31;
-    this.service.downloadFile(this.convocatoryId, this.phaseId, this.applicant.email, name)
+    this.service.downloadFile(this.phaseId, this.applicant.email, name)
       .subscribe(response => {
         console.log(response);
-        /*var blob = new Blob([response]);
+        var blob = new Blob([response]);
         var url = window.URL.createObjectURL(blob);
-        window.open(url);*/
+        window.open(url);
       });
   }
 

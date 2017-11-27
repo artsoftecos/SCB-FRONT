@@ -18,6 +18,13 @@ export class BaseService {
             .map(res => res.json());
     }
 
+    baseGetDocument(entity: String) {
+        let headers = this.buildHeader();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(environment.SERVER_URL + entity, options)
+            .map(res => res);
+    }
+
     basePost(entity: String, data?: any) {
         let headers = this.buildHeader();
         let options = new RequestOptions({ headers: headers });
