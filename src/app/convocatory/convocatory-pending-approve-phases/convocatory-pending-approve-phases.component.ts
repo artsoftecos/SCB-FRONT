@@ -36,9 +36,10 @@ export class ConvocatoryPendingApprovePhasesComponent implements OnInit {
     this.convocatory.name="aaaa";
     this.convocatory.numberBeneficiaries = 24;*/
     //TODO: UnComment this part
-    /*this.route.paramMap
+    console.log("ENTRA")
+    this.route.paramMap
     .switchMap((params: ParamMap) => this.convocatoryService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(convocatory => this.convocatory = convocatory);*/
+    .subscribe(convocatory => this.convocatory = convocatory);
  
   }
   

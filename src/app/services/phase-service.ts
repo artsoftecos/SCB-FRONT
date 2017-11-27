@@ -32,11 +32,6 @@ export class PhaseService extends BaseService {
     return this.baseGet(this.entity + "/getPhasesOfConvocatory/" + idConvocatory);
   }
 
-  getApplicantsToApprove(idPhase: number) {
-    return this.baseGet(this.entity + "/byId/" + idPhase);
-  }
-
-
   getFieldsByPhase(idPhase: number) {
     // console.log(this.baseGet("field/getByPhase/" + idPhase))
     return this.baseGet("field/getByPhase/" + idPhase);
@@ -56,14 +51,14 @@ export class PhaseService extends BaseService {
   uploadFile(question, phaseId) {
     var file = question.file.file;
     var name = question.file.name;
-    var idConvocatory = "15";
+    var idConvocatory = "1";
     var idPhase = phaseId;
 
     let formData = new FormData();
     formData.append('file', file);
     formData.append('name', name);
-    formData.append('email', this.authService.getCurrentUser().email);
     formData.append('idConvocatory', idConvocatory);
+    formData.append('email', this.authService.getCurrentUser().email);
     formData.append('idPhase', idPhase);
 
     return this.sendFile(formData);
@@ -75,6 +70,18 @@ export class PhaseService extends BaseService {
 
     return this.http.post(environment.SERVER_URL + "convocatory/upload", formData, options)
       .map(res => res.json());
+  }
+
+  getApplicantsToApprove(idPhase: number) {
+    return this.baseGet("AppPerPhase/applicantsPerPhase/" + idPhase);
+  }
+
+  approveApplicant(idAplicantPerPhase: number) {
+    return this.basePost("offerer/approvePhase/" + idAplicantPerPhase);
+  }
+
+  rejectApplicant(idAplicantPerPhase: number) {
+    return this.basePost("offerer/rejectPhase/" + idAplicantPerPhase);
   }
 
   private buildHeaders() {

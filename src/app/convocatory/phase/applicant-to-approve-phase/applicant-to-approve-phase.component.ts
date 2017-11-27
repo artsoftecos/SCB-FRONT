@@ -11,20 +11,23 @@ import { Router } from '@angular/router';
 })
 export class ApplicantToApprovePhaseComponent implements OnInit {
 
-  public applicants: any = [];
+  public aplicants: any = [];
 
   @Input()
   phaseId: number;
 
-  constructor(private router: Router, private phaseService : PhaseService) { }
-
-  ngOnInit() {
+  constructor(private router: Router, private phaseService : PhaseService) {
     this.loadApplicantsToApprovePhase();
   }
 
- loadApplicantsToApprovePhase() {
-    this.phaseService.getApplicantsToApprove(this.phaseId).subscribe(applicants => {
-      this.applicants = applicants;
+  ngOnInit() {
+  }
+
+  loadApplicantsToApprovePhase() {
+   console.log(this.phaseId)
+    this.phaseService.getApplicantsToApprove(this.phaseId).subscribe(aplicants => {
+      console.log(aplicants)
+      this.aplicants = aplicants;
     });
   }
 

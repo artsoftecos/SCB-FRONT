@@ -32,4 +32,9 @@ export class OferrerService extends BaseService {
         return this.basePost(entity);
     }
 
+    approveAplicantPhase(id: number) {
+        let entity = this.entity + "/approvePhase/" + id;
+        return this.basePost(entity);
+    }
+    
 }

@@ -29,7 +29,10 @@ export class ListPhasesComponent implements OnChanges, OnInit {
   isAbleEdit: boolean;
 
   constructor(private router: Router, private phaseService: PhaseService,
-    private helperService: HelperService) { }
+    private helperService: HelperService) {
+      console.log("CONSTRUCTOR")
+      console.log(this.convocatoryId)
+  }
 
   ngOnInit() {
     /*let phaseOne = new Phase();
@@ -81,6 +84,7 @@ export class ListPhasesComponent implements OnChanges, OnInit {
     }
 
     loadPhases() {
+      console.log(this.convocatoryId)
       this.phaseService.getByConvocatory(this.convocatoryId)
       .subscribe(phases => {
         console.log(phases);

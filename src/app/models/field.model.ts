@@ -27,7 +27,8 @@ export class FieldModel {
     {value:7,name:"Numerico",icon:"fa fa-hashtag"},
     {value:8,name:"Email",icon:"fa fa-at"}, */
   ];
-  selectedValidation = {};
+  selectedValidation = "";
+  selectedValidationName = "";
 
   // Tipos de opciones
   selectOptions = [
