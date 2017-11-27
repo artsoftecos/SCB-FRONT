@@ -58,7 +58,6 @@ export class PhaseService extends BaseService {
     formData.append('file', file);
     formData.append('name', name);
     formData.append('email', this.authService.getCurrentUser().email);
-    formData.append('idConvocatory', idConvocatory);
     formData.append('idPhase', idPhase);
 
     return this.sendFile(formData);
