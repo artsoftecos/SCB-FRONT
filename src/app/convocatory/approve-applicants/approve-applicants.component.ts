@@ -24,21 +24,27 @@ export class ApproveApplicantsComponent implements OnInit {
 
   modalActions = new EventEmitter<string | MaterializeAction>();
   aplicantes = []
-  constructor(private route: ActivatedRoute, private router: Router, private phaseService : PhaseService, private location: Location) {
+  constructor(private route: ActivatedRoute, private router: Router, private phaseService: PhaseService, private location: Location) {
     // this.phaseId = +params.get('id')
 
     this.route.paramMap
-    .switchMap((params: ParamMap) => this.phaseService.get(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(phase => {
-      this.phase = phase;
-    });
+      .switchMap((params: ParamMap) => this.phaseService.getActivePhase(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+      .subscribe(response => {
+        this.phase = response.phase;
+        this.route.paramMap
+          .switchMap((params: ParamMap) => this.phaseService.getApplicantsToApprove(response.phase.id)) //El + es porque el recibe todo en string, con + lo pasa a numero
+          .subscribe(aplicants => {
+            console.log(aplicants)
+            this.aplicants = aplicants;
+          })
+      });
 
-    this.route.paramMap
-    .switchMap((params: ParamMap) => this.phaseService.getApplicantsToApprove(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
-    .subscribe(aplicants => {
-      console.log(aplicants)
-      this.aplicants = aplicants;
-    });
+    // this.route.paramMap
+    // .switchMap((params: ParamMap) => this.phaseService.getApplicantsToApprove(+params.get('id'))) //El + es porque el recibe todo en string, con + lo pasa a numero
+    // .subscribe(aplicants => {
+    //   console.log(aplicants)
+    //   this.aplicants = aplicants;
+    // });
 
   }
 
@@ -48,28 +54,28 @@ export class ApproveApplicantsComponent implements OnInit {
   approveApplicant() {
     let id = this.selected_aplicant.id;
     this.route.paramMap
-    .switchMap((params: ParamMap) => this.phaseService.approveApplicant(id))
-    .subscribe(response => {
-      this.aplicants.forEach(aplicant => {
-        if(aplicant.id == id){
-          aplicant.applicantPerPhaseState.name = "Aprobado";
-        }
+      .switchMap((params: ParamMap) => this.phaseService.approveApplicant(id))
+      .subscribe(response => {
+        this.aplicants.forEach(aplicant => {
+          if (aplicant.id == id) {
+            aplicant.applicantPerPhaseState.name = "Aprobado";
+          }
+        });
+        this.closeModal()
       });
-      this.closeModal()
-    });
   }
   rejectApplicant() {
     let id = this.selected_aplicant.id;
     this.route.paramMap
-    .switchMap((params: ParamMap) => this.phaseService.rejectApplicant(id))
-    .subscribe(response => {
-      this.aplicants.forEach(aplicant => {
-        if(aplicant.id == id){
-          aplicant.applicantPerPhaseState.name = "Rechazado";
-        }
+      .switchMap((params: ParamMap) => this.phaseService.rejectApplicant(id))
+      .subscribe(response => {
+        this.aplicants.forEach(aplicant => {
+          if (aplicant.id == id) {
+            aplicant.applicantPerPhaseState.name = "Rechazado";
+          }
+        });
+        this.closeModal()
       });
-      this.closeModal()
-    });
   }
 
   openModal(aplicant) {
@@ -83,7 +89,7 @@ export class ApproveApplicantsComponent implements OnInit {
     this.location.back();
   }
 
-  closeModalUpdatePhase(){
+  closeModalUpdatePhase() {
     //TODO: implementada por que en el HTML se hace referencia, debe estar?
   }
 

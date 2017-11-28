@@ -10,11 +10,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of convocatories;">  
-        <td>{{item.convocatoryType.name}}</td>
+        <td>{{item.convocatoryType.name}} -- {{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.description}}</td>
         <td>{{item.numberBeneficiaries}}</td>
-        <td><a (click)="goToConvocatory(item.id)" class="waves-effect waves-light btn green"><i class="small material-icons center">visibility</i></a></td>
+        <td><a (click)="goToConvocatory(item.id)" class="waves-effect waves-light btn green"><i class="small material-icons center">visibility</i>{{item.id}}</a></td>
       </tr>
     </tbody>
   </table> 

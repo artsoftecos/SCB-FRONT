@@ -18,6 +18,10 @@ export class PhaseService extends BaseService {
     return this.baseGet(this.entity + "/getPhases/" + idPhase);
   }
 
+  getActivePhase(idConvocatory: number){
+    return this.baseGet(this.entity + "/getCurrentPhaseByConvocatory/" + idConvocatory);
+  }
+
   put(phase: Phase) {
     return this.basePost(this.entity + "/edit", phase);
   }
