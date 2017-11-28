@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class ApproveApplicantsComponent implements OnInit {
 
-  public aplicants: any = [];
+  public aplicants: any = null;
   selected_aplicant = null;
 
   @Input()

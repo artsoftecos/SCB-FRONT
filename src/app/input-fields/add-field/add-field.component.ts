@@ -84,7 +84,7 @@ export class AddFieldComponent implements OnInit {
     if (this.fieldInstance.type != "0") {
       this.fieldTypeValidationService.get(this.fieldInstance.type).subscribe(fieldTypesValidations => {
         this.fieldInstance.selectedValidation = "";
-
+console.log(this.fieldInstance);
         switch (this.fieldInstance.type) {
           case "3":
             this.fieldInstance.validationOptions = fieldTypesValidations;

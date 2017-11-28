@@ -61,6 +61,7 @@ export class PhaseService extends BaseService {
     let formData = new FormData();
     formData.append('file', file);
     formData.append('name', name);
+    formData.append('idConvocatory', idConvocatory);
     formData.append('email', this.authService.getCurrentUser().email);
     formData.append('idPhase', idPhase);
 
@@ -74,17 +75,17 @@ export class PhaseService extends BaseService {
     return this.http.post(environment.SERVER_URL + "convocatory/upload", formData, options)
       .map(res => res.json());
   }
-  
+
   getApplicantsToApprove(idPhase: number) {
-    return this.baseGet( "AppPerPhase/applicantsPerPhase/" + idPhase);
+    return this.baseGet("AppPerPhase/applicantsPerPhase/" + idPhase);
   }
-  
+
   approveApplicant(idAplicantPerPhase: number) {
-    return this.basePost( "offerer/approvePhase/" + idAplicantPerPhase);
+    return this.basePost("offerer/approvePhase/" + idAplicantPerPhase);
   }
-  
+
   rejectApplicant(idAplicantPerPhase: number) {
-    return this.basePost( "offerer/rejectPhase/" + idAplicantPerPhase);
+    return this.basePost("offerer/rejectPhase/" + idAplicantPerPhase);
   }
 
   private buildHeaders() {
